@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Landscape - Vouliagmeni with Particle Effects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 50%, #FFF8DC 100%);
+            height: 100vh;
+        }
+
+        .landscape-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sky and Sun */
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 50%, #FF6347 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #FFD700, 0 0 100px #FFA500, 0 0 200px rgba(255, 215, 0, 0.3);
+            animation: sunGlow 4s ease-in-out infinite alternate;
+            z-index: 5;
+        }
+
+        @keyframes sunGlow {
+            0% { box-shadow: 0 0 50px #FFD700, 0 0 100px #FFA500, 0 0 200px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 70px #FFD700, 0 0 120px #FFA500, 0 0 250px rgba(255, 215, 0, 0.5); }
+        }
+
+        /* Mountains and Hills */
+        .mountains {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(135deg, #8B7355 0%, #A0522D 50%, #CD853F 100%);
+            clip-path: polygon(0% 100%, 15% 60%, 25% 70%, 40% 40%, 55% 50%, 70% 30%, 85% 40%, 100% 50%, 100% 100%);
+            z-index: 3;
+        }
+
+        /* Parthenon Monument */
+        .parthenon {
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            z-index: 4;
+        }
+
+        .parthenon-base {
+            width: 200px;
+            height: 20px;
+            background: linear-gradient(45deg, #F5F5DC, #E6E6FA);
+            border-radius: 2px;
+        }
+
+        .parthenon-columns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .column {
+            width: 12px;
+            height: 80px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F5F5DC 50%, #E6E6FA 100%);
+            border-radius: 2px 2px 0 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .parthenon-roof {
+            width: 220px;
+            height: 25px;
+            background: linear-gradient(45deg, #F5F5DC, #E6E6FA);
+            margin: -5px -10px 0 -10px;
+            clip-path: polygon(10% 100%, 0% 0%, 100% 0%, 90% 100%);
+        }
+
+        /* Sea */
+        .sea {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(180deg, #4682B4 0%, #1E90FF 50%, #0066CC 100%);
+            z-index: 2;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.3) 50px, rgba(255,255,255,0.3) 100px);
+            animation: waveMotion 3s linear infinite;
+        }
+
+        @keyframes waveMotion {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+
+        /* Olive Trees */
+        .olive-field {
+            position: absolute;
+            bottom: 25%;
+            right: 10%;
+            width: 300px;
+            height: 200px;
+            z-index: 3;
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+        }
+
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 4px;
+        }
+
+        .tree-leaves {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #9ACD32 30%, #808000 70%);
+            border-radius: 50%;
+            animation: leafSway 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes leafSway {
+            0% { transform: translateX(-50%) rotate(-2deg); }
+            100% { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        .olive-tree:nth-child(1) { top: 50px; left: 20px; }
+        .olive-tree:nth-child(2) { top: 80px; left: 100px; }
+        .olive-tree:nth-child(3) { top: 30px; left: 180px; }
+        .olive-tree:nth-child(4) { top: 100px; left: 250px; }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            opacity: 0.7;
+        }
+
+        .cloud:before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+        }
+
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 40px;
+            top: 10%;
+            left: 10%;
+            animation: cloudFloat1 20s linear infinite;
+        }
+
+        .cloud1:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 40px;
+            top: -15px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 30px;
+            top: 20%;
+            left: 70%;
+            animation: cloudFloat2 25s linear infinite;
+        }
+
+        .cloud2:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 5px;
+        }
+
+        .cloud2:after {
+            width: 50px;
+            height: 30px;
+            top: -10px;
+            right: 5px;
+        }
+
+        @keyframes cloudFloat1 {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        @keyframes cloudFloat2 {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Canvas for particle effects */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* CSS Particles for additional effects */
+        .css-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 9;
+        }
+
+        .dust-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: dustFloat 8s linear infinite;
+        }
+
+        @keyframes dustFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-10vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .firefly {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FFD700;
+            animation: fireflyFloat 12s ease-in-out infinite;
+        }
+
+        @keyframes fireflyFloat {
+            0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+            25% { transform: translate(100px, -50px); opacity: 1; }
+            50% { transform: translate(-50px, -100px); opacity: 0.5; }
+            75% { transform: translate(150px, -30px); opacity: 1; }
+        }
+
+        /* Light rays */
+        .light-ray {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.8) 0%, transparent 100%);
+            transform-origin: top center;
+            animation: lightRayRotate 8s linear infinite;
+        }
+
+        @keyframes lightRayRotate {
+            0% { transform: rotate(0deg); opacity: 0.8; }
+            50% { opacity: 0.3; }
+            100% { transform: rotate(360deg); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <!-- Light rays from sun -->
+        <div class="light-ray" style="transform: rotate(10deg);"></div>
+        <div class="light-ray" style="transform: rotate(45deg); animation-delay: -2s;"></div>
+        <div class="light-ray" style="transform: rotate(80deg); animation-delay: -4s;"></div>
+        <div class="light-ray" style="transform: rotate(120deg); animation-delay: -6s;"></div>
+        
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        
+        <!-- Mountains -->
+        <div class="mountains"></div>
+        
+        <!-- Parthenon -->
+        <div class="parthenon">
+            <div class="parthenon-roof"></div>
+            <div class="parthenon-columns">
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+            </div>
+            <div class="parthenon-base"></div>
+        </div>
+        
+        <!-- Olive Field -->
+        <div class="olive-field">
+            <div class="olive-tree">
+                <div class="tree-trunk"></div>
+                <div class="tree-leaves"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-trunk"></div>
+                <div class="tree-leaves"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-trunk"></div>
+                <div class="tree-leaves"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-trunk"></div>
+                <div class="tree-leaves"></div>
+            </div>
+        </div>
+        
+        <!-- Sea -->
+        <div class="sea">
+            <div class="wave"></div>
+        </div>
+        
+        <!-- CSS Particles -->
+        <div class="css-particles" id="cssParticles"></div>
+        
+        <!-- Canvas for advanced particle effects -->
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Particle classes
+        class Particle {
+            constructor(x, y, vx, vy, size, color, life) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.size = size;
+                this.color = color;
+                this.life = life;
+                this.maxLife = life;
+                this.alpha = 1;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life--;
+                this.alpha = this.life / this.maxLife;
+                
+                // Add some wind effect
+                this.vx += Math.sin(Date.now() * 0.001 + this.x * 0.01) * 0.1;
+            }
+            
+            draw() {
+                if (this.life <= 0) return;
+                
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+            
+            isDead() {
+                return this.life <= 0;
+            }
+        }
+        
+        class SeaSprayParticle extends Particle {
+            constructor(x, y) {
+                super(
+                    x,
+                    y,
+                    (Math.random() - 0.5) * 4,
+                    -Math.random() * 3 - 1,
+                    Math.random() * 3 + 1,
+                    `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`,
+                    Math.random() * 60 + 30
+                );
+                this.gravity = 0.05;
+            }
+            
+            update() {
+                super.update();
+                this.vy += this.gravity;
+                
+                // Bounce off the sea level
+                if (this.y > canvas.height * 0.6) {
+                    this.vy *= -0.3;
+                    this.y = canvas.height * 0.6;
+                }
+            }
+        }
+        
+        class PollenParticle extends Particle {
+            constructor(x, y) {
+                super(
+                    x,
+                    y,
+                    Math.random() * 2 - 1,
+                    -Math.random() * 0.5 - 0.2,
+                    Math.random() * 2 + 1,
+                    `rgba(255, 255, 0, ${Math.random() * 0.6 + 0.4})`,
+                    Math.random() * 200 + 100
+                );
+            }
+            
+            update() {
+                super.update();
+                // Floating motion
+                this.vy += Math.sin(Date.now() * 0.001 + this.x * 0.02) * 0.02;
+                this.vx += Math.cos(Date.now() * 0.001 + this.y * 0.02) * 0.01;
+            }
+        }
+        
+        class SunParticle extends Particle {
+            constructor(x, y) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2 + 0.5;
+                super(
+                    x,
+                    y,
+                    Math.cos(angle) * speed,
+                    Math.sin(angle) * speed,
+                    Math.random() * 4 + 1,
+                    `rgba(255, 215, 0, ${Math.random() * 0.8 + 0.2})`,
+                    Math.random() * 100 + 50
+                );
+            }
+            
+            draw() {
+                if (this.life <= 0) return;
+                
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowColor = '#FFD700';
+                ctx.shadowBlur = 10;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        class AtmosphericDust extends Particle {
+            constructor() {
+                super(
+                    Math.random() * canvas.width,
+                    canvas.height + 10,
+                    Math.random() * 2 - 1,
+                    -Math.random() * 2 - 0.5,
+                    Math.random() * 1.5 + 0.5,
+                    `rgba(255, 248, 220, ${Math.random() * 0.3 + 0.1})`,
+                    Math.random() * 300 + 200
+                );
+            }
+            
+            update() {
+                super.update();
+                // Gentle floating motion
+                this.x += Math.sin(Date.now() * 0.001 + this.y * 0.01) * 0.5;
+                
+                // Reset if it goes too far up
+                if (this.y < -10) {
+                    this.y = canvas.height + 10;
+                    this.life = this.maxLife;
+                }
+            }
+        }
+        
+        // Particle systems
+        const particles = [];
+        const maxParticles = 300;
+        
+        // Create CSS particles
+        function createCSSParticles() {
+            const cssParticlesContainer = document.getElementById('cssParticles');
+            
+            // Create dust particles
+            for (let i = 0; i < 20; i++) {
+                const dust = document.createElement('div');
+                dust.className = 'dust-particle';
+                dust.style.left = Math.random() * 100 + '%';
+                dust.style.animationDelay = Math.random() * 8 + 's';
+                dust.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                cssParticlesContainer.appendChild(dust);
+            }
+            
+            // Create fireflies
+            for (let i = 0; i < 15; i++) {
+                const firefly = document.createElement('div');
+                firefly.className = 'firefly';
+                firefly.style.left = Math.random() * 100 + '%';
+                firefly.style.top = Math.random() * 80 + '%';
+                firefly.style.animationDelay = Math.random() * 12 + 's';
+                firefly.style.animationDuration = (Math.random() * 4 + 10) + 's';
+                cssParticlesContainer.appendChild(firefly);
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Add new particles based on different sources
+            if (particles.length < maxParticles) {
+                // Sea spray particles
+                if (Math.random() < 0.1) {
+                    const x = Math.random() * canvas.width;
+                    const y = canvas.height * 0.6;
+                    particles.push(new SeaSprayParticle(x, y));
+                }
+                
+                // Pollen from olive trees
+                if (Math.random() < 0.05) {
+                    const x = canvas.width * 0.7 + Math.random() * 300;
+                    const y = canvas.height * 0.4 + Math.random() * 100;
+                    particles.push(new PollenParticle(x, y));
+                }
+                
+                // Sun particles
+                if (Math.random() < 0.08) {
+                    const sunX = canvas.width * 0.8;
+                    const sunY = canvas.height * 0.15;
+                    particles.push(new SunParticle(
+                        sunX + (Math.random() - 0.5) * 120,
+                        sunY + (Math.random() - 0.5) * 120
+                    ));
+                }
+                
+                // Atmospheric dust
+                if (Math.random() < 0.15) {
+                    particles.push(new AtmosphericDust());
+                }
+            }
+            
+            // Update and draw particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                particle.update();
+                particle.draw();
+                
+                if (particle.isDead() || particle.y > canvas.height + 50) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Initialize
+        createCSSParticles();
+        animate();
+        
+        // Add some interactive particles on mouse move
+        let lastMouseMove = 0;
+        canvas.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastMouseMove > 50) {
+                for (let i = 0; i < 5; i++) {
+                    particles.push(new Particle(
+                        e.clientX + (Math.random() - 0.5) * 20,
+                        e.clientY + (Math.random() - 0.5) * 20,
+                        (Math.random() - 0.5) * 3,
+                        (Math.random() - 0.5) * 3,
+                        Math.random() * 3 + 1,
+                        `rgba(255, 215, 0, ${Math.random() * 0.8 + 0.2})`,
+                        Math.random() * 60 + 30
+                    ));
+                }
+                lastMouseMove = now;
+            }
+        });
+    </script>
+</body>
+</html>

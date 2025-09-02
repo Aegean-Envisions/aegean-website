@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Greek Landscape - Vouliagmeni & Athens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            perspective: 2000px;
+            perspective-origin: 50% 40%;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 25%, #60a5fa 50%, #93c5fd 75%, #dbeafe 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .scene-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        /* Atmospheric Layers */
+        .atmosphere-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Volumetric Cloud System */
+        .cloud-system {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .cloud-layer {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            left: -50%;
+            top: -50%;
+            transform-style: preserve-3d;
+            animation: cloudDrift 60s infinite linear;
+        }
+
+        .cloud-layer:nth-child(2) {
+            animation: cloudDrift 80s infinite linear reverse;
+            opacity: 0.7;
+        }
+
+        .cloud-layer:nth-child(3) {
+            animation: cloudDrift 100s infinite linear;
+            opacity: 0.5;
+            transform: translateZ(-200px);
+        }
+
+        .cloud {
+            position: absolute;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            filter: blur(1px);
+        }
+
+        /* Large Volumetric Clouds */
+        .cloud.large {
+            width: 400px;
+            height: 200px;
+            animation: cloudFloat 20s infinite ease-in-out;
+        }
+
+        .cloud.medium {
+            width: 250px;
+            height: 120px;
+            animation: cloudFloat 15s infinite ease-in-out;
+        }
+
+        .cloud.small {
+            width: 150px;
+            height: 80px;
+            animation: cloudFloat 12s infinite ease-in-out;
+        }
+
+        /* Cloud Positioning */
+        .cloud:nth-child(1) { top: 10%; left: 20%; transform: translateZ(100px) rotateX(-5deg); }
+        .cloud:nth-child(2) { top: 15%; left: 60%; transform: translateZ(50px) rotateX(-8deg); }
+        .cloud:nth-child(3) { top: 25%; left: 10%; transform: translateZ(150px) rotateX(-3deg); }
+        .cloud:nth-child(4) { top: 30%; left: 70%; transform: translateZ(80px) rotateX(-6deg); }
+        .cloud:nth-child(5) { top: 20%; left: 40%; transform: translateZ(120px) rotateX(-4deg); }
+        .cloud:nth-child(6) { top: 35%; left: 25%; transform: translateZ(200px) rotateX(-7deg); }
+
+        /* Terrain System */
+        .terrain-system {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            transform-style: preserve-3d;
+            transform: rotateX(15deg) translateZ(-100px);
+        }
+
+        /* Mountain Layers */
+        .mountain-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(135deg, #6b7c32 0%, #8b9742 50%, #a8b562 100%);
+            clip-path: polygon(0% 100%, 15% 60%, 25% 40%, 40% 50%, 55% 30%, 70% 45%, 85% 35%, 100% 100%);
+            filter: drop-shadow(0 10px 20px rgba(30, 58, 138, 0.3));
+        }
+
+        .mountain.back {
+            width: 120%;
+            height: 80%;
+            left: -10%;
+            transform: translateZ(-300px) scale(1.2);
+            opacity: 0.6;
+            background: linear-gradient(135deg, #4f5a2b 0%, #6b7532 50%, #8b9542 100%);
+        }
+
+        .mountain.middle {
+            width: 110%;
+            height: 70%;
+            left: -5%;
+            transform: translateZ(-150px) scale(1.1);
+            opacity: 0.8;
+            background: linear-gradient(135deg, #5a6730 0%, #7a8740 50%, #9aa560 100%);
+        }
+
+        .mountain.front {
+            width: 100%;
+            height: 60%;
+            transform: translateZ(0px);
+            background: linear-gradient(135deg, #6b7c32 0%, #8b9742 50%, #a8b562 100%);
+        }
+
+        /* Coastal Elements */
+        .coastline {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(180deg, transparent 0%, rgba(194, 178, 128, 0.3) 40%, #c2b280 70%, #e4d5b7 100%);
+            transform: translateZ(50px) rotateX(5deg);
+            clip-path: polygon(0% 60%, 20% 55%, 40% 65%, 60% 58%, 80% 62%, 100% 60%, 100% 100%, 0% 100%);
+        }
+
+        .water-surface {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 25%;
+            background: linear-gradient(180deg, rgba(60, 130, 246, 0.6) 0%, rgba(30, 58, 138, 0.8) 100%);
+            transform: translateZ(0px);
+            animation: waterShimmer 8s infinite ease-in-out;
+        }
+
+        /* Parthenon 3D Structure */
+        .parthenon-container {
+            position: absolute;
+            top: 40%;
+            right: 15%;
+            transform: translateZ(100px) rotateX(5deg) rotateY(-10deg) scale(0.8);
+            transform-style: preserve-3d;
+            transition: transform 2s ease-in-out;
+        }
+
+        .parthenon-container:hover {
+            transform: translateZ(150px) rotateX(5deg) rotateY(15deg) scale(1) rotateZ(2deg);
+        }
+
+        .parthenon {
+            width: 200px;
+            height: 120px;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .parthenon-base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(135deg, #e4d5b7 0%, #c2b280 100%);
+            transform: rotateX(-90deg);
+            transform-origin: bottom;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .parthenon-platform {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(135deg, #d4c5a0 0%, #b8a570 100%);
+            transform: rotateX(-90deg);
+            transform-origin: bottom;
+        }
+
+        .parthenon-columns {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 10px;
+        }
+
+        .column {
+            width: 8px;
+            height: 60px;
+            background: linear-gradient(180deg, #f0e6d2 0%, #e4d5b7 50%, #c2b280 100%);
+            transform-style: preserve-3d;
+            position: relative;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2), -2px 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .column::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -2px;
+            width: 12px;
+            height: 8px;
+            background: linear-gradient(135deg, #f0e6d2 0%, #e4d5b7 100%);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .parthenon-roof {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(135deg, #e4d5b7 0%, #c2b280 100%);
+            clip-path: polygon(10% 100%, 50% 0%, 90% 100%);
+            transform: translateZ(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .seagull {
+            position: absolute;
+            width: 20px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            clip-path: polygon(0% 50%, 25% 20%, 50% 50%, 75% 20%, 100% 50%, 75% 80%, 50% 50%, 25% 80%);
+            animation: seagullFlight 25s infinite linear;
+            transform-style: preserve-3d;
+        }
+
+        .seagull:nth-child(1) {
+            top: 20%;
+            left: -10%;
+            animation-delay: 0s;
+            transform: translateZ(80px);
+        }
+
+        .seagull:nth-child(2) {
+            top: 25%;
+            left: -15%;
+            animation-delay: 8s;
+            transform: translateZ(120px) scale(0.8);
+        }
+
+        .seagull:nth-child(3) {
+            top: 18%;
+            left: -12%;
+            animation-delay: 15s;
+            transform: translateZ(60px) scale(1.2);
+        }
+
+        /* Atmospheric Particles */
+        .atmosphere-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        .particle:nth-child(odd) {
+            animation-duration: 25s;
+            opacity: 0.4;
+        }
+
+        .particle:nth-child(3n) {
+            animation-duration: 30s;
+            opacity: 0.3;
+        }
+
+        /* Generate particles */
+        .particle:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 20%; left: 15%; animation-delay: 3s; }
+        .particle:nth-child(3) { top: 15%; left: 25%; animation-delay: 6s; }
+        .particle:nth-child(4) { top: 25%; left: 35%; animation-delay: 9s; }
+        .particle:nth-child(5) { top: 30%; left: 45%; animation-delay: 12s; }
+        .particle:nth-child(6) { top: 18%; left: 55%; animation-delay: 15s; }
+        .particle:nth-child(7) { top: 22%; left: 65%; animation-delay: 18s; }
+        .particle:nth-child(8) { top: 28%; left: 75%; animation-delay: 21s; }
+
+        /* Sun/Light Source */
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 223, 0, 0.8) 0%, rgba(255, 193, 7, 0.6) 40%, transparent 70%);
+            border-radius: 50%;
+            transform: translateZ(300px);
+            animation: sunGlow 8s infinite ease-in-out alternate;
+            box-shadow: 0 0 60px rgba(255, 223, 0, 0.4), 0 0 120px rgba(255, 223, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes cloudDrift {
+            from { transform: translateX(0) translateY(0) rotateY(0deg); }
+            to { transform: translateX(-50px) translateY(-20px) rotateY(5deg); }
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateY(0px) rotateX(-5deg); }
+            50% { transform: translateY(-20px) rotateX(-8deg); }
+        }
+
+        @keyframes waterShimmer {
+            0%, 100% { opacity: 0.8; transform: translateZ(0px) scaleY(1); }
+            50% { opacity: 0.9; transform: translateZ(5px) scaleY(1.02); }
+        }
+
+        @keyframes seagullFlight {
+            from { 
+                left: -10%; 
+                transform: translateZ(80px) rotateY(0deg);
+            }
+            25% { 
+                transform: translateZ(120px) rotateY(15deg);
+            }
+            50% { 
+                transform: translateZ(100px) rotateY(-5deg);
+            }
+            75% { 
+                transform: translateZ(140px) rotateY(10deg);
+            }
+            to { 
+                left: 110%; 
+                transform: translateZ(80px) rotateY(0deg);
+            }
+        }
+
+        @keyframes particleFloat {
+            0% { 
+                transform: translateX(0px) translateY(100vh) translateZ(0px); 
+                opacity: 0; 
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { 
+                transform: translateX(50px) translateY(-10vh) translateZ(100px); 
+                opacity: 0; 
+            }
+        }
+
+        @keyframes sunGlow {
+            0% { 
+                box-shadow: 0 0 60px rgba(255, 223, 0, 0.4), 0 0 120px rgba(255, 223, 0, 0.2);
+                transform: translateZ(300px) scale(1);
+            }
+            100% { 
+                box-shadow: 0 0 80px rgba(255, 223, 0, 0.6), 0 0 160px rgba(255, 223, 0, 0.3);
+                transform: translateZ(300px) scale(1.1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .parthenon-container {
+                transform: translateZ(50px) rotateX(5deg) rotateY(-10deg) scale(0.6);
+                right: 10%;
+            }
+            
+            .cloud {
+                width: 80%;
+                height: 80%;
+            }
+            
+            .sun {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Depth of Field Effect */
+        .depth-blur-far {
+            filter: blur(2px);
+            opacity: 0.6;
+        }
+
+        .depth-blur-near {
+            filter: blur(0.5px);
+            opacity: 0.9;
+        }
+
+        /* Additional atmospheric lighting */
+        .atmospheric-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 80% 20%, rgba(255, 223, 0, 0.1) 0%, transparent 50%), 
+                        linear-gradient(180deg, rgba(30, 58, 138, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            transform: translateZ(250px);
+        }
+
+        /* Title Overlay */
+        .title-overlay {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            z-index: 1000;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.7);
+        }
+
+        .title-overlay h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .title-overlay p {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .title-overlay h1 {
+                font-size: 2rem;
+            }
+            .title-overlay p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene-container">
+        <!-- Atmospheric Gradient -->
+        <div class="atmospheric-gradient"></div>
+
+        <!-- Title Overlay -->
+        <div class="title-overlay">
+            <h1>Vouliagmeni</h1>
+            <p>Atmospheric Greek Landscape</p>
+        </div>
+
+        <!-- Sun -->
+        <div class="sun"></div>
+
+        <!-- Volumetric Cloud System -->
+        <div class="cloud-system">
+            <div class="cloud-layer">
+                <div class="cloud large"></div>
+                <div class="cloud medium"></div>
+                <div class="cloud small"></div>
+                <div class="cloud medium"></div>
+                <div class="cloud large"></div>
+                <div class="cloud small"></div>
+            </div>
+            <div class="cloud-layer">
+                <div class="cloud medium depth-blur-far"></div>
+                <div class="cloud large depth-blur-far"></div>
+                <div class="cloud small depth-blur-far"></div>
+                <div class="cloud medium depth-blur-far"></div>
+            </div>
+            <div class="cloud-layer">
+                <div class="cloud small depth-blur-far"></div>
+                <div class="cloud medium depth-blur-far"></div>
+                <div class="cloud large depth-blur-far"></div>
+            </div>
+        </div>
+
+        <!-- Terrain System -->
+        <div class="terrain-system">
+            <!-- Mountain Layers -->
+            <div class="mountain-layer">
+                <div class="mountain back depth-blur-far"></div>
+                <div class="mountain middle"></div>
+                <div class="mountain front depth-blur-near"></div>
+            </div>
+            
+            <!-- Coastline -->
+            <div class="coastline"></div>
+            
+            <!-- Water Surface -->
+            <div class="water-surface"></div>
+        </div>
+
+        <!-- 3D Parthenon -->
+        <div class="parthenon-container">
+            <div class="parthenon">
+                <div class="parthenon-base"></div>
+                <div class="parthenon-platform"></div>
+                <div class="parthenon-columns">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <div class="column"></div>
+                </div>
+                <div class="parthenon-roof"></div>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <div class="seagull"></div>
+            <div class="seagull"></div>
+            <div class="seagull"></div>
+        </div>
+
+        <!-- Atmospheric Particles -->
+        <div class="atmosphere-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <script>
+        // Additional JavaScript for enhanced atmospheric effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic particle generation
+            const particleContainer = document.querySelector('.atmosphere-particles');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 20) + 's';
+                particleContainer.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 35000);
+            }
+            
+            // Generate particles periodically
+            setInterval(createParticle, 3000);
+            
+            // Mouse interaction for enhanced 3D effect
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            document.addEventListener('mousemove', function(e) {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+                
+                // Parallax effect on terrain
+                const terrain = document.querySelector('.terrain-system');
+                const clouds = document.querySelectorAll('.cloud-layer');
+                
+                terrain.style.transform = `rotateX(${15 + mouseY * 5}deg) translateZ(-100px) rotateY(${mouseX * 2}deg)`;
+                
+                clouds.forEach((cloud, index) => {
+                    const depth = (index + 1) * 0.5;
+                    cloud.style.transform = `translateX(${mouseX * depth * 10}px) translateY(${mouseY * depth * 5}px)`;
+                });
+            });
+            
+            // Time-based lighting changes
+            function updateAtmosphericLighting() {
+                const time = Date.now() * 0.001;
+                const sun = document.querySelector('.sun');
+                const gradient = document.querySelector('.atmospheric-gradient');
+                
+                // Subtle sun position changes
+                const sunX = 20 + Math.sin(time * 0.1) * 5;
+                const sunY = 15 + Math.cos(time * 0.1) * 3;
+                
+                sun.style.right = sunX + '%';
+                sun.style.top = sunY + '%';
+                
+                // Atmospheric color shifting
+                const intensity = 0.5 + Math.sin(time * 0.05) * 0.2;
+                gradient.style.opacity = intensity;
+            }
+            
+            // Update lighting every frame
+            function animate() {
+                updateAtmosphericLighting();
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Touch interaction for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                
+                const deltaX = (touchX - touchStartX) / window.innerWidth * 2;
+                const deltaY = (touchY - touchStartY) / window.innerHeight * 2;
+                
+                const parthenon = document.querySelector('.parthenon-container');
+                parthenon.style.transform = `translateZ(150px) rotateX(${5 + deltaY * 10}deg) rotateY(${-10 + deltaX * 20}deg) scale(1)`;
+            });
+        });
+    </script>
+</body>
+</html>

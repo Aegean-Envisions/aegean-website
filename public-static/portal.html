@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Envisions - Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --aegean-deep: #0d5eaf;
+            --aegean-bright: #00a0e3;
+            --aegean-sky: #87ceeb;
+            --aegean-light: #e6f4ff;
+            --sidebar-bg: #1a1f2e;
+            --card-bg: white;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo-small {
+            width: 60px;
+            height: 60px;
+            background: var(--aegean-deep);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .brand-name {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: auto;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: var(--aegean-deep);
+            color: white;
+        }
+
+        .user-section {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--aegean-deep);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .user-email {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--aegean-deep) 0%, var(--aegean-bright) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .card-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .view-btn {
+            color: var(--aegean-deep);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            gap: 10px;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--aegean-deep) 0%, var(--aegean-bright) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            body {
+                flex-direction: column;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--aegean-light);
+            border-top: 3px solid var(--aegean-deep);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-section">
+            <div class="logo-small">AE</div>
+            <div class="brand-name">AEGEAN ENVISIONS</div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
+                        <span>📊 Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#designs" class="nav-link" onclick="showSection('designs')">
+                        <span>🎨 Design Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#color-palettes" class="nav-link" onclick="showSection('palettes')">
+                        <span>🎭 Color Palettes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#navigation" class="nav-link" onclick="showSection('navigation')">
+                        <span>🧭 Navigation System</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#landscapes" class="nav-link" onclick="showSection('landscapes')">
+                        <span>🏛️ Landscapes</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="user-section">
+            <div class="user-info">
+                <div class="user-avatar">M</div>
+                <div>
+                    <div class="user-email" id="userEmail">Loading...</div>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="signOut()">Sign Out</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="header">
+                <h1 class="page-title">Welcome to Aegean Envisions Portal</h1>
+                <p class="page-subtitle">Explore our design system and creative works</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" onclick="viewPage('pages/design-gallery.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🎨</div>
+                        <h3 class="card-title">Complete Design Gallery</h3>
+                    </div>
+                    <p class="card-description">
+                        Browse our entire collection of 25+ Greek-inspired designs with advanced filtering by category, style, and tags.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">Main Collection</span>
+                        <a href="#" class="view-btn">Browse All →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="viewPage('pages/greek-natural-color-palette.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🎨</div>
+                        <h3 class="card-title">Greek Natural Colors</h3>
+                    </div>
+                    <p class="card-description">
+                        Explore our carefully curated color palette inspired by the natural beauty of Greece and the Aegean Sea.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">Core Design</span>
+                        <a href="#" class="view-btn">View →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="viewPage('pages/aegean-navigation-icons.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🧭</div>
+                        <h3 class="card-title">Navigation Icons</h3>
+                    </div>
+                    <p class="card-description">
+                        Modern icon system with glassmorphic design, perfect for contemporary web and app interfaces.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">UI System</span>
+                        <a href="#" class="view-btn">View →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="viewPage('pages/aegean-atmospheric-landscape.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🌅</div>
+                        <h3 class="card-title">Atmospheric Landscapes</h3>
+                    </div>
+                    <p class="card-description">
+                        Immersive landscape designs capturing the essence of Athens and Vouliagmeni coastal beauty.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">Visual Design</span>
+                        <a href="#" class="view-btn">View →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="alert('Coming Soon!')">
+                    <div class="card-header">
+                        <div class="card-icon">📱</div>
+                        <h3 class="card-title">Mobile Experience</h3>
+                    </div>
+                    <p class="card-description">
+                        Responsive design patterns and mobile-first approaches for seamless user experiences.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">In Development</span>
+                        <a href="#" class="view-btn">Coming →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="alert('Coming Soon!')">
+                    <div class="card-header">
+                        <div class="card-icon">🏛️</div>
+                        <h3 class="card-title">Brand Guidelines</h3>
+                    </div>
+                    <p class="card-description">
+                        Complete brand identity system including typography, spacing, and usage guidelines.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">In Development</span>
+                        <a href="#" class="view-btn">Coming →</a>
+                    </div>
+                </div>
+
+                <div class="card" onclick="alert('Coming Soon!')">
+                    <div class="card-header">
+                        <div class="card-icon">✨</div>
+                        <h3 class="card-title">Interactive Elements</h3>
+                    </div>
+                    <p class="card-description">
+                        Dynamic components and interactive design patterns for engaging user interfaces.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-date">In Development</span>
+                        <a href="#" class="view-btn">Coming →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Gallery Section -->
+        <section id="designs" class="section">
+            <div class="section-header">
+                <h1>🎨 Design Gallery</h1>
+                <p>Explore our complete collection of 25+ Greek-inspired designs</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card" onclick="viewPage('pages/design-gallery.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🎨</div>
+                        <h3 class="card-title">Complete Design Gallery</h3>
+                    </div>
+                    <p class="card-description">Browse all designs with advanced filtering by category, style, and tags.</p>
+                    <div class="card-footer">
+                        <span class="card-date">25+ Designs</span>
+                        <a href="#" class="view-btn">Browse All →</a>
+                    </div>
+                </div>
+                <div class="card" onclick="viewPage('pages/greek-natural-color-palette.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🎨</div>
+                        <h3 class="card-title">Greek Natural Colors</h3>
+                    </div>
+                    <p class="card-description">Carefully curated color palette inspired by Greece and the Aegean Sea.</p>
+                </div>
+                <div class="card" onclick="viewPage('pages/aegean-navigation-icons.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🧭</div>
+                        <h3 class="card-title">Navigation Icons</h3>
+                    </div>
+                    <p class="card-description">Modern glassmorphic icon system for web interfaces.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Palettes Section -->
+        <section id="palettes" class="section">
+            <div class="section-header">
+                <h1>🎭 Color Palettes</h1>
+                <p>Color systems inspired by Greek natural beauty</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card" onclick="viewPage('pages/color-palette.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🎨</div>
+                        <h3 class="card-title">Greek Natural Colors</h3>
+                    </div>
+                    <p class="card-description">Complete color system with hex codes and usage guidelines.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation System Section -->
+        <section id="navigation" class="section">
+            <div class="section-header">
+                <h1>🧭 Navigation System</h1>
+                <p>Modern navigation components and icon systems</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card" onclick="viewPage('pages/navigation-icons.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🧭</div>
+                        <h3 class="card-title">Glassmorphic Icons</h3>
+                    </div>
+                    <p class="card-description">Contemporary icon set with glass morphism effects.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Landscapes Section -->
+        <section id="landscapes" class="section">
+            <div class="section-header">
+                <h1>🏛️ Atmospheric Landscapes</h1>
+                <p>Immersive landscape designs from Athens and Vouliagmeni</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card" onclick="viewPage('pages/atmospheric-landscape.html')">
+                    <div class="card-header">
+                        <div class="card-icon">🌅</div>
+                        <h3 class="card-title">Greek Landscapes</h3>
+                    </div>
+                    <p class="card-description">Atmospheric designs capturing Greek coastal beauty.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Check authentication
+        window.onload = function() {
+            const isAuth = sessionStorage.getItem("isAuthenticated");
+            if (!isAuth) {
+                window.location.href = "/";
+                return;
+            }
+            
+            const email = sessionStorage.getItem("userEmail");
+            document.getElementById("userEmail").textContent = email || "user@aegean-envisions.com";
+        };
+
+        // Navigation
+        function showSection(sectionId) {
+            try {
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Remove active from all nav links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Show selected section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                } else {
+                    console.error(`Section with id '${sectionId}' not found`);
+                    // Fallback to dashboard
+                    document.getElementById('dashboard').classList.add('active');
+                }
+                
+                // Set active nav link
+                if (event && event.target) {
+                    event.target.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error in showSection:', error);
+            }
+        }
+
+        // View page in iframe or new window
+        function viewPage(url) {
+            window.open(url, '_blank');
+        }
+
+        // Sign out
+        function signOut() {
+            sessionStorage.clear();
+            window.location.href = "/";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Visions - Photorealistic Greek Landscapes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section - Parthenon emerging from fog */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258c85?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transform: scale(1.1);
+            filter: brightness(0.6) contrast(1.2);
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.4) 30%,
+                rgba(30, 58, 138, 0.3) 60%,
+                rgba(15, 23, 42, 0.8) 100%
+            );
+            opacity: 1;
+            transition: opacity 2s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease-out 0.5s;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Mediterranean Sea Section */
+        .sea-section {
+            height: 150vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sea-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1544737151500-6e4b999de2a7?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .sea-level-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to top,
+                rgba(30, 58, 138, 0.9) 0%,
+                rgba(59, 130, 246, 0.7) 30%,
+                rgba(96, 165, 250, 0.5) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: translateY(100%);
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .sea-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        /* Santorini Section */
+        .santorini-section {
+            height: 120vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .santorini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            position: relative;
+        }
+
+        .santorini-image {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .santorini-left {
+            background-image: url('https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?q=80&w=2070&auto=format&fit=crop');
+            transform: translateX(-100%);
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .santorini-right {
+            background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2070&auto=format&fit=crop');
+            transform: translateX(100%);
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .santorini-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(30, 58, 138, 0.4) 0%,
+                rgba(59, 130, 246, 0.3) 50%,
+                rgba(96, 165, 250, 0.4) 100%
+            );
+            opacity: 0;
+            transition: opacity 1s ease-out 1s;
+        }
+
+        /* Olive Groves Section */
+        .olives-section {
+            height: 130vh;
+            position: relative;
+            background: #0f172a;
+        }
+
+        .olives-container {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .olive-grove {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1596475554200-a1b16cf4ef45?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .olive-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-out 1s;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(96, 165, 250, 0.8);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Athens Cityscape Section */
+        .athens-section {
+            height: 140vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .athens-layers {
+            position: relative;
+            height: 100%;
+        }
+
+        .athens-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .athens-back {
+            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070&auto=format&fit=crop');
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 2s ease-out;
+        }
+
+        .athens-mid {
+            background-image: url('https://images.unsplash.com/photo-1604608264051-f9ec8dee3d6d?q=80&w=2070&auto=format&fit=crop');
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 2s ease-out 0.5s;
+        }
+
+        .athens-front {
+            background-image: url('https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?q=80&w=2070&auto=format&fit=crop');
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 2s ease-out 1s;
+        }
+
+        .athens-filter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(30, 58, 138, 0.1) 0%,
+                rgba(59, 130, 246, 0.2) 50%,
+                rgba(96, 165, 250, 0.3) 100%
+            );
+            opacity: 0;
+            transition: opacity 1.5s ease-out 1.5s;
+        }
+
+        /* Vouliagmeni Section */
+        .vouliagmeni-section {
+            height: 120vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vouliagmeni-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.3);
+            transition: transform 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .vouliagmeni-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(96, 165, 250, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            animation: ripple 4s ease-out infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 100px;
+                height: 100px;
+                opacity: 1;
+            }
+            100% {
+                width: 800px;
+                height: 800px;
+                opacity: 0;
+            }
+        }
+
+        /* Text Content Styles */
+        .section-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out 0.3s;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(
+                to right,
+                rgba(30, 58, 138, 1),
+                rgba(59, 130, 246, 1),
+                rgba(96, 165, 250, 1)
+            );
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .santorini-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+            
+            .santorini-left,
+            .santorini-right {
+                transform: translateY(-100%);
+            }
+            
+            .santorini-right {
+                transform: translateY(100%);
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .slide-in-left {
+            transform: translateX(0) !important;
+        }
+
+        .slide-in-right {
+            transform: translateX(0) !important;
+        }
+
+        .scale-in {
+            transform: scale(1) !important;
+            opacity: 1 !important;
+        }
+
+        .reveal-overlay {
+            opacity: 1 !important;
+        }
+
+        .clear-fog {
+            opacity: 0.2 !important;
+        }
+
+        .sea-rise {
+            transform: translateY(0) !important;
+        }
+
+        .show-content {
+            opacity: 1 !important;
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            opacity: 0;
+            animation: loadingPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-text">
+            Discovering Ancient Greece<br>
+            <small style="font-size: 1rem; margin-top: 1rem; display: block;">Aegean Visions</small>
+        </div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Hero Section - Parthenon -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-background"></div>
+        <div class="fog-overlay" id="fogOverlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">The Eternal Parthenon</h1>
+            <p class="hero-subtitle" id="heroSubtitle">Where marble meets eternity beneath Athenian skies</p>
+        </div>
+    </section>
+
+    <!-- Mediterranean Sea Section -->
+    <section class="sea-section" id="seaSection">
+        <div class="sea-background"></div>
+        <div class="sea-level-overlay" id="seaLevelOverlay"></div>
+        <div class="sea-content section-content" id="seaContent">
+            <h2 class="section-title">Aegean Waters</h2>
+            <p class="section-description">
+                The Mediterranean's azure embrace, where civilizations have sailed for millennia. 
+                Watch as the ancient waters rise to reveal their timeless beauty.
+            </p>
+        </div>
+    </section>
+
+    <!-- Santorini Section -->
+    <section class="santorini-section" id="santoriniSection">
+        <div class="santorini-grid">
+            <div class="santorini-image santorini-left" id="santoriniLeft">
+                <div class="santorini-overlay"></div>
+            </div>
+            <div class="santorini-image santorini-right" id="santoriniRight">
+                <div class="santorini-overlay"></div>
+            </div>
+        </div>
+        <div class="section-content" id="santoriniContent">
+            <h2 class="section-title">Santorini's Embrace</h2>
+            <p class="section-description">
+                Volcanic beauty carved by gods, where white-washed villages crown dramatic cliffs 
+                overlooking the endless blue of the Caldera.
+            </p>
+        </div>
+    </section>
+
+    <!-- Olive Groves Section -->
+    <section class="olives-section" id="olivesSection">
+        <div class="olives-container">
+            <div class="olive-grove" id="oliveGrove"></div>
+            <div class="olive-particles" id="oliveParticles"></div>
+            <div class="section-content" id="olivesContent">
+                <h2 class="section-title">Sacred Olive Groves</h2>
+                <p class="section-description">
+                    Ancient trees that have witnessed empires rise and fall, their silver leaves 
+                    dancing in the Mediterranean breeze, carrying whispers of Athena's gift.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Athens Section -->
+    <section class="athens-section" id="athensSection">
+        <div class="athens-layers">
+            <div class="athens-layer athens-back" id="athensBack"></div>
+            <div class="athens-layer athens-mid" id="athensMid"></div>
+            <div class="athens-layer athens-front" id="athensFront"></div>
+            <div class="athens-filter" id="athensFilter"></div>
+        </div>
+        <div class="section-content" id="athensContent">
+            <h2 class="section-title">Modern Athens</h2>
+            <p class="section-description">
+                Where ancient philosophy meets contemporary life, the cradle of democracy 
+                continues to inspire beneath the watchful gaze of the Acropolis.
+            </p>
+        </div>
+    </section>
+
+    <!-- Vouliagmeni Section -->
+    <section class="vouliagmeni-section" id="vouliagmeniSection">
+        <div class="vouliagmeni-background" id="vouliagmeniBackground"></div>
+        <div class="vouliagmeni-ripple" id="vouliagmeniRipple1"></div>
+        <div class="vouliagmeni-ripple" id="vouliagmeniRipple2" style="animation-delay: 1s;"></div>
+        <div class="vouliagmeni-ripple" id="vouliagmeniRipple3" style="animation-delay: 2s;"></div>
+        <div class="section-content" id="vouliagmeniContent">
+            <h2 class="section-title">Vouliagmeni's Serenity</h2>
+            <p class="section-description">
+                A hidden paradise where thermal springs meet crystalline waters, 
+                nature's spa carved into the Athenian Riviera's golden coastline.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        class GreekLandscapeScrollAnimations {
+            constructor() {
+                this.scrollProgress = document.getElementById('scrollProgress');
+                this.sections = {
+                    hero: document.getElementById('heroSection'),
+                    sea: document.getElementById('seaSection'),
+                    santorini: document.getElementById('santoriniSection'),
+                    olives: document.getElementById('olivesSection'),
+                    athens: document.getElementById('athensSection'),
+                    vouliagmeni: document.getElementById('vouliagmeniSection')
+                };
+                
+                this.elements = {
+                    // Hero elements
+                    fogOverlay: document.getElementById('fogOverlay'),
+                    heroTitle: document.getElementById('heroTitle'),
+                    heroSubtitle: document.getElementById('heroSubtitle'),
+                    
+                    // Sea elements
+                    seaLevelOverlay: document.getElementById('seaLevelOverlay'),
+                    seaContent: document.getElementById('seaContent'),
+                    
+                    // Santorini elements
+                    santoriniLeft: document.getElementById('santoriniLeft'),
+                    santoriniRight: document.getElementById('santoriniRight'),
+                    santoriniContent: document.getElementById('santoriniContent'),
+                    
+                    // Olives elements
+                    oliveGrove: document.getElementById('oliveGrove'),
+                    oliveParticles: document.getElementById('oliveParticles'),
+                    olivesContent: document.getElementById('olivesContent'),
+                    
+                    // Athens elements
+                    athensBack: document.getElementById('athensBack'),
+                    athensMid: document.getElementById('athensMid'),
+                    athensFront: document.getElementById('athensFront'),
+                    athensFilter: document.getElementById('athensFilter'),
+                    athensContent: document.getElementById('athensContent'),
+                    
+                    // Vouliagmeni elements
+                    vouliagmeniBackground: document.getElementById('vouliagmeniBackground'),
+                    vouliagmeniContent: document.getElementById('vouliagmeniContent')
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupIntersectionObserver();
+                this.setupScrollListener();
+                this.createOliveParticles();
+                this.handlePageLoad();
+            }
+            
+            handlePageLoad() {
+                const loading = document.getElementById('loading');
+                
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        loading.classList.add('hidden');
+                        
+                        // Animate hero content on load
+                        setTimeout(() => {
+                            this.elements.heroTitle.classList.add('fade-in');
+                            this.elements.heroSubtitle.classList.add('fade-in');
+                        }, 500);
+                    }, 1000);
+                });
+            }
+            
+            setupIntersectionObserver() {
+                const observerOptions = {
+                    threshold: [0, 0.2, 0.5, 0.8, 1],
+                    rootMargin: '-10% 0px -10% 0px'
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        this.handleSectionIntersection(entry);
+                    });
+                }, observerOptions);
+                
+                Object.values(this.sections).forEach(section => {
+                    observer.observe(section);
+                });
+            }
+            
+            handleSectionIntersection(entry) {
+                const sectionId = entry.target.id;
+                const intersectionRatio = entry.intersectionRatio;
+                
+                switch(sectionId) {
+                    case 'heroSection':
+                        this.animateHeroSection(intersectionRatio);
+                        break;
+                    case 'seaSection':
+                        this.animateSeaSection(intersectionRatio);
+                        break;
+                    case 'santoriniSection':
+                        this.animateSantoriniSection(intersectionRatio);
+                        break;
+                    case 'olivesSection':
+                        this.animateOlivesSection(intersectionRatio);
+                        break;
+                    case 'athensSection':
+                        this.animateAthensSection(intersectionRatio);
+                        break;
+                    case 'vouliagmeniSection':
+                        this.animateVouliagmeniSection(intersectionRatio);
+                        break;
+                }
+            }
+            
+            animateHeroSection(ratio) {
+                if (ratio > 0.2) {
+                    // Clear fog as user scrolls down
+                    this.elements.fogOverlay.classList.add('clear-fog');
+                } else {
+                    this.elements.fogOverlay.classList.remove('clear-fog');
+                }
+            }
+            
+            animateSeaSection(ratio) {
+                if (ratio > 0.3) {
+                    // Sea level rises
+                    this.elements.seaLevelOverlay.classList.add('sea-rise');
+                    
+                    setTimeout(() => {
+                        this.elements.seaContent.classList.add('show-content');
+                        this.elements.seaContent.querySelector('.section-title').classList.add('fade-in');
+                        this.elements.seaContent.querySelector('.section-description').classList.add('fade-in');
+                    }, 500);
+                }
+            }
+            
+            animateSantoriniSection(ratio) {
+                if (ratio > 0.4) {
+                    this.elements.santoriniLeft.classList.add('slide-in-left');
+                    this.elements.santoriniRight.classList.add('slide-in-right');
+                    
+                    setTimeout(() => {
+                        this.elements.santoriniContent.querySelector('.section-title').classList.add('fade-in');
+                        this.elements.santoriniContent.querySelector('.section-description').classList.add('fade-in');
+                        
+                        // Add overlays
+                        this.elements.santoriniLeft.querySelector('.santorini-overlay').classList.add('reveal-overlay');
+                        this.elements.santoriniRight.querySelector('.santorini-overlay').classList.add('reveal-overlay');
+                    }, 800);
+                }
+            }
+            
+            animateOlivesSection(ratio) {
+                if (ratio > 0.3) {
+                    this.elements.oliveGrove.classList.add('scale-in');
+                    
+                    setTimeout(() => {
+                        this.elements.oliveParticles.classList.add('show-content');
+                        this.elements.olivesContent.querySelector('.section-title').classList.add('fade-in');
+                        this.elements.olivesContent.querySelector('.section-description').classList.add('fade-in');
+                    }, 1000);
+                }
+            }
+            
+            animateAthensSection(ratio) {
+                if (ratio > 0.2) {
+                    // Parallax layers reveal
+                    this.elements.athensBack.classList.add('fade-in');
+                    
+                    setTimeout(() => this.elements.athensMid.classList.add('fade-in'), 300);
+                    setTimeout(() => this.elements.athensFront.classList.add('fade-in'), 600);
+                    setTimeout(() => this.elements.athensFilter.classList.add('reveal-overlay'), 900);
+                    
+                    setTimeout(() => {
+                        this.elements.athensContent.querySelector('.section-title').classList.add('fade-in');
+                        this.elements.athensContent.querySelector('.section-description').classList.add('fade-in');
+                    }, 1200);
+                }
+            }
+            
+            animateVouliagmeniSection(ratio) {
+                if (ratio > 0.3) {
+                    this.elements.vouliagmeniBackground.style.transform = 'scale(1)';
+                    
+                    setTimeout(() => {
+                        this.elements.vouliagmeniContent.querySelector('.section-title').classList.add('fade-in');
+                        this.elements.vouliagmeniContent.querySelector('.section-description').classList.add('fade-in');
+                        
+                        // Start ripple animations
+                        document.getElementById('vouliagmeniRipple1').style.opacity = '1';
+                        document.getElementById('vouliagmeniRipple2').style.opacity = '1';
+                        document.getElementById('vouliagmeniRipple3').style.opacity = '1';
+                    }, 1000);
+                }
+            }
+            
+            setupScrollListener() {
+                let ticking = false;
+                
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            this.updateScrollProgress();
+                            this.handleParallaxEffects();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+            }
+            
+            updateScrollProgress() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                
+                this.scrollProgress.style.width = scrollPercent + '%';
+            }
+            
+            handleParallaxEffects() {
+                const scrollY = window.pageYOffset;
+                
+                // Hero parallax
+                const heroBackground = document.querySelector('.hero-background');
+                if (heroBackground) {
+                    heroBackground.style.transform = `scale(1.1) translateY(${scrollY * 0.5}px)`;
+                }
+                
+                // Sea parallax
+                const seaBackground = document.querySelector('.sea-background');
+                if (seaBackground) {
+                    seaBackground.style.transform = `translateY(${scrollY * 0.3}px)`;
+                }
+                
+                // Athens layers parallax
+                const athensBack = this.elements.athensBack;
+                const athensMid = this.elements.athensMid;
+                const athensFront = this.elements.athensFront;
+                
+                if (athensBack && athensMid && athensFront) {
+                    const athensSection = this.sections.athens;
+                    const rect = athensSection.getBoundingClientRect();
+                    
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                        
+                        athensBack.style.transform = `translateY(${progress * 50}px)`;
+                        athensMid.style.transform = `translateY(${progress * 30}px)`;
+                        athensFront.style.transform = `translateY(${progress * 20}px)`;
+                    }
+                }
+            }
+            
+            createOliveParticles() {
+                const particleContainer = this.elements.oliveParticles;
+                const particleCount = 20;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    // Random positioning
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (4 + Math.random() * 4) + 's';
+                    
+                    particleContainer.appendChild(particle);
+                }
+            }
+        }
+        
+        // Initialize the scroll animations when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new GreekLandscapeScrollAnimations();
+        });
+        
+        // Smooth scrolling for better performance
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Preload critical images
+        const criticalImages = [
+            'https://images.unsplash.com/photo-1555993539-1732b0258c85?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1544737151500-6e4b999de2a7?q=80&w=2070&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?q=80&w=2070&auto=format&fit=crop'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Envisions - Design Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --aegean-deep: #0d5eaf;
+            --aegean-bright: #00a0e3;
+            --aegean-sky: #87ceeb;
+            --aegean-light: #e6f4ff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --border-light: #e0e0e0;
+            --card-bg: white;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f3ef 0%, #e8dfd2 50%, #d4c4b0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: var(--aegean-deep);
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: var(--aegean-deep);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--aegean-bright);
+            transform: translateY(-2px);
+        }
+
+        .filters {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background: var(--aegean-light);
+            color: var(--aegean-deep);
+            border: 1px solid var(--aegean-sky);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            background: var(--aegean-sky);
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: var(--aegean-deep);
+            color: white;
+            border-color: var(--aegean-deep);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: var(--aegean-bright);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .design-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--aegean-deep) 0%, var(--aegean-bright) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .card-category {
+            color: var(--aegean-bright);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: var(--aegean-light);
+            color: var(--aegean-deep);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, var(--aegean-deep) 0%, var(--aegean-bright) 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 94, 175, 0.3);
+        }
+
+        .results-count {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .back-btn {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../portal.html" class="back-btn">← Back to Portal</a>
+
+    <div class="header">
+        <h1>AEGEAN DESIGN GALLERY</h1>
+        <p>Explore our complete collection of Greek-inspired designs</p>
+    </div>
+
+    <div class="filters">
+        <input type="text" class="search-box" placeholder="Search designs by name or tag..." id="searchInput">
+        
+        <div class="filter-section">
+            <h3>Categories</h3>
+            <div class="filter-buttons" id="categoryFilters">
+                <button class="filter-btn active" data-category="all">All Categories</button>
+                <button class="filter-btn" data-category="Landscapes">Landscapes</button>
+                <button class="filter-btn" data-category="UI Components">UI Components</button>
+                <button class="filter-btn" data-category="Photorealistic">Photorealistic</button>
+                <button class="filter-btn" data-category="Color Systems">Color Systems</button>
+                <button class="filter-btn" data-category="Interactive">Interactive</button>
+                <button class="filter-btn" data-category="Branding">Branding</button>
+                <button class="filter-btn" data-category="Gallery">Galleries</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Design Styles</h3>
+            <div class="filter-buttons" id="styleFilters">
+                <button class="filter-btn active" data-style="all">All Styles</button>
+                <button class="filter-btn" data-style="glassmorphism">Glassmorphism</button>
+                <button class="filter-btn" data-style="neumorphism">Neumorphism</button>
+                <button class="filter-btn" data-style="3d">3D Effects</button>
+                <button class="filter-btn" data-style="animated">Animated</button>
+                <button class="filter-btn" data-style="parallax">Parallax</button>
+                <button class="filter-btn" data-style="photorealistic">Photorealistic</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-count" id="resultsCount">Loading designs...</div>
+
+    <div class="gallery" id="gallery">
+        <!-- Design cards will be populated by JavaScript -->
+    </div>
+
+    <script>
+        const designData = {
+            designs: [
+                {
+                    name: "Greek Natural Color Palette",
+                    file: "greek-natural-color-palette.html",
+                    category: "Color Systems",
+                    icon: "🎨",
+                    tags: ["colors", "palette", "greek", "natural"],
+                    description: "Carefully curated color palette inspired by the natural beauty of Greece and the Aegean Sea"
+                },
+                {
+                    name: "Aegean Navigation Icons",
+                    file: "aegean-navigation-icons.html",
+                    category: "UI Components",
+                    icon: "🧭",
+                    tags: ["navigation", "icons", "glassmorphism", "modern"],
+                    description: "Modern icon system with glassmorphic design for web interfaces"
+                },
+                {
+                    name: "Atmospheric Greek Landscape",
+                    file: "aegean-atmospheric-landscape.html",
+                    category: "Landscapes",
+                    icon: "🌅",
+                    tags: ["atmospheric", "landscape", "greek", "ambient"],
+                    description: "Immersive atmospheric landscape design capturing Greek coastal beauty"
+                },
+                {
+                    name: "Greek 3D Landscape",
+                    file: "greek-3d-landscape.html",
+                    category: "Landscapes",
+                    icon: "🏔️",
+                    tags: ["3d", "landscape", "greek", "dimensional"],
+                    description: "Three-dimensional Greek landscape visualization with depth effects"
+                },
+                {
+                    name: "Greek Landscape Animated",
+                    file: "greek-landscape-animated.html",
+                    category: "Landscapes",
+                    icon: "🎬",
+                    tags: ["animated", "landscape", "greek", "motion"],
+                    description: "Animated Greek landscape with smooth motion effects and transitions"
+                },
+                {
+                    name: "Greek Landscape Glassmorphism",
+                    file: "greek-landscape-glassmorphism.html",
+                    category: "Landscapes",
+                    icon: "💎",
+                    tags: ["glassmorphism", "landscape", "greek", "glass"],
+                    description: "Greek landscape featuring stunning glassmorphic design elements"
+                },
+                {
+                    name: "Greek Landscape Neumorphism",
+                    file: "greek-landscape-neumorphism.html",
+                    category: "Landscapes",
+                    icon: "🔘",
+                    tags: ["neumorphism", "landscape", "greek", "soft"],
+                    description: "Soft, tactile Greek landscape design using neumorphic principles"
+                },
+                {
+                    name: "Greek Landscape Parallax",
+                    file: "greek-landscape-parallax.html",
+                    category: "Landscapes",
+                    icon: "🎭",
+                    tags: ["parallax", "landscape", "greek", "scroll"],
+                    description: "Interactive Greek landscape with engaging parallax scrolling effects"
+                },
+                {
+                    name: "Greek Landscape Particles",
+                    file: "greek-landscape-particles.html",
+                    category: "Landscapes",
+                    icon: "✨",
+                    tags: ["particles", "landscape", "greek", "effects"],
+                    description: "Dynamic Greek landscape enhanced with particle animation systems"
+                },
+                {
+                    name: "Greek Landscape Scroll",
+                    file: "greek-landscape-scroll.html",
+                    category: "Landscapes",
+                    icon: "📜",
+                    tags: ["scroll", "landscape", "greek", "interactive"],
+                    description: "Story-driven scrolling experience through Greek landscapes"
+                },
+                {
+                    name: "Greek Liquid Landscape",
+                    file: "greek-liquid-landscape.html",
+                    category: "Landscapes",
+                    icon: "🌊",
+                    tags: ["liquid", "landscape", "greek", "fluid"],
+                    description: "Fluid, organic Greek landscape with liquid motion dynamics"
+                },
+                {
+                    name: "Morphing Greek Landscape",
+                    file: "morphing-greek-landscape.html",
+                    category: "Landscapes",
+                    icon: "🦋",
+                    tags: ["morphing", "landscape", "greek", "transformation"],
+                    description: "Transformative Greek landscape with smooth morphing transitions"
+                },
+                {
+                    name: "Mediterranean Waves",
+                    file: "mediterranean-waves.html",
+                    category: "Landscapes",
+                    icon: "🌊",
+                    tags: ["waves", "mediterranean", "water", "ocean"],
+                    description: "Realistic Mediterranean wave animations and water effects"
+                },
+                {
+                    name: "Santorini Dynamic Sunset",
+                    file: "santorini-dynamic-sunset.html",
+                    category: "Landscapes",
+                    icon: "🌅",
+                    tags: ["santorini", "sunset", "dynamic", "greece"],
+                    description: "Time-lapse sunset visualization over iconic Santorini architecture"
+                },
+                {
+                    name: "Photorealistic Greek Landscape",
+                    file: "photorealistic-greek-landscape.html",
+                    category: "Photorealistic",
+                    icon: "📸",
+                    tags: ["photorealistic", "landscape", "greek", "realistic"],
+                    description: "Ultra-realistic Greek landscape rendering with photographic quality"
+                },
+                {
+                    name: "Photorealistic Greek Landscape 3D",
+                    file: "photorealistic-greek-landscape-3d.html",
+                    category: "Photorealistic",
+                    icon: "🎯",
+                    tags: ["photorealistic", "3d", "landscape", "greek"],
+                    description: "Three-dimensional photorealistic Greek environment"
+                },
+                {
+                    name: "Photorealistic Greek Glassmorphism",
+                    file: "photorealistic-greek-glassmorphism.html",
+                    category: "Photorealistic",
+                    icon: "💠",
+                    tags: ["photorealistic", "glassmorphism", "greek", "glass"],
+                    description: "Photorealistic Greek scenes with glassmorphic interface elements"
+                },
+                {
+                    name: "Interactive Parthenon",
+                    file: "interactive-parthenon.html",
+                    category: "Interactive",
+                    icon: "🏛️",
+                    tags: ["interactive", "parthenon", "greek", "monument"],
+                    description: "Immersive interactive exploration of the Parthenon monument"
+                },
+                {
+                    name: "Logo Showcase",
+                    file: "logo-showcase.html",
+                    category: "Branding",
+                    icon: "🏢",
+                    tags: ["logo", "branding", "showcase", "identity"],
+                    description: "Comprehensive brand identity and logo design showcase"
+                },
+                {
+                    name: "Navigation Icons Suite",
+                    file: "navigation-icons-suite.html",
+                    category: "UI Components",
+                    icon: "🎛️",
+                    tags: ["navigation", "icons", "suite", "comprehensive"],
+                    description: "Complete suite of navigation icons for modern interfaces"
+                },
+                {
+                    name: "Next-Gen Icon Showcase",
+                    file: "next-gen-icon-showcase.html",
+                    category: "UI Components",
+                    icon: "🚀",
+                    tags: ["icons", "nextgen", "showcase", "futuristic"],
+                    description: "Futuristic icon designs for next-generation interfaces"
+                },
+                {
+                    name: "Refined Preview Gallery",
+                    file: "refined-preview-gallery.html",
+                    category: "Gallery",
+                    icon: "🖼️",
+                    tags: ["refined", "gallery", "preview", "curated"],
+                    description: "Curated gallery showcasing our finest design work"
+                }
+            ]
+        };
+
+        let filteredDesigns = [...designData.designs];
+        let activeCategory = 'all';
+        let activeStyle = 'all';
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            resultsCount.textContent = `Showing ${filteredDesigns.length} of ${designData.designs.length} designs`;
+            
+            gallery.innerHTML = filteredDesigns.map(design => `
+                <div class="design-card" onclick="viewDesign('${design.file}')">
+                    <div class="card-header">
+                        <div class="card-icon">${design.icon}</div>
+                        <div>
+                            <div class="card-title">${design.name}</div>
+                            <div class="card-category">${design.category}</div>
+                        </div>
+                    </div>
+                    <div class="card-description">${design.description}</div>
+                    <div class="card-tags">
+                        ${design.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="card-footer">
+                        <button class="view-btn">View Design →</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterDesigns() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredDesigns = designData.designs.filter(design => {
+                const matchesSearch = design.name.toLowerCase().includes(searchTerm) ||
+                                    design.description.toLowerCase().includes(searchTerm) ||
+                                    design.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                
+                const matchesCategory = activeCategory === 'all' || design.category === activeCategory;
+                
+                const matchesStyle = activeStyle === 'all' || 
+                                   design.tags.some(tag => tag.toLowerCase().includes(activeStyle.toLowerCase()));
+                
+                return matchesSearch && matchesCategory && matchesStyle;
+            });
+            
+            renderGallery();
+        }
+
+        function viewDesign(filename) {
+            window.open(filename, '_blank');
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterDesigns);
+
+        document.getElementById('categoryFilters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#categoryFilters .filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                activeCategory = e.target.dataset.category;
+                filterDesigns();
+            }
+        });
+
+        document.getElementById('styleFilters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('#styleFilters .filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                activeStyle = e.target.dataset.style;
+                filterDesigns();
+            }
+        });
+
+        // Initialize
+        renderGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Greek Landscape - Vouliagmeni Bay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .landscape-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, 
+                #1e3a8a 0%, 
+                #3b82f6 25%, 
+                #60a5fa 50%, 
+                #93c5fd 75%, 
+                #ddd6fe 90%, 
+                #fbbf24 100%);
+            animation: dayNightCycle 120s infinite linear;
+        }
+
+        @keyframes dayNightCycle {
+            0% { 
+                background: linear-gradient(180deg, 
+                    #0c1439 0%, 
+                    #1e3a8a 20%, 
+                    #3b82f6 40%, 
+                    #60a5fa 60%, 
+                    #93c5fd 80%, 
+                    #fbbf24 100%);
+            }
+            25% { 
+                background: linear-gradient(180deg, 
+                    #1e3a8a 0%, 
+                    #3b82f6 25%, 
+                    #60a5fa 45%, 
+                    #93c5fd 65%, 
+                    #fde047 85%, 
+                    #fed7aa 100%);
+            }
+            50% { 
+                background: linear-gradient(180deg, 
+                    #3b82f6 0%, 
+                    #60a5fa 20%, 
+                    #93c5fd 40%, 
+                    #ddd6fe 60%, 
+                    #fbbf24 80%, 
+                    #fed7aa 100%);
+            }
+            75% { 
+                background: linear-gradient(180deg, 
+                    #1e3a8a 0%, 
+                    #3b82f6 25%, 
+                    #f97316 50%, 
+                    #fb923c 70%, 
+                    #fed7aa 90%, 
+                    #fbbf24 100%);
+            }
+            100% { 
+                background: linear-gradient(180deg, 
+                    #0c1439 0%, 
+                    #1e3a8a 20%, 
+                    #3b82f6 40%, 
+                    #60a5fa 60%, 
+                    #93c5fd 80%, 
+                    #fbbf24 100%);
+            }
+        }
+
+        .atmospheric-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Volumetric Clouds Layer 1 - High Altitude */
+        .clouds-high {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 40%;
+            background: 
+                radial-gradient(ellipse 800px 200px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 150px at 60% 20%, rgba(255,255,255,0.4) 0%, transparent 65%),
+                radial-gradient(ellipse 700px 180px at 80% 35%, rgba(255,255,255,0.5) 0%, transparent 75%),
+                radial-gradient(ellipse 500px 120px at 90% 25%, rgba(255,255,255,0.3) 0%, transparent 60%);
+            animation: cloudsDriftHigh 180s infinite linear, cloudsVolumetricHigh 40s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes cloudsDriftHigh {
+            0% { transform: translateX(-30%); }
+            100% { transform: translateX(30%); }
+        }
+
+        @keyframes cloudsVolumetricHigh {
+            0%, 100% { 
+                opacity: 0.6;
+                filter: blur(2px);
+            }
+            25% { 
+                opacity: 0.9;
+                filter: blur(1px);
+            }
+            50% { 
+                opacity: 0.7;
+                filter: blur(3px);
+            }
+            75% { 
+                opacity: 0.8;
+                filter: blur(1.5px);
+            }
+        }
+
+        /* Volumetric Clouds Layer 2 - Mid Altitude */
+        .clouds-mid {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: 150%;
+            height: 35%;
+            background: 
+                radial-gradient(ellipse 1000px 250px at 30% 40%, rgba(255,255,255,0.7) 0%, transparent 80%),
+                radial-gradient(ellipse 800px 200px at 70% 30%, rgba(255,255,255,0.6) 0%, transparent 75%),
+                radial-gradient(ellipse 900px 220px at 10% 50%, rgba(255,255,255,0.5) 0%, transparent 70%);
+            animation: cloudsDriftMid 150s infinite linear, cloudsVolumetricMid 35s infinite ease-in-out;
+            opacity: 0.9;
+        }
+
+        @keyframes cloudsDriftMid {
+            0% { transform: translateX(-20%); }
+            100% { transform: translateX(40%); }
+        }
+
+        @keyframes cloudsVolumetricMid {
+            0%, 100% { 
+                opacity: 0.8;
+                filter: blur(1.5px);
+            }
+            33% { 
+                opacity: 1.0;
+                filter: blur(0.5px);
+            }
+            66% { 
+                opacity: 0.7;
+                filter: blur(2.5px);
+            }
+        }
+
+        /* Volumetric Clouds Layer 3 - Low Altitude */
+        .clouds-low {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 120%;
+            height: 30%;
+            background: 
+                radial-gradient(ellipse 1200px 300px at 40% 60%, rgba(255,255,255,0.8) 0%, transparent 85%),
+                radial-gradient(ellipse 1000px 250px at 80% 50%, rgba(255,255,255,0.7) 0%, transparent 80%),
+                radial-gradient(ellipse 800px 200px at 15% 70%, rgba(255,255,255,0.6) 0%, transparent 75%);
+            animation: cloudsDriftLow 120s infinite linear, cloudsVolumetricLow 30s infinite ease-in-out;
+            opacity: 0.95;
+        }
+
+        @keyframes cloudsDriftLow {
+            0% { transform: translateX(-10%); }
+            100% { transform: translateX(25%); }
+        }
+
+        @keyframes cloudsVolumetricLow {
+            0%, 100% { 
+                opacity: 0.9;
+                filter: blur(1px);
+            }
+            50% { 
+                opacity: 1.0;
+                filter: blur(0px);
+            }
+        }
+
+        /* Atmospheric Depth Layers */
+        .atmosphere-haze {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(0deg, 
+                rgba(255,255,255,0.3) 0%, 
+                rgba(255,255,255,0.1) 30%, 
+                transparent 100%);
+            animation: atmosphericShift 90s infinite ease-in-out;
+        }
+
+        @keyframes atmosphericShift {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.9; }
+        }
+
+        /* Sea and Coastline */
+        .sea-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            background: linear-gradient(180deg,
+                rgba(30, 58, 138, 0.9) 0%,
+                rgba(59, 130, 246, 0.8) 30%,
+                rgba(96, 165, 250, 0.7) 60%,
+                rgba(147, 197, 253, 0.6) 100%);
+            animation: seaColorTransition 100s infinite ease-in-out;
+            overflow: hidden;
+        }
+
+        @keyframes seaColorTransition {
+            0%, 100% {
+                background: linear-gradient(180deg,
+                    rgba(30, 58, 138, 0.9) 0%,
+                    rgba(59, 130, 246, 0.8) 30%,
+                    rgba(96, 165, 250, 0.7) 60%,
+                    rgba(147, 197, 253, 0.6) 100%);
+            }
+            25% {
+                background: linear-gradient(180deg,
+                    rgba(59, 130, 246, 0.9) 0%,
+                    rgba(96, 165, 250, 0.8) 30%,
+                    rgba(147, 197, 253, 0.7) 60%,
+                    rgba(186, 230, 253, 0.6) 100%);
+            }
+            50% {
+                background: linear-gradient(180deg,
+                    rgba(96, 165, 250, 0.9) 0%,
+                    rgba(147, 197, 253, 0.8) 30%,
+                    rgba(186, 230, 253, 0.7) 60%,
+                    rgba(219, 234, 254, 0.6) 100%);
+            }
+            75% {
+                background: linear-gradient(180deg,
+                    rgba(59, 130, 246, 0.9) 0%,
+                    rgba(249, 115, 22, 0.3) 20%,
+                    rgba(251, 146, 60, 0.4) 40%,
+                    rgba(254, 215, 170, 0.5) 100%);
+            }
+        }
+
+        /* Sea Surface Reflections */
+        .sea-reflections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 51%, transparent 52%);
+            background-size: 120px 120px, 80px 80px;
+            animation: seaReflections 25s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes seaReflections {
+            0% { 
+                background-position: 0% 0%, 0% 0%;
+                opacity: 0.4;
+            }
+            50% { 
+                background-position: 50% 50%, -25% 25%;
+                opacity: 0.8;
+            }
+            100% { 
+                background-position: 100% 100%, -50% 50%;
+                opacity: 0.4;
+            }
+        }
+
+        /* Coastal Mountains and Hills */
+        .mountain-layer {
+            position: absolute;
+            bottom: 45%;
+            left: 0;
+            width: 100%;
+            height: 25%;
+            background: 
+                radial-gradient(ellipse 40% 100% at 15% 100%, rgba(107, 124, 50, 0.9) 0%, transparent 70%),
+                radial-gradient(ellipse 35% 90% at 45% 100%, rgba(139, 151, 66, 0.8) 0%, transparent 75%),
+                radial-gradient(ellipse 30% 80% at 75% 100%, rgba(168, 181, 98, 0.7) 0%, transparent 80%),
+                radial-gradient(ellipse 25% 70% at 90% 100%, rgba(107, 124, 50, 0.6) 0%, transparent 70%);
+            animation: mountainAtmosphere 80s infinite ease-in-out;
+        }
+
+        @keyframes mountainAtmosphere {
+            0%, 100% { 
+                opacity: 0.8;
+                filter: blur(2px);
+            }
+            50% { 
+                opacity: 1.0;
+                filter: blur(1px);
+            }
+        }
+
+        /* Coastal Beach */
+        .beach-layer {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 8%;
+            background: linear-gradient(180deg,
+                rgba(194, 178, 128, 0.9) 0%,
+                rgba(228, 213, 183, 0.8) 50%,
+                rgba(254, 240, 138, 0.7) 100%);
+            animation: beachLighting 70s infinite ease-in-out;
+        }
+
+        @keyframes beachLighting {
+            0%, 100% { 
+                background: linear-gradient(180deg,
+                    rgba(194, 178, 128, 0.9) 0%,
+                    rgba(228, 213, 183, 0.8) 50%,
+                    rgba(254, 240, 138, 0.7) 100%);
+            }
+            25% { 
+                background: linear-gradient(180deg,
+                    rgba(228, 213, 183, 0.9) 0%,
+                    rgba(254, 240, 138, 0.8) 50%,
+                    rgba(253, 224, 71, 0.7) 100%);
+            }
+            50% { 
+                background: linear-gradient(180deg,
+                    rgba(254, 240, 138, 0.9) 0%,
+                    rgba(253, 224, 71, 0.8) 50%,
+                    rgba(250, 204, 21, 0.7) 100%);
+            }
+            75% { 
+                background: linear-gradient(180deg,
+                    rgba(251, 146, 60, 0.9) 0%,
+                    rgba(254, 215, 170, 0.8) 50%,
+                    rgba(253, 230, 138, 0.7) 100%);
+            }
+        }
+
+        /* Atmospheric Particles */
+        .atmospheric-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 60% 70%, rgba(255,255,255,0.08) 1px, transparent 1px),
+                radial-gradient(circle at 80% 40%, rgba(255,255,255,0.12) 1px, transparent 1px),
+                radial-gradient(circle at 30% 80%, rgba(255,255,255,0.09) 1px, transparent 1px);
+            background-size: 300px 300px, 250px 250px, 400px 400px, 350px 350px;
+            animation: particleFloat 60s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes particleFloat {
+            0% { 
+                background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+                opacity: 0.5;
+            }
+            25% { 
+                background-position: 25% 10%, -10% 20%, 15% 5%, 30% -5%;
+                opacity: 0.8;
+            }
+            50% { 
+                background-position: 50% 20%, -20% 40%, 30% 10%, 60% -10%;
+                opacity: 0.6;
+            }
+            75% { 
+                background-position: 75% 30%, -30% 60%, 45% 15%, 90% -15%;
+                opacity: 0.9;
+            }
+            100% { 
+                background-position: 100% 40%, -40% 80%, 60% 20%, 120% -20%;
+                opacity: 0.5;
+            }
+        }
+
+        /* Sun/Light Source */
+        .sun-light {
+            position: absolute;
+            top: 20%;
+            right: 25%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, 
+                rgba(251, 191, 36, 0.8) 0%, 
+                rgba(251, 191, 36, 0.4) 30%, 
+                rgba(253, 224, 71, 0.2) 60%, 
+                transparent 100%);
+            border-radius: 50%;
+            animation: sunMovement 120s infinite linear, sunIntensity 45s infinite ease-in-out;
+            filter: blur(2px);
+        }
+
+        @keyframes sunMovement {
+            0% { 
+                top: 30%; 
+                right: 10%; 
+                transform: scale(0.8);
+            }
+            25% { 
+                top: 15%; 
+                right: 30%; 
+                transform: scale(1.2);
+            }
+            50% { 
+                top: 10%; 
+                right: 50%; 
+                transform: scale(1.4);
+            }
+            75% { 
+                top: 25%; 
+                right: 70%; 
+                transform: scale(1.1);
+            }
+            100% { 
+                top: 40%; 
+                right: 85%; 
+                transform: scale(0.9);
+            }
+        }
+
+        @keyframes sunIntensity {
+            0%, 100% { 
+                opacity: 0.6;
+                filter: blur(3px);
+            }
+            50% { 
+                opacity: 1.0;
+                filter: blur(1px);
+            }
+        }
+
+        /* Light Rays */
+        .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, transparent 48%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 51%, transparent 52%),
+                linear-gradient(120deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.02) 51%, transparent 52%),
+                linear-gradient(150deg, transparent 48%, rgba(255,255,255,0.025) 49%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.025) 51%, transparent 52%);
+            background-size: 400px 400px, 350px 350px, 300px 300px;
+            animation: lightRaysMovement 100s infinite linear;
+            opacity: 0.8;
+        }
+
+        @keyframes lightRaysMovement {
+            0% { 
+                background-position: 0% 0%, 0% 0%, 0% 0%;
+                opacity: 0.6;
+            }
+            33% { 
+                background-position: 33% 10%, 20% 30%, -10% 20%;
+                opacity: 0.9;
+            }
+            66% { 
+                background-position: 66% 20%, 40% 60%, -20% 40%;
+                opacity: 0.7;
+            }
+            100% { 
+                background-position: 100% 30%, 60% 90%, -30% 60%;
+                opacity: 0.6;
+            }
+        }
+
+        /* Depth of Field Effects */
+        .depth-layer-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse 100% 60% at 50% 100%, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+            animation: depthShift1 110s infinite ease-in-out;
+        }
+
+        .depth-layer-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse 80% 40% at 30% 80%, transparent 0%, rgba(147, 197, 253, 0.08) 40%, transparent 100%);
+            animation: depthShift2 95s infinite ease-in-out;
+        }
+
+        @keyframes depthShift1 {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1.0; }
+        }
+
+        @keyframes depthShift2 {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        /* Info overlay */
+        .location-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .location-info h2 {
+            margin-bottom: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .location-info p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <!-- Atmospheric Layers -->
+        <div class="atmospheric-layer depth-layer-1"></div>
+        <div class="atmospheric-layer depth-layer-2"></div>
+        
+        <!-- Volumetric Clouds -->
+        <div class="atmospheric-layer clouds-high"></div>
+        <div class="atmospheric-layer clouds-mid"></div>
+        <div class="atmospheric-layer clouds-low"></div>
+        
+        <!-- Sun and Light Effects -->
+        <div class="sun-light"></div>
+        <div class="atmospheric-layer light-rays"></div>
+        
+        <!-- Atmospheric Particles and Haze -->
+        <div class="atmospheric-layer atmospheric-particles"></div>
+        <div class="atmospheric-layer atmosphere-haze"></div>
+        
+        <!-- Landscape Elements -->
+        <div class="mountain-layer"></div>
+        <div class="beach-layer"></div>
+        
+        <!-- Sea with Reflections -->
+        <div class="sea-layer">
+            <div class="sea-reflections"></div>
+        </div>
+        
+        <!-- Location Information -->
+        <div class="location-info">
+            <h2>Vouliagmeni Bay, Athens</h2>
+            <p>Atmospheric Greek Landscape with Volumetric Clouds</p>
+        </div>
+    </div>
+</body>
+</html>

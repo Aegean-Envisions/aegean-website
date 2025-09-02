@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Landscape - Parallax Landing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8E8 100%);
+        }
+
+        .parallax-container {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 1px;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .parallax-back {
+            transform: translateZ(-1px) scale(2);
+        }
+
+        .parallax-mid {
+            transform: translateZ(-0.5px) scale(1.5);
+        }
+
+        .parallax-front {
+            transform: translateZ(0);
+        }
+
+        /* Sky Layer */
+        .sky {
+            background: linear-gradient(180deg, 
+                #87CEEB 0%, 
+                #98D8E8 30%, 
+                #B0E0E6 60%, 
+                #E6F3FF 100%);
+            height: 200vh;
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 70%, #FF8C00 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 50px #FFD700,
+                0 0 100px #FFA500,
+                0 0 150px rgba(255, 215, 0, 0.3);
+            animation: sunGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunGlow {
+            0% { transform: scale(1); opacity: 0.9; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Clouds */
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            opacity: 0.7;
+            animation: drift 20s linear infinite;
+        }
+
+        .cloud:before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+        }
+
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 25s;
+        }
+
+        .cloud1:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 20px;
+            top: -10px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 80px;
+            height: 30px;
+            top: 25%;
+            right: 15%;
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .cloud2:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 15px;
+        }
+
+        .cloud3 {
+            width: 120px;
+            height: 45px;
+            top: 35%;
+            left: 60%;
+            animation-duration: 35s;
+        }
+
+        .cloud3:before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud3:after {
+            width: 40px;
+            height: 40px;
+            top: -15px;
+            right: 20px;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Mountains and Hills */
+        .mountains {
+            position: absolute;
+            bottom: 40%;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #8B7355 0%, #A0826D 50%, #8B7355 100%);
+            clip-path: polygon(
+                0% 100%, 
+                10% 60%, 
+                25% 80%, 
+                40% 30%, 
+                60% 70%, 
+                75% 40%, 
+                90% 85%, 
+                100% 100%
+            );
+        }
+
+        /* Acropolis */
+        .acropolis {
+            position: absolute;
+            bottom: 45%;
+            left: 30%;
+            width: 200px;
+            height: 80px;
+        }
+
+        .parthenon {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(180deg, #F5F5DC 0%, #E6D3A3 100%);
+            border-radius: 2px;
+        }
+
+        .parthenon::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -10px;
+            width: 140px;
+            height: 8px;
+            background: #D2B48C;
+            border-radius: 2px;
+        }
+
+        .columns {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 8px,
+                #E6D3A3 8px,
+                #E6D3A3 12px
+            );
+        }
+
+        .acropolis-hill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(45deg, #8FBC8F 0%, #9ACD32 100%);
+            border-radius: 100px 100px 0 0;
+        }
+
+        /* Sea Layer */
+        .sea {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(180deg, 
+                #4682B4 0%, 
+                #1E90FF 30%, 
+                #0080FF 60%, 
+                #006BB3 100%);
+            overflow: hidden;
+        }
+
+        .waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.1) 0px,
+                rgba(255, 255, 255, 0.3) 50px,
+                rgba(255, 255, 255, 0.1) 100px
+            );
+            animation: wave 8s linear infinite;
+        }
+
+        .waves::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 200%;
+            height: 80px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.05) 0px,
+                rgba(255, 255, 255, 0.2) 75px,
+                rgba(255, 255, 255, 0.05) 150px
+            );
+            animation: wave 6s linear infinite reverse;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Olive Groves */
+        .olive-groves {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, #556B2F 0%, #6B8E23 100%);
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+        }
+
+        .olive-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 30px;
+            background: #8B4513;
+        }
+
+        .olive-leaves {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #9ACD32 30%, #6B8E23 70%);
+            border-radius: 50%;
+        }
+
+        .olive-leaves::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -8px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #9ACD32 30%, #6B8E23 70%);
+            border-radius: 50%;
+        }
+
+        .olive-leaves::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #9ACD32 30%, #6B8E23 70%);
+            border-radius: 50%;
+        }
+
+        /* Position olive trees */
+        .olive-tree:nth-child(1) { bottom: 40px; left: 15%; }
+        .olive-tree:nth-child(2) { bottom: 60px; left: 25%; }
+        .olive-tree:nth-child(3) { bottom: 30px; left: 35%; }
+        .olive-tree:nth-child(4) { bottom: 50px; left: 45%; }
+        .olive-tree:nth-child(5) { bottom: 35px; left: 55%; }
+        .olive-tree:nth-child(6) { bottom: 45px; left: 65%; }
+        .olive-tree:nth-child(7) { bottom: 25px; left: 75%; }
+        .olive-tree:nth-child(8) { bottom: 55px; left: 85%; }
+
+        /* Content Section */
+        .content {
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.9) 50%);
+            margin-top: 100vh;
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 3em;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #34495E;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sun {
+                width: 80px;
+                height: 80px;
+                top: 20%;
+                right: 15%;
+            }
+
+            .acropolis {
+                left: 20%;
+                width: 150px;
+                height: 60px;
+            }
+
+            .parthenon {
+                width: 90px;
+                height: 45px;
+            }
+
+            .content h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 50px 20px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Additional atmospheric effects */
+        .atmosphere {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at center bottom,
+                rgba(135, 206, 235, 0.1) 0%,
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-container">
+        <!-- Sky Layer (Farthest) -->
+        <div class="parallax-layer parallax-back">
+            <div class="sky">
+                <div class="sun"></div>
+                <div class="atmosphere"></div>
+                <div class="clouds">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                    <div class="cloud cloud3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mountains Layer (Mid-back) -->
+        <div class="parallax-layer parallax-mid">
+            <div class="mountains"></div>
+            <div class="acropolis">
+                <div class="acropolis-hill"></div>
+                <div class="parthenon">
+                    <div class="columns"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Olive Groves Layer (Mid-front) -->
+        <div class="parallax-layer parallax-front" style="transform: translateZ(-0.2px) scale(1.2);">
+            <div class="olive-groves">
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+                <div class="olive-tree">
+                    <div class="olive-trunk"></div>
+                    <div class="olive-leaves"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sea Layer (Front) -->
+        <div class="parallax-layer parallax-front">
+            <div class="sea">
+                <div class="waves"></div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <h1>Welcome to Greece</h1>
+            <p>
+                Experience the breathtaking beauty of the Greek landscape, where ancient monuments meet the azure Mediterranean Sea. 
+                From the iconic Acropolis overlooking Athens to the serene olive groves that have sustained civilizations for millennia, 
+                this is where history and natural beauty converge in perfect harmony.
+            </p>
+            <p>
+                As you scroll through this parallax landscape, you're taking a virtual journey over Vouliagmeni and the Athenian Riviera, 
+                where the golden sun illuminates marble columns that have stood for over two thousand years, 
+                while gentle waves lap against shores that have witnessed the birth of democracy and philosophy.
+            </p>
+            <p>
+                The olive trees sway gently in the Mediterranean breeze, their silver-green leaves catching the light 
+                much as they did when Pericles walked these hills and Socrates taught in the agora below.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

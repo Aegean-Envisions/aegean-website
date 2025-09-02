@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediterranean Waves - Interactive Ocean Physics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg, #87CEEB 0%, #1e3a8a 100%);
+        }
+
+        /* Background scene */
+        .ocean-scene {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(1.1);
+        }
+
+        /* Wave canvas */
+        #waveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+        }
+
+        /* Foam effect */
+        .foam-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .foam {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: foam-rise 3s ease-out infinite;
+        }
+
+        @keyframes foam-rise {
+            0% {
+                transform: translateY(100px) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-300px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Interactive controls */
+        .wave-controls {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            color: white;
+            width: 320px;
+        }
+
+        .control-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #60a5fa 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .control-group {
+            margin: 20px 0;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .control-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .control-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #60a5fa;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .control-value {
+            float: right;
+            font-size: 0.85rem;
+            color: #93c5fd;
+        }
+
+        /* Ship animation */
+        .ship {
+            position: absolute;
+            bottom: 40%;
+            left: -100px;
+            width: 80px;
+            height: 60px;
+            animation: sail-across 30s linear infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes sail-across {
+            0% {
+                left: -100px;
+                transform: rotate(-3deg);
+            }
+            25% {
+                transform: rotate(3deg);
+            }
+            50% {
+                transform: rotate(-3deg);
+            }
+            75% {
+                transform: rotate(3deg);
+            }
+            100% {
+                left: calc(100% + 100px);
+                transform: rotate(-3deg);
+            }
+        }
+
+        .ship-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
+            border-radius: 0 0 50% 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .ship-sail {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 40px solid white;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        /* Title section */
+        .ocean-title {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            max-width: 600px;
+        }
+
+        .ocean-title h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .ocean-title p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+
+        /* Weather effects */
+        .weather-panel {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            color: white;
+            width: 280px;
+        }
+
+        .weather-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: none;
+        }
+
+        .weather-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            transform: translateX(5px);
+        }
+
+        .weather-btn.active {
+            background: rgba(96, 165, 250, 0.4);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+
+        /* Sun reflection */
+        .sun-reflection {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(180deg, 
+                rgba(255, 223, 0, 0.3) 0%, 
+                rgba(255, 193, 7, 0.2) 50%,
+                transparent 100%);
+            filter: blur(30px);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateX(-50%) scaleX(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: translateX(-50%) scaleX(1.2);
+            }
+        }
+
+        /* Birds */
+        .bird {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            opacity: 0.7;
+        }
+
+        .bird::before,
+        .bird::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 2px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .bird::before {
+            left: 0;
+            transform: rotate(-30deg);
+            transform-origin: right center;
+        }
+
+        .bird::after {
+            right: 0;
+            transform: rotate(30deg);
+            transform-origin: left center;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(-100px) translateY(0);
+            }
+            25% {
+                transform: translateX(25vw) translateY(-20px);
+            }
+            50% {
+                transform: translateX(50vw) translateY(10px);
+            }
+            75% {
+                transform: translateX(75vw) translateY(-15px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ocean scene -->
+    <div class="ocean-scene"></div>
+    
+    <!-- Wave canvas -->
+    <canvas id="waveCanvas"></canvas>
+    
+    <!-- Sun reflection -->
+    <div class="sun-reflection"></div>
+    
+    <!-- Foam container -->
+    <div class="foam-container" id="foamContainer"></div>
+    
+    <!-- Ship -->
+    <div class="ship">
+        <div class="ship-body"></div>
+        <div class="ship-sail"></div>
+    </div>
+    
+    <!-- Birds -->
+    <div class="bird" style="top: 10%; animation: fly 15s linear infinite;"></div>
+    <div class="bird" style="top: 15%; animation: fly 18s linear infinite 2s;"></div>
+    <div class="bird" style="top: 8%; animation: fly 20s linear infinite 5s;"></div>
+    
+    <!-- Weather panel -->
+    <div class="weather-panel">
+        <div class="control-title">Weather Conditions</div>
+        <button class="weather-btn active" data-weather="calm">🌊 Calm Seas</button>
+        <button class="weather-btn" data-weather="moderate">⛵ Moderate Breeze</button>
+        <button class="weather-btn" data-weather="rough">🌊 Rough Waters</button>
+        <button class="weather-btn" data-weather="storm">⛈️ Storm</button>
+    </div>
+    
+    <!-- Wave controls -->
+    <div class="wave-controls">
+        <div class="control-title">Wave Physics</div>
+        
+        <div class="control-group">
+            <label class="control-label">
+                Wave Height
+                <span class="control-value" id="heightValue">5</span>
+            </label>
+            <input type="range" class="control-slider" id="waveHeight" min="1" max="20" value="5">
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label">
+                Wave Speed
+                <span class="control-value" id="speedValue">0.02</span>
+            </label>
+            <input type="range" class="control-slider" id="waveSpeed" min="0.005" max="0.05" step="0.005" value="0.02">
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label">
+                Wave Count
+                <span class="control-value" id="countValue">8</span>
+            </label>
+            <input type="range" class="control-slider" id="waveCount" min="3" max="15" value="8">
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label">
+                Turbulence
+                <span class="control-value" id="turbulenceValue">0.5</span>
+            </label>
+            <input type="range" class="control-slider" id="turbulence" min="0" max="2" step="0.1" value="0.5">
+        </div>
+    </div>
+    
+    <!-- Title section -->
+    <div class="ocean-title">
+        <h1>Mediterranean Rhythms</h1>
+        <p>Interactive wave physics bring the eternal dance of the Aegean to life. Control the seas with real-time fluid dynamics.</p>
+    </div>
+
+    <script>
+        // Wave animation canvas
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Wave parameters
+        let waveHeight = 5;
+        let waveSpeed = 0.02;
+        let waveCount = 8;
+        let turbulence = 0.5;
+        let time = 0;
+
+        // Wave physics
+        class Wave {
+            constructor(index) {
+                this.index = index;
+                this.amplitude = Math.random() * 20 + 10;
+                this.frequency = Math.random() * 0.01 + 0.005;
+                this.phase = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 0.02 + 0.01;
+                this.color = `rgba(${96 + index * 10}, ${165 + index * 5}, 250, ${0.1 + index * 0.02})`;
+            }
+
+            update() {
+                this.phase += this.speed * waveSpeed;
+            }
+
+            draw(y) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                
+                for (let x = 0; x <= canvas.width; x += 5) {
+                    const waveY = y + 
+                        Math.sin(x * this.frequency + this.phase) * this.amplitude * waveHeight / 5 +
+                        Math.sin(x * this.frequency * 2 + this.phase * 1.5) * this.amplitude * 0.3 * turbulence +
+                        Math.cos(x * this.frequency * 0.5 + this.phase * 0.7) * this.amplitude * 0.2 * turbulence;
+                    
+                    ctx.lineTo(x, waveY);
+                }
+                
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.lineTo(0, canvas.height);
+                ctx.closePath();
+                
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Create waves
+        let waves = [];
+        function createWaves() {
+            waves = [];
+            for (let i = 0; i < waveCount; i++) {
+                waves.push(new Wave(i));
+            }
+        }
+        createWaves();
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw waves from back to front
+            waves.forEach((wave, index) => {
+                wave.update();
+                const baseY = canvas.height * 0.5 + (index * 30);
+                wave.draw(baseY);
+            });
+            
+            time += waveSpeed;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Foam generation
+        function createFoam() {
+            const foamContainer = document.getElementById('foamContainer');
+            const foam = document.createElement('div');
+            foam.className = 'foam';
+            foam.style.left = Math.random() * window.innerWidth + 'px';
+            foam.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            foam.style.animationDelay = Math.random() * 2 + 's';
+            foamContainer.appendChild(foam);
+            
+            setTimeout(() => {
+                foam.remove();
+            }, 4000);
+        }
+
+        // Generate foam periodically
+        setInterval(createFoam, 500);
+
+        // Wave control interactions
+        document.getElementById('waveHeight').addEventListener('input', (e) => {
+            waveHeight = parseFloat(e.target.value);
+            document.getElementById('heightValue').textContent = waveHeight;
+        });
+
+        document.getElementById('waveSpeed').addEventListener('input', (e) => {
+            waveSpeed = parseFloat(e.target.value);
+            document.getElementById('speedValue').textContent = waveSpeed.toFixed(3);
+        });
+
+        document.getElementById('waveCount').addEventListener('input', (e) => {
+            waveCount = parseInt(e.target.value);
+            document.getElementById('countValue').textContent = waveCount;
+            createWaves();
+        });
+
+        document.getElementById('turbulence').addEventListener('input', (e) => {
+            turbulence = parseFloat(e.target.value);
+            document.getElementById('turbulenceValue').textContent = turbulence.toFixed(1);
+        });
+
+        // Weather presets
+        const weatherButtons = document.querySelectorAll('.weather-btn');
+        const weatherPresets = {
+            calm: { height: 3, speed: 0.01, count: 6, turbulence: 0.2 },
+            moderate: { height: 8, speed: 0.02, count: 8, turbulence: 0.5 },
+            rough: { height: 15, speed: 0.035, count: 10, turbulence: 1.2 },
+            storm: { height: 20, speed: 0.05, count: 12, turbulence: 2 }
+        };
+
+        weatherButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const weather = btn.dataset.weather;
+                const preset = weatherPresets[weather];
+                
+                // Update UI
+                weatherButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Apply preset with animation
+                document.getElementById('waveHeight').value = preset.height;
+                document.getElementById('heightValue').textContent = preset.height;
+                waveHeight = preset.height;
+                
+                document.getElementById('waveSpeed').value = preset.speed;
+                document.getElementById('speedValue').textContent = preset.speed.toFixed(3);
+                waveSpeed = preset.speed;
+                
+                document.getElementById('waveCount').value = preset.count;
+                document.getElementById('countValue').textContent = preset.count;
+                waveCount = preset.count;
+                
+                document.getElementById('turbulence').value = preset.turbulence;
+                document.getElementById('turbulenceValue').textContent = preset.turbulence.toFixed(1);
+                turbulence = preset.turbulence;
+                
+                createWaves();
+                
+                // Adjust scene based on weather
+                const scene = document.querySelector('.ocean-scene');
+                if (weather === 'storm') {
+                    scene.style.filter = 'brightness(0.6) contrast(1.2)';
+                } else if (weather === 'rough') {
+                    scene.style.filter = 'brightness(0.8) contrast(1.1)';
+                } else if (weather === 'moderate') {
+                    scene.style.filter = 'brightness(1) contrast(1)';
+                } else {
+                    scene.style.filter = 'brightness(1.1) contrast(0.9)';
+                }
+            });
+        });
+
+        // Interactive mouse waves
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create ripple effect at mouse position
+            if (Math.random() > 0.9) {
+                const foam = document.createElement('div');
+                foam.className = 'foam';
+                foam.style.left = mouseX + 'px';
+                foam.style.bottom = (window.innerHeight - mouseY) + 'px';
+                foam.style.width = '50px';
+                foam.style.height = '50px';
+                document.getElementById('foamContainer').appendChild(foam);
+                
+                setTimeout(() => foam.remove(), 2000);
+            }
+        });
+    </script>
+</body>
+</html>

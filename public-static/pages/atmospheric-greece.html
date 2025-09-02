@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Greek Landscape - Vouliagmeni Bay</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 30%, #60a5fa 60%, #93c5fd 100%);
+            height: 100vh;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .landscape-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .atmospheric-svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(30, 58, 138, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+
+        @keyframes waveMotion {
+            0%, 100% { d: path("M0,400 Q150,390 300,400 T600,400 T900,400 T1200,400 T1500,400 L1500,600 L0,600 Z"); }
+            50% { d: path("M0,405 Q150,395 300,405 T600,405 T900,405 T1200,405 T1500,405 L1500,600 L0,600 Z"); }
+        }
+
+        @keyframes birdFly {
+            0% { transform: translateX(-50px) translateY(0px); }
+            25% { transform: translateX(300px) translateY(-20px); }
+            50% { transform: translateX(800px) translateY(-10px); }
+            75% { transform: translateX(1200px) translateY(-30px); }
+            100% { transform: translateX(1600px) translateY(0px); }
+        }
+
+        @keyframes wingFlap {
+            0%, 100% { transform: rotateX(0deg); }
+            50% { transform: rotateX(-30deg); }
+        }
+
+        @keyframes atmosphericPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { stop-color: #1e3a8a; }
+            50% { stop-color: #3b82f6; }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <svg class="atmospheric-svg" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice">
+            <!-- Atmospheric Sky Gradients -->
+            <defs>
+                <!-- Sky Gradient -->
+                <radialGradient id="skyGradient" cx="50%" cy="30%">
+                    <stop offset="0%" stop-color="#93c5fd">
+                        <animate attributeName="stop-color" values="#93c5fd;#60a5fa;#93c5fd" dur="20s" repeatCount="indefinite"/>
+                    </stop>
+                    <stop offset="40%" stop-color="#60a5fa"/>
+                    <stop offset="70%" stop-color="#3b82f6"/>
+                    <stop offset="100%" stop-color="#1e3a8a"/>
+                </radialGradient>
+
+                <!-- Volumetric Cloud Gradients -->
+                <radialGradient id="cloudGradient1" cx="30%" cy="30%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
+                    <stop offset="50%" stop-color="rgba(255,255,255,0.6)"/>
+                    <stop offset="100%" stop-color="rgba(147,197,253,0.3)"/>
+                </radialGradient>
+
+                <radialGradient id="cloudGradient2" cx="40%" cy="25%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
+                    <stop offset="60%" stop-color="rgba(255,255,255,0.4)"/>
+                    <stop offset="100%" stop-color="rgba(96,165,250,0.2)"/>
+                </radialGradient>
+
+                <!-- Atmospheric Haze Gradient -->
+                <linearGradient id="hazeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(147,197,253,0.1)"/>
+                    <stop offset="50%" stop-color="rgba(147,197,253,0.3)"/>
+                    <stop offset="100%" stop-color="rgba(147,197,253,0.6)"/>
+                </linearGradient>
+
+                <!-- Mountain Gradient -->
+                <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#8b9742"/>
+                    <stop offset="50%" stop-color="#6b7c32"/>
+                    <stop offset="100%" stop-color="#4a5628"/>
+                </linearGradient>
+
+                <!-- Sea Gradient -->
+                <radialGradient id="seaGradient" cx="50%" cy="0%">
+                    <stop offset="0%" stop-color="#60a5fa"/>
+                    <stop offset="50%" stop-color="#3b82f6"/>
+                    <stop offset="100%" stop-color="#1e3a8a"/>
+                </radialGradient>
+
+                <!-- Beach Sand Gradient -->
+                <linearGradient id="sandGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e4d5b7"/>
+                    <stop offset="100%" stop-color="#c2b280"/>
+                </linearGradient>
+
+                <!-- Parthenon Stone Gradient -->
+                <linearGradient id="stoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f5f5dc"/>
+                    <stop offset="50%" stop-color="#e4d5b7"/>
+                    <stop offset="100%" stop-color="#c2b280"/>
+                </linearGradient>
+
+                <!-- Atmospheric Filters -->
+                <filter id="atmosphericBlur">
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feColorMatrix values="1 0 0 0 0.1
+                                         0 1 0 0 0.2
+                                         0 0 1 0 0.4
+                                         0 0 0 0.7 0"/>
+                </filter>
+
+                <filter id="cloudBlur">
+                    <feGaussianBlur stdDeviation="1.5"/>
+                </filter>
+            </defs>
+
+            <!-- Sky Background -->
+            <rect width="1500" height="800" fill="url(#skyGradient)"/>
+
+            <!-- Distant Mountains (Layered for depth) -->
+            <path d="M0,300 Q200,250 400,280 T800,270 T1200,260 T1500,250 L1500,800 L0,800 Z" 
+                  fill="rgba(107,124,50,0.3)" 
+                  filter="url(#atmosphericBlur)"/>
+            
+            <path d="M0,340 Q300,290 600,320 T1200,310 T1500,300 L1500,800 L0,800 Z" 
+                  fill="rgba(107,124,50,0.5)" 
+                  filter="url(#atmosphericBlur)"/>
+
+            <path d="M0,380 Q250,330 500,360 T1000,350 T1500,340 L1500,800 L0,800 Z" 
+                  fill="url(#mountainGradient)"/>
+
+            <!-- Parthenon on Acropolis -->
+            <g transform="translate(300,280) scale(0.8)">
+                <!-- Acropolis Hill -->
+                <ellipse cx="150" cy="80" rx="200" ry="40" fill="url(#stoneGradient)" opacity="0.9"/>
+                
+                <!-- Parthenon Base -->
+                <rect x="50" y="40" width="200" height="20" fill="url(#stoneGradient)"/>
+                
+                <!-- Parthenon Columns -->
+                <rect x="60" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="80" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="100" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="120" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="140" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="160" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="180" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="200" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="220" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                <rect x="240" y="20" width="8" height="40" fill="url(#stoneGradient)"/>
+                
+                <!-- Parthenon Roof -->
+                <polygon points="45,20 255,20 225,5 75,5" fill="url(#stoneGradient)"/>
+                
+                <!-- Temple Pediment -->
+                <polygon points="50,20 250,20 150,5" fill="rgba(228,213,183,0.8)"/>
+            </g>
+
+            <!-- Vouliagmeni Bay Coastline -->
+            <path d="M0,450 Q200,440 400,450 Q600,455 800,450 Q1000,445 1200,450 T1500,450 L1500,800 L0,800 Z" 
+                  fill="url(#sandGradient)"/>
+
+            <!-- Animated Sea Waves -->
+            <path d="M0,400 Q150,390 300,400 T600,400 T900,400 T1200,400 T1500,400 L1500,600 L0,600 Z" 
+                  fill="url(#seaGradient)">
+                <animate attributeName="d" 
+                         values="M0,400 Q150,390 300,400 T600,400 T900,400 T1200,400 T1500,400 L1500,600 L0,600 Z;
+                                M0,405 Q150,395 300,405 T600,405 T900,405 T1200,405 T1500,405 L1500,600 L0,600 Z;
+                                M0,400 Q150,390 300,400 T600,400 T900,400 T1200,400 T1500,400 L1500,600 L0,600 Z"
+                         dur="4s" 
+                         repeatCount="indefinite"/>
+            </path>
+
+            <!-- Secondary Wave Layer -->
+            <path d="M0,410 Q200,405 400,410 T800,410 T1200,410 T1500,410 L1500,600 L0,600 Z" 
+                  fill="rgba(59,130,246,0.7)">
+                <animate attributeName="d" 
+                         values="M0,410 Q200,405 400,410 T800,410 T1200,410 T1500,410 L1500,600 L0,600 Z;
+                                M0,415 Q200,408 400,415 T800,415 T1200,415 T1500,415 L1500,600 L0,600 Z;
+                                M0,410 Q200,405 400,410 T800,410 T1200,410 T1500,410 L1500,600 L0,600 Z"
+                         dur="6s" 
+                         repeatCount="indefinite"/>
+            </path>
+
+            <!-- Volumetric Clouds with Morphing Animation -->
+            <g opacity="0.9">
+                <!-- Large Cloud Formation 1 -->
+                <path d="M100,100 Q150,80 200,100 Q250,70 300,100 Q320,90 340,100 Q360,85 380,100 Q400,80 420,100 Q450,85 480,100 Q500,90 520,100 L520,180 Q480,160 420,170 Q380,160 340,170 Q300,160 250,170 Q200,160 150,170 Q100,160 100,180 Z" 
+                      fill="url(#cloudGradient1)" 
+                      filter="url(#cloudBlur)">
+                    <animate attributeName="d" 
+                             values="M100,100 Q150,80 200,100 Q250,70 300,100 Q320,90 340,100 Q360,85 380,100 Q400,80 420,100 Q450,85 480,100 Q500,90 520,100 L520,180 Q480,160 420,170 Q380,160 340,170 Q300,160 250,170 Q200,160 150,170 Q100,160 100,180 Z;
+                                    M100,105 Q150,85 200,105 Q250,75 300,105 Q320,95 340,105 Q360,90 380,105 Q400,85 420,105 Q450,90 480,105 Q500,95 520,105 L520,185 Q480,165 420,175 Q380,165 340,175 Q300,165 250,175 Q200,165 150,175 Q100,165 100,185 Z;
+                                    M100,100 Q150,80 200,100 Q250,70 300,100 Q320,90 340,100 Q360,85 380,100 Q400,80 420,100 Q450,85 480,100 Q500,90 520,100 L520,180 Q480,160 420,170 Q380,160 340,170 Q300,160 250,170 Q200,160 150,170 Q100,160 100,180 Z"
+                             dur="15s" 
+                             repeatCount="indefinite"/>
+                    <animateTransform attributeName="transform" 
+                                    type="translate" 
+                                    values="0,0;50,0;0,0" 
+                                    dur="30s" 
+                                    repeatCount="indefinite"/>
+                </path>
+
+                <!-- Cloud Formation 2 -->
+                <path d="M800,120 Q850,100 900,120 Q950,90 1000,120 Q1020,110 1040,120 Q1060,105 1080,120 Q1100,100 1120,120 L1120,200 Q1080,180 1040,190 Q1000,180 950,190 Q900,180 850,190 Q800,180 800,200 Z" 
+                      fill="url(#cloudGradient2)" 
+                      filter="url(#cloudBlur)">
+                    <animate attributeName="d" 
+                             values="M800,120 Q850,100 900,120 Q950,90 1000,120 Q1020,110 1040,120 Q1060,105 1080,120 Q1100,100 1120,120 L1120,200 Q1080,180 1040,190 Q1000,180 950,190 Q900,180 850,190 Q800,180 800,200 Z;
+                                    M800,125 Q850,105 900,125 Q950,95 1000,125 Q1020,115 1040,125 Q1060,110 1080,125 Q1100,105 1120,125 L1120,205 Q1080,185 1040,195 Q1000,185 950,195 Q900,185 850,195 Q800,185 800,205 Z;
+                                    M800,120 Q850,100 900,120 Q950,90 1000,120 Q1020,110 1040,120 Q1060,105 1080,120 Q1100,100 1120,120 L1120,200 Q1080,180 1040,190 Q1000,180 950,190 Q900,180 850,190 Q800,180 800,200 Z"
+                             dur="18s" 
+                             repeatCount="indefinite"/>
+                    <animateTransform attributeName="transform" 
+                                    type="translate" 
+                                    values="0,0;-30,0;0,0" 
+                                    dur="25s" 
+                                    repeatCount="indefinite"/>
+                </path>
+
+                <!-- Small Cloud Details -->
+                <circle cx="600" cy="150" r="40" fill="rgba(255,255,255,0.6)" filter="url(#cloudBlur)">
+                    <animate attributeName="cx" values="600;650;600" dur="20s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="40;45;40" dur="12s" repeatCount="indefinite"/>
+                </circle>
+
+                <ellipse cx="1300" cy="140" rx="60" ry="35" fill="rgba(255,255,255,0.5)" filter="url(#cloudBlur)">
+                    <animate attributeName="cx" values="1300;1250;1300" dur="22s" repeatCount="indefinite"/>
+                </ellipse>
+            </g>
+
+            <!-- Atmospheric Haze Layers -->
+            <rect width="1500" height="400" fill="url(#hazeGradient)" opacity="0.4">
+                <animate attributeName="opacity" values="0.4;0.6;0.4" dur="10s" repeatCount="indefinite"/>
+            </rect>
+
+            <!-- Flying Birds with Realistic Wing Animation -->
+            <g class="birds">
+                <!-- Bird 1 -->
+                <g>
+                    <animateTransform attributeName="transform" 
+                                    type="translate" 
+                                    values="-50,200;1600,180" 
+                                    dur="45s" 
+                                    repeatCount="indefinite"/>
+                    <!-- Bird Body -->
+                    <ellipse cx="0" cy="0" rx="3" ry="1" fill="#2d3748"/>
+                    <!-- Wings -->
+                    <path d="M-2,-1 Q-8,-5 -12,-2 Q-8,1 -2,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;-20;0;20;0" 
+                                        dur="0.8s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                    <path d="M2,-1 Q8,-5 12,-2 Q8,1 2,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;20;0;-20;0" 
+                                        dur="0.8s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                </g>
+
+                <!-- Bird 2 -->
+                <g>
+                    <animateTransform attributeName="transform" 
+                                    type="translate" 
+                                    values="-100,180;1650,160" 
+                                    dur="50s" 
+                                    repeatCount="indefinite"
+                                    begin="5s"/>
+                    <ellipse cx="0" cy="0" rx="2.5" ry="1" fill="#2d3748"/>
+                    <path d="M-2,-1 Q-7,-4 -10,-2 Q-7,1 -2,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;-15;0;15;0" 
+                                        dur="0.9s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                    <path d="M2,-1 Q7,-4 10,-2 Q7,1 2,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;15;0;-15;0" 
+                                        dur="0.9s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                </g>
+
+                <!-- Bird 3 -->
+                <g>
+                    <animateTransform attributeName="transform" 
+                                    type="translate" 
+                                    values="-80,220;1620,200" 
+                                    dur="55s" 
+                                    repeatCount="indefinite"
+                                    begin="10s"/>
+                    <ellipse cx="0" cy="0" rx="2" ry="0.8" fill="#2d3748"/>
+                    <path d="M-1.5,-0.8 Q-6,-3 -8,-1.5 Q-6,0.8 -1.5,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;-18;0;18;0" 
+                                        dur="0.7s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                    <path d="M1.5,-0.8 Q6,-3 8,-1.5 Q6,0.8 1.5,0" fill="#2d3748">
+                        <animateTransform attributeName="transform" 
+                                        type="rotate" 
+                                        values="0;18;0;-18;0" 
+                                        dur="0.7s" 
+                                        repeatCount="indefinite"/>
+                    </path>
+                </g>
+            </g>
+
+            <!-- Olive Trees on Hillside -->
+            <g opacity="0.8">
+                <g transform="translate(200,350)">
+                    <ellipse cx="0" cy="0" rx="25" ry="35" fill="url(#mountainGradient)"/>
+                    <rect x="-2" y="0" width="4" height="30" fill="#8b4513"/>
+                </g>
+                <g transform="translate(180,380)">
+                    <ellipse cx="0" cy="0" rx="20" ry="25" fill="rgba(168,181,98,0.8)"/>
+                    <rect x="-1.5" y="0" width="3" height="20" fill="#8b4513"/>
+                </g>
+                <g transform="translate(220,370)">
+                    <ellipse cx="0" cy="0" rx="15" ry="20" fill="rgba(168,181,98,0.6)"/>
+                    <rect x="-1" y="0" width="2" height="15" fill="#8b4513"/>
+                </g>
+            </g>
+
+            <!-- Atmospheric Light Rays -->
+            <g opacity="0.3">
+                <path d="M400,0 L410,0 L430,400 L420,400 Z" fill="rgba(255,255,255,0.2)">
+                    <animate attributeName="opacity" values="0.1;0.3;0.1" dur="8s" repeatCount="indefinite"/>
+                </path>
+                <path d="M800,0 L815,0 L835,400 L820,400 Z" fill="rgba(255,255,255,0.15)">
+                    <animate attributeName="opacity" values="0.05;0.25;0.05" dur="12s" repeatCount="indefinite" begin="2s"/>
+                </path>
+                <path d="M1200,0 L1212,0 L1232,400 L1220,400 Z" fill="rgba(255,255,255,0.1)">
+                    <animate attributeName="opacity" values="0.02;0.2;0.02" dur="15s" repeatCount="indefinite" begin="4s"/>
+                </path>
+            </g>
+
+            <!-- Atmospheric Particles -->
+            <g opacity="0.6">
+                <circle cx="300" cy="250" r="1" fill="rgba(255,255,255,0.8)">
+                    <animate attributeName="cy" values="250;150;250" dur="20s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="20s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="700" cy="200" r="0.8" fill="rgba(255,255,255,0.6)">
+                    <animate attributeName="cy" values="200;100;200" dur="25s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="25s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="1100" cy="180" r="1.2" fill="rgba(255,255,255,0.7)">
+                    <animate attributeName="cy" values="180;80;180" dur="18s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.7;0.3;0.7" dur="18s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+
+        </svg>
+
+        <div class="info-panel">
+            <h3 style="margin: 0 0 10px 0; color: #93c5fd;">Atmospheric Vouliagmeni Bay</h3>
+            <p style="margin: 0; line-height: 1.4;">
+                A sophisticated SVG animation featuring realistic volumetric clouds, 
+                atmospheric haze effects, and the iconic Parthenon overlooking the 
+                Aegean coastline. Experience the ethereal beauty of Greece through 
+                advanced web graphics.
+            </p>
+            <p style="margin: 10px 0 0 0; font-size: 12px; opacity: 0.8;">
+                • Volumetric cloud morphing • Atmospheric light rays<br>
+                • Realistic wave animations • Flying seabirds<br>
+                • Photorealistic gradient effects
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Additional atmospheric effects via JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic cloud opacity based on time
+            const clouds = document.querySelectorAll('path[fill*="cloudGradient"]');
+            
+            function atmosphericCycle() {
+                const time = Date.now() * 0.0001;
+                const opacity = 0.7 + 0.3 * Math.sin(time);
+                
+                clouds.forEach((cloud, index) => {
+                    cloud.style.opacity = opacity + (index * 0.1);
+                });
+            }
+            
+            setInterval(atmosphericCycle, 100);
+
+            // Parallax effect on mouse move
+            document.addEventListener('mousemove', function(e) {
+                const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+                
+                const parthenon = document.querySelector('g[transform*="translate(300,280)"]');
+                if (parthenon) {
+                    parthenon.style.transform = `translate(${300 + mouseX * 10}px, ${280 + mouseY * 5}px) scale(0.8)`;
+                }
+                
+                const mountains = document.querySelectorAll('path[fill*="rgba(107,124,50"]');
+                mountains.forEach((mountain, index) => {
+                    mountain.style.transform = `translateX(${mouseX * (2 + index)}px)`;
+                });
+            });
+
+            // Responsive viewport adjustments
+            function adjustViewport() {
+                const svg = document.querySelector('.atmospheric-svg');
+                const aspectRatio = window.innerWidth / window.innerHeight;
+                
+                if (aspectRatio < 1.5) {
+                    svg.setAttribute('viewBox', '0 0 1200 800');
+                } else {
+                    svg.setAttribute('viewBox', '0 0 1500 800');
+                }
+            }
+            
+            window.addEventListener('resize', adjustViewport);
+            adjustViewport();
+        });
+    </script>
+</body>
+</html>

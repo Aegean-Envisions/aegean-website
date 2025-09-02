@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photorealistic Greek Landscapes Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: white;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            text-shadow: 0 6px 30px rgba(0,0,0,0.4);
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quality-badge {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: white;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 50px;
+            max-width: 1900px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: slideUp 0.8s ease-out backwards;
+        }
+
+        .photo-card:nth-child(odd) { animation-delay: 0.1s; }
+        .photo-card:nth-child(even) { animation-delay: 0.2s; }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .photo-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.35);
+        }
+
+        .card-header {
+            padding: 28px 36px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            border-bottom: 1px solid #e0e7ff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .effect-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .effect-subtitle {
+            font-size: 1.05rem;
+            color: #64748b;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .preview-frame {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: transform 0.5s;
+        }
+
+        .photo-card:hover .preview-iframe {
+            transform: scale(1.05);
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .card-footer {
+            padding: 28px 36px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59,130,246,0.4);
+        }
+
+        .btn-glass {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: #3b82f6;
+            border: 1px solid rgba(59,130,246,0.2);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #c2b280 0%, #e4d5b7 100%);
+            color: #7c5d3a;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            color: white;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .photo-card {
+                margin: 0;
+            }
+
+            .preview-frame {
+                height: 350px;
+            }
+        }
+
+        .loading-shimmer {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            to { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📸 Photorealistic Greek Landscapes</h1>
+        <p class="subtitle">Real Photography Enhanced with Modern Web Effects</p>
+        <div class="badge-container">
+            <div class="quality-badge">
+                <span>🎨</span>
+                <span>Exact Palette: #1e3a8a → #3b82f6 → #60a5fa</span>
+            </div>
+            <div class="quality-badge">
+                <span>📷</span>
+                <span>100% Real Photography from Unsplash</span>
+            </div>
+            <div class="quality-badge">
+                <span>🏛️</span>
+                <span>Athens & Vouliagmeni Locations</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- 1. Interactive Parthenon -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">⚡ Interactive Parthenon</h3>
+                <p class="effect-subtitle">Particle physics, custom cursor, time control & scene switching</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">🎮 Interactive</div>
+                <iframe src="interactive-parthenon.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="interactive-parthenon.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('interactive-parthenon.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Physics Engine</span>
+                    <span class="tech-tag">Real-time Effects</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Photorealistic Glassmorphism -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">🌊 Mediterranean Waves</h3>
+                <p class="effect-subtitle">Real-time ocean physics with interactive wave control</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">🎮 Interactive</div>
+                <iframe src="mediterranean-waves.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="mediterranean-waves.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('mediterranean-waves.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Wave Physics</span>
+                    <span class="tech-tag">Weather System</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Photorealistic 3D -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">🌅 Santorini Dynamic Sunset</h3>
+                <p class="effect-subtitle">24-hour cycle with physically accurate lighting</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">🎮 Interactive</div>
+                <iframe src="santorini-dynamic-sunset.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="santorini-dynamic-sunset.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('santorini-dynamic-sunset.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Time System</span>
+                    <span class="tech-tag">Dynamic Sky</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Photorealistic Gradients -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Gradients</h3>
+                <p class="effect-subtitle">Day-night cycle over real Mediterranean photography</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-greek-landscape.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-greek-landscape.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-greek-landscape.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Time Lapse</span>
+                    <span class="tech-tag">Color Grading</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Photorealistic SVG -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic SVG</h3>
+                <p class="effect-subtitle">SVG animations overlaid on real Greek photos</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-greek-landscape.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-greek-landscape.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-greek-landscape.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">SVG Masks</span>
+                    <span class="tech-tag">Animations</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Photorealistic Particles -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Particles</h3>
+                <p class="effect-subtitle">Physics-based particles over authentic landscapes</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-greek-landscape.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-greek-landscape.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-greek-landscape.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Canvas</span>
+                    <span class="tech-tag">Physics</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Photorealistic Scroll -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Scroll</h3>
+                <p class="effect-subtitle">Scroll-triggered reveals of real Greek locations</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="greek-landscape-scroll.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="greek-landscape-scroll.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('greek-landscape-scroll.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Observer API</span>
+                    <span class="tech-tag">Parallax</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Photorealistic Morphing -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Morphing</h3>
+                <p class="effect-subtitle">Clip-path animations on real Mediterranean photos</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-greek-morphing.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-greek-morphing.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-greek-morphing.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Clip-Path</span>
+                    <span class="tech-tag">Morphing</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. Photorealistic Neumorphism -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Neumorphism</h3>
+                <p class="effect-subtitle">Soft UI shadows on real Greek photography</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-neumorphism.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-neumorphism.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-neumorphism.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Soft UI</span>
+                    <span class="tech-tag">Shadows</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Photorealistic Liquid -->
+        <div class="photo-card">
+            <div class="card-header">
+                <h3 class="effect-title">Photorealistic Liquid</h3>
+                <p class="effect-subtitle">Liquid distortion effects on authentic photos</p>
+            </div>
+            <div class="preview-frame">
+                <div class="preview-label">📷 Real Photos</div>
+                <iframe src="photorealistic-liquid.html" class="preview-iframe"></iframe>
+                <div class="loading-shimmer"></div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <a href="photorealistic-liquid.html" target="_blank" class="btn btn-primary">
+                        🌅 View Full Scene
+                    </a>
+                    <button class="btn btn-glass" onclick="copyPath('photorealistic-liquid.html')">
+                        📋 Copy Path
+                    </button>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">SVG Filters</span>
+                    <span class="tech-tag">Distortion</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <strong>🏛️ True Photorealism Achieved</strong><br>
+        Each landscape uses 100% real photography from Athens, Santorini, Mykonos, and Vouliagmeni, 
+        enhanced with sophisticated web effects while maintaining photographic authenticity. 
+        The exact blue gradient palette (#1e3a8a → #3b82f6 → #60a5fa) is applied as overlays 
+        and filters to create a cohesive visual experience across all variations.
+    </div>
+
+    <script>
+        function copyPath(path) {
+            navigator.clipboard.writeText(path).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                btn.style.color = 'white';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+
+        // Remove shimmer after iframes load
+        document.querySelectorAll('.preview-iframe').forEach(iframe => {
+            iframe.onload = function() {
+                const shimmer = this.parentElement.querySelector('.loading-shimmer');
+                if (shimmer) {
+                    shimmer.style.display = 'none';
+                }
+            };
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

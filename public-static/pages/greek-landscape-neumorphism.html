@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Landscape - Neumorphism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e8f2ff 0%, #b8d4f0 50%, #87ceeb 100%);
+            height: 100vh;
+        }
+
+        .landscape-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(180deg, #87ceeb 0%, #b8d4f0 30%, #e8f2ff 60%, #f0f8ff 100%);
+        }
+
+        /* Sun with neumorphic effect */
+        .sun {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.1),
+                -20px -20px 40px rgba(255, 255, 255, 0.8),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.3),
+                inset -10px -10px 20px rgba(0, 0, 0, 0.05);
+            animation: sunGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunGlow {
+            0% {
+                box-shadow: 
+                    20px 20px 40px rgba(0, 0, 0, 0.1),
+                    -20px -20px 40px rgba(255, 255, 255, 0.8),
+                    inset 10px 10px 20px rgba(255, 255, 255, 0.3),
+                    inset -10px -10px 20px rgba(0, 0, 0, 0.05),
+                    0 0 50px rgba(255, 215, 0, 0.3);
+            }
+            100% {
+                box-shadow: 
+                    25px 25px 50px rgba(0, 0, 0, 0.15),
+                    -25px -25px 50px rgba(255, 255, 255, 0.9),
+                    inset 15px 15px 30px rgba(255, 255, 255, 0.4),
+                    inset -15px -15px 30px rgba(0, 0, 0, 0.08),
+                    0 0 80px rgba(255, 215, 0, 0.5);
+            }
+        }
+
+        /* Clouds with soft neumorphic shadows */
+        .cloud {
+            position: absolute;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 50px;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.08),
+                -15px -15px 30px rgba(255, 255, 255, 0.9),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.5),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.03);
+            animation: cloudFloat 20s ease-in-out infinite;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 50px;
+            box-shadow: 
+                10px 10px 20px rgba(0, 0, 0, 0.05),
+                -10px -10px 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .cloud1 {
+            top: 15%;
+            left: 20%;
+            width: 100px;
+            height: 40px;
+            animation-delay: 0s;
+        }
+
+        .cloud1::before {
+            top: -20px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .cloud1::after {
+            top: -10px;
+            right: 15px;
+            width: 60px;
+            height: 40px;
+        }
+
+        .cloud2 {
+            top: 25%;
+            left: 60%;
+            width: 80px;
+            height: 35px;
+            animation-delay: -10s;
+        }
+
+        .cloud2::before {
+            top: -15px;
+            left: 5px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .cloud2::after {
+            top: -8px;
+            right: 10px;
+            width: 50px;
+            height: 35px;
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(-5px) translateY(5px); }
+            75% { transform: translateX(5px) translateY(-3px); }
+        }
+
+        /* Mountains with neumorphic depth */
+        .mountains {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+        .mountain {
+            position: absolute;
+            background: linear-gradient(135deg, #d4d4d8, #a1a1aa);
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.15),
+                -10px -10px 20px rgba(255, 255, 255, 0.3),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.2),
+                inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mountain1 {
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 150px solid #9ca3af;
+            background: none;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.2),
+                inset 20px 20px 40px rgba(255, 255, 255, 0.1);
+            filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.1));
+        }
+
+        .mountain2 {
+            left: 300px;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 120px solid #a1a1aa;
+            background: none;
+            box-shadow: 
+                10px 10px 25px rgba(0, 0, 0, 0.15),
+                inset 15px 15px 30px rgba(255, 255, 255, 0.1);
+            filter: drop-shadow(8px 8px 16px rgba(0, 0, 0, 0.08));
+        }
+
+        /* Sea with neumorphic waves */
+        .sea {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(180deg, #4682b4 0%, #1e40af 50%, #1e3a8a 100%);
+            box-shadow: 
+                inset 0 20px 40px rgba(255, 255, 255, 0.1),
+                inset 0 -20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: -50%;
+            width: 200%;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 50% 50% 0 0;
+            animation: waveMotion 8s ease-in-out infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -2s;
+            opacity: 0.7;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: -4s;
+            opacity: 0.5;
+        }
+
+        @keyframes waveMotion {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(-50px); }
+        }
+
+        /* Parthenon monument with strong neumorphic effect */
+        .parthenon {
+            position: absolute;
+            bottom: 45%;
+            left: 35%;
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(135deg, #f5f5f5, #e5e5e5);
+            box-shadow: 
+                25px 25px 50px rgba(0, 0, 0, 0.2),
+                -25px -25px 50px rgba(255, 255, 255, 0.9),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.3),
+                inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .parthenon::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            right: -10px;
+            height: 15px;
+            background: linear-gradient(135deg, #f0f0f0, #d0d0d0);
+            box-shadow: 
+                10px 10px 20px rgba(0, 0, 0, 0.15),
+                -10px -10px 20px rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+        }
+
+        .column {
+            position: absolute;
+            bottom: 0;
+            width: 15px;
+            height: 100px;
+            background: linear-gradient(135deg, #f8f8f8, #e0e0e0);
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.1),
+                -8px -8px 16px rgba(255, 255, 255, 0.7),
+                inset 3px 3px 6px rgba(255, 255, 255, 0.3),
+                inset -3px -3px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        .column:nth-child(1) { left: 20px; }
+        .column:nth-child(2) { left: 50px; }
+        .column:nth-child(3) { left: 80px; }
+        .column:nth-child(4) { left: 110px; }
+        .column:nth-child(5) { left: 140px; }
+        .column:nth-child(6) { left: 170px; }
+
+        /* Olive trees with neumorphic styling */
+        .olive-field {
+            position: absolute;
+            bottom: 30%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+        }
+
+        .olive-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 30px;
+            background: linear-gradient(135deg, #8b4513, #654321);
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.2),
+                -4px -4px 8px rgba(255, 255, 255, 0.1),
+                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+        }
+
+        .olive-leaves {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6b8e23, #556b2f);
+            border-radius: 50%;
+            box-shadow: 
+                10px 10px 20px rgba(0, 0, 0, 0.15),
+                -10px -10px 20px rgba(255, 255, 255, 0.2),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.1),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tree1 { bottom: 15%; left: 15%; }
+        .tree2 { bottom: 20%; left: 25%; }
+        .tree3 { bottom: 18%; left: 75%; }
+        .tree4 { bottom: 22%; left: 85%; }
+
+        /* Title with neumorphic text effect */
+        .title {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4a5568;
+            text-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.1),
+                -6px -6px 12px rgba(255, 255, 255, 0.8);
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #e8f2ff, #b8d4f0);
+            border-radius: 20px;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.1),
+                -15px -15px 30px rgba(255, 255, 255, 0.9),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.3),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Birds with subtle neumorphic effect */
+        .birds {
+            position: absolute;
+            top: 30%;
+            left: 70%;
+            width: 100px;
+            height: 50px;
+        }
+
+        .bird {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #374151;
+            border-radius: 50%;
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.1),
+                -2px -2px 4px rgba(255, 255, 255, 0.5);
+            animation: birdFly 6s ease-in-out infinite;
+        }
+
+        .bird::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: -1px;
+            width: 15px;
+            height: 2px;
+            background: #374151;
+            border-radius: 50%;
+            box-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.1),
+                -1px -1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .bird1 { top: 10px; left: 20px; }
+        .bird2 { top: 20px; left: 40px; animation-delay: -2s; }
+        .bird3 { top: 15px; left: 60px; animation-delay: -4s; }
+
+        @keyframes birdFly {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Beach area with neumorphic sand texture */
+        .beach {
+            position: absolute;
+            bottom: 25%;
+            left: 0;
+            width: 100%;
+            height: 15%;
+            background: linear-gradient(135deg, #f5deb3, #deb887);
+            box-shadow: 
+                inset 0 10px 20px rgba(255, 255, 255, 0.3),
+                inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+                padding: 15px 30px;
+            }
+            
+            .parthenon {
+                width: 150px;
+                height: 90px;
+                left: 30%;
+            }
+            
+            .sun {
+                width: 80px;
+                height: 80px;
+                top: 8%;
+                right: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <!-- Title -->
+        <div class="title">Aegean Visions</div>
+        
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        
+        <!-- Mountains -->
+        <div class="mountains">
+            <div class="mountain mountain1"></div>
+            <div class="mountain mountain2"></div>
+        </div>
+        
+        <!-- Parthenon Monument -->
+        <div class="parthenon">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+        
+        <!-- Olive Trees -->
+        <div class="olive-field">
+            <div class="olive-tree tree1">
+                <div class="olive-trunk"></div>
+                <div class="olive-leaves"></div>
+            </div>
+            <div class="olive-tree tree2">
+                <div class="olive-trunk"></div>
+                <div class="olive-leaves"></div>
+            </div>
+            <div class="olive-tree tree3">
+                <div class="olive-trunk"></div>
+                <div class="olive-leaves"></div>
+            </div>
+            <div class="olive-tree tree4">
+                <div class="olive-trunk"></div>
+                <div class="olive-leaves"></div>
+            </div>
+        </div>
+        
+        <!-- Beach -->
+        <div class="beach"></div>
+        
+        <!-- Sea with waves -->
+        <div class="sea">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        
+        <!-- Birds -->
+        <div class="birds">
+            <div class="bird bird1"></div>
+            <div class="bird bird2"></div>
+            <div class="bird bird3"></div>
+        </div>
+    </div>
+</body>
+</html>

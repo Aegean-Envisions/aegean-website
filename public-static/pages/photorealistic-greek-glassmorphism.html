@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photorealistic Greek Landscape - Glassmorphism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+            position: relative;
+        }
+
+        /* Main photorealistic background layers */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1;
+        }
+
+        .sky-layer {
+            background: linear-gradient(180deg, 
+                rgba(30, 58, 138, 0.3) 0%, 
+                rgba(59, 130, 246, 0.2) 30%, 
+                rgba(96, 165, 250, 0.1) 60%, 
+                transparent 100%),
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            opacity: 0.9;
+        }
+
+        .clouds-layer {
+            background: url('https://images.unsplash.com/photo-1561553873-e8491a564fd0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80') center/cover;
+            opacity: 0.4;
+            animation: drift 60s ease-in-out infinite;
+        }
+
+        .parthenon-layer {
+            background: url('https://images.unsplash.com/photo-1555993539-1732b0258235?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center bottom/cover;
+            opacity: 0.8;
+        }
+
+        .sea-layer {
+            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            opacity: 0.6;
+            bottom: 0;
+            height: 40vh;
+            animation: waves 8s ease-in-out infinite;
+        }
+
+        .olive-layer {
+            background: url('https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80') center/cover;
+            opacity: 0.3;
+            bottom: 0;
+            height: 60vh;
+        }
+
+        /* Glass morphism container */
+        .glass-container {
+            position: relative;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            z-index: 10;
+        }
+
+        /* Enhanced glass card styles */
+        .glass-card {
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.15) 0%, 
+                rgba(59, 130, 246, 0.1) 50%, 
+                rgba(96, 165, 250, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.2),
+                0 0 80px rgba(59, 130, 246, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.3),
+                0 0 120px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* Hero glass panel */
+        .hero-glass {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.2) 0%, 
+                rgba(59, 130, 246, 0.15) 50%, 
+                rgba(96, 165, 250, 0.1) 100%);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #e0f2fe, #b3e5fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation glass bar */
+        .nav-glass {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: linear-gradient(90deg, 
+                rgba(30, 58, 138, 0.1) 0%, 
+                rgba(59, 130, 246, 0.08) 50%, 
+                rgba(96, 165, 250, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            z-index: 100;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Feature cards grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: linear-gradient(135deg, 
+                rgba(59, 130, 246, 0.1) 0%, 
+                rgba(96, 165, 250, 0.08) 50%, 
+                rgba(30, 58, 138, 0.12) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card h3 {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Floating glass elements */
+        .floating-glass {
+            position: absolute;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, 
+                rgba(96, 165, 250, 0.1) 0%, 
+                rgba(59, 130, 246, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .floating-1 {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .floating-3 {
+            width: 80px;
+            height: 80px;
+            top: 80%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .floating-4 {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            right: 30%;
+            animation-delay: -15s;
+        }
+
+        /* Premium glass button */
+        .glass-button {
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.3) 0%, 
+                rgba(59, 130, 246, 0.25) 50%, 
+                rgba(96, 165, 250, 0.2) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 100%);
+            transition: left 0.5s ease;
+        }
+
+        .glass-button:hover::before {
+            left: 100%;
+        }
+
+        .glass-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(59, 130, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.8; }
+            50% { transform: translateY(-40px) rotate(180deg); opacity: 1; }
+            75% { transform: translateY(-20px) rotate(270deg); opacity: 0.8; }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+        }
+
+        @keyframes waves {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-5px) scaleY(1.02); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-glass {
+                padding: 0.8rem 1.5rem;
+                gap: 1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .glass-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Additional photorealistic overlay */
+        .photorealistic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: 
+                radial-gradient(ellipse at top, rgba(30, 58, 138, 0.1) 0%, transparent 70%),
+                linear-gradient(180deg, 
+                    rgba(0, 0, 0, 0.1) 0%, 
+                    rgba(59, 130, 246, 0.05) 30%, 
+                    rgba(96, 165, 250, 0.03) 60%, 
+                    rgba(0, 0, 0, 0.2) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Lens flare effect */
+        .lens-flare {
+            position: fixed;
+            top: 20%;
+            right: 30%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(96, 165, 250, 0.05) 30%, 
+                transparent 70%);
+            border-radius: 50%;
+            animation: flare 10s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes flare {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Photorealistic background layers -->
+    <div class="background-layer sky-layer"></div>
+    <div class="background-layer clouds-layer"></div>
+    <div class="background-layer parthenon-layer"></div>
+    <div class="background-layer olive-layer"></div>
+    <div class="background-layer sea-layer"></div>
+    
+    <!-- Photorealistic overlay -->
+    <div class="photorealistic-overlay"></div>
+    
+    <!-- Lens flare -->
+    <div class="lens-flare"></div>
+    
+    <!-- Floating glass elements -->
+    <div class="floating-glass floating-1"></div>
+    <div class="floating-glass floating-2"></div>
+    <div class="floating-glass floating-3"></div>
+    <div class="floating-glass floating-4"></div>
+
+    <!-- Navigation glass bar -->
+    <nav class="nav-glass">
+        <a href="#" class="nav-item">Αρχική</a>
+        <a href="#" class="nav-item">Πολιτισμός</a>
+        <a href="#" class="nav-item">Φύση</a>
+        <a href="#" class="nav-item">Ιστορία</a>
+        <a href="#" class="nav-item">Επικοινωνία</a>
+    </nav>
+
+    <!-- Main glass container -->
+    <div class="glass-container">
+        <!-- Hero section -->
+        <div class="glass-card hero-glass">
+            <h1 class="hero-title">Ελλάδα</h1>
+            <p class="hero-subtitle">Φωτορεαλιστικό Τοπίο με Γυάλινα Εφέ</p>
+            <a href="#" class="glass-button">Εξερευνήστε την Ομορφιά</a>
+        </div>
+
+        <!-- Feature cards -->
+        <div class="features-grid">
+            <div class="glass-card feature-card">
+                <h3>Ακρόπολη Αθηνών</h3>
+                <p>Ο ιερός βράχος της Ακρόπολης με τον Παρθενώνα, σύμβολο του αρχαίου ελληνικού πολιτισμού και της δημοκρατίας.</p>
+            </div>
+            
+            <div class="glass-card feature-card">
+                <h3>Αιγαίο Πέλαγος</h3>
+                <p>Τα κρυστάλλινα νερά του Αιγαίου με τις μαγευτικές ανατολές και δύσεις ηλίου πάνω από τα ελληνικά νησιά.</p>
+            </div>
+            
+            <div class="glass-card feature-card">
+                <h3>Ελαιώνες</h3>
+                <p>Τα αιωνόβια ελαιόδεντρα που σκιάζουν την ελληνική γη, προσφέροντας τον καλύτερο παρθένο ελαιόλαδο στον κόσμο.</p>
+            </div>
+        </div>
+
+        <!-- Additional content glass panel -->
+        <div class="glass-card" style="width: 90%; max-width: 600px; text-align: center;">
+            <h2 style="color: rgba(255, 255, 255, 0.95); margin-bottom: 1rem; font-size: 2rem;">
+                Φωτορεαλιστική Εμπειρία
+            </h2>
+            <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8; font-size: 1.1rem;">
+                Αυτή η σελίδα συνδυάζει πραγματικές φωτογραφίες από την Ελλάδα με προηγμένα εφέ glassmorphism, 
+                δημιουργώντας μια μοναδική οπτική εμπειρία που αναδεικνύει την φυσική ομορφιά της ελληνικής γης.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive glass effects
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // Parallax effect for background layers
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const clouds = document.querySelector('.clouds-layer');
+            const sea = document.querySelector('.sea-layer');
+            
+            if (clouds) {
+                clouds.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            if (sea) {
+                sea.style.transform = `translateY(${scrolled * -0.2}px)`;
+            }
+        });
+
+        // Dynamic lighting effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            const lensFlare = document.querySelector('.lens-flare');
+            if (lensFlare) {
+                lensFlare.style.left = `${mouseX * 100}%`;
+                lensFlare.style.top = `${mouseY * 100}%`;
+                lensFlare.style.opacity = `${0.3 + mouseX * 0.3}`;
+            }
+        });
+    </script>
+</body>
+</html>

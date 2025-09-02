@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Visions - Extended Logo Identity System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0c1929 0%, #1a2b3d 50%, #0c1929 100%);
+            color: white;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        .category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .logo-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-name {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .logo-number {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Aegean Visions Extended</h1>
+        <p class="subtitle">Alternative Letter Combinations & Symbol Explorations</p>
+    </div>
+
+    <!-- Letter Combinations - AV -->
+    <div class="category">
+        <h2 class="category-title">AV Combinations</h2>
+        <div class="logo-grid">
+            <!-- Logo 1: AV Classic -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: white;">AV</div>
+                </div>
+                <div class="logo-name">AV Classic</div>
+                <div class="logo-number">#51</div>
+            </div>
+
+            <!-- Logo 2: AV Stacked -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: white; line-height: 0.8;">
+                        <div>A</div>
+                        <div>V</div>
+                    </div>
+                </div>
+                <div class="logo-name">AV Stacked</div>
+                <div class="logo-number">#52</div>
+            </div>
+
+            <!-- Logo 3: AV Overlap -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; position: relative; display: flex; align-items: center; justify-content: center;">
+                        <span style="position: absolute; left: 20px; font-size: 48px; font-weight: 700; color: #1e3a8a;">A</span>
+                        <span style="position: absolute; right: 20px; font-size: 48px; font-weight: 700; color: #60a5fa;">V</span>
+                    </div>
+                </div>
+                <div class="logo-name">AV Overlap</div>
+                <div class="logo-number">#53</div>
+            </div>
+
+            <!-- Logo 4: AV Merge -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <defs>
+                            <linearGradient id="avgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 25 65 L 35 25 L 45 55 L 55 25 L 65 65 M 45 45 L 65 45" 
+                              stroke="url(#avgrad)" stroke-width="4" fill="none"/>
+                    </svg>
+                </div>
+                <div class="logo-name">AV Merged Path</div>
+                <div class="logo-number">#54</div>
+            </div>
+
+            <!-- Logo 5: AV Diamond -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%); transform: rotate(45deg); display: flex; align-items: center; justify-content: center;">
+                        <span style="transform: rotate(-45deg); font-size: 28px; font-weight: 700; color: white;">A·V</span>
+                    </div>
+                </div>
+                <div class="logo-name">AV Diamond</div>
+                <div class="logo-number">#55</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Single Letter A Variations -->
+    <div class="category">
+        <h2 class="category-title">Single A Variations</h2>
+        <div class="logo-grid">
+            <!-- Logo 6: A Mountain -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <polygon points="45,20 65,70 55,70 50,55 40,55 35,70 25,70" fill="url(#avgrad)"/>
+                        <polygon points="45,35 40,50 50,50" fill="white"/>
+                    </svg>
+                </div>
+                <div class="logo-name">A Mountain Peak</div>
+                <div class="logo-number">#56</div>
+            </div>
+
+            <!-- Logo 7: A Wave -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 300; font-style: italic; color: white;">A</div>
+                </div>
+                <div class="logo-name">A Fluid</div>
+                <div class="logo-number">#57</div>
+            </div>
+
+            <!-- Logo 8: A Architectural -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <rect x="30" y="60" width="10" height="20" fill="#1e3a8a"/>
+                        <rect x="50" y="60" width="10" height="20" fill="#1e3a8a"/>
+                        <polygon points="45,20 70,60 20,60" fill="#60a5fa"/>
+                        <rect x="40" y="45" width="10" height="15" fill="white"/>
+                    </svg>
+                </div>
+                <div class="logo-name">A Temple</div>
+                <div class="logo-number">#58</div>
+            </div>
+
+            <!-- Logo 9: A Modern -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; border: 3px solid #60a5fa; display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 200; color: #60a5fa;">A</div>
+                </div>
+                <div class="logo-name">A Minimal Frame</div>
+                <div class="logo-number">#59</div>
+            </div>
+
+            <!-- Logo 10: A Negative Space -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: #60a5fa; border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 60px; height: 60px; background: conic-gradient(from 45deg, transparent 0deg, transparent 90deg, #60a5fa 90deg); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: white;">A</div>
+                    </div>
+                </div>
+                <div class="logo-name">A Cut-out</div>
+                <div class="logo-number">#60</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symbol Only Variations -->
+    <div class="category">
+        <h2 class="category-title">Abstract Symbols (No Letters)</h2>
+        <div class="logo-grid">
+            <!-- Logo 11: Wave Symbol -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <path d="M15,35 Q30,20 45,35 T75,35" stroke="#1e3a8a" stroke-width="4" fill="none"/>
+                        <path d="M15,45 Q30,30 45,45 T75,45" stroke="#3b82f6" stroke-width="4" fill="none"/>
+                        <path d="M15,55 Q30,40 45,55 T75,55" stroke="#60a5fa" stroke-width="4" fill="none"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Triple Wave</div>
+                <div class="logo-number">#61</div>
+            </div>
+
+            <!-- Logo 12: Eye of Aegean -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <ellipse cx="45" cy="45" rx="35" ry="20" stroke="#60a5fa" stroke-width="3" fill="none"/>
+                        <circle cx="45" cy="45" r="15" fill="#3b82f6"/>
+                        <circle cx="45" cy="45" r="8" fill="#1e3a8a"/>
+                        <circle cx="48" cy="42" r="3" fill="white"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Aegean Eye</div>
+                <div class="logo-number">#62</div>
+            </div>
+
+            <!-- Logo 13: Compass Rose -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <polygon points="45,15 50,40 75,45 50,50 45,75 40,50 15,45 40,40" fill="url(#avgrad)"/>
+                        <circle cx="45" cy="45" r="8" fill="white"/>
+                        <circle cx="45" cy="45" r="5" fill="#1e3a8a"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Navigator Star</div>
+                <div class="logo-number">#63</div>
+            </div>
+
+            <!-- Logo 14: Infinity Sea -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <path d="M25,45 Q35,30 45,45 T65,45 Q55,60 45,45 T25,45" 
+                              stroke="url(#avgrad)" stroke-width="5" fill="none"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Infinite Flow</div>
+                <div class="logo-number">#64</div>
+            </div>
+
+            <!-- Logo 15: Lighthouse Beacon -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <defs>
+                            <radialGradient id="beacon">
+                                <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0" />
+                            </radialGradient>
+                        </defs>
+                        <circle cx="45" cy="45" r="40" fill="url(#beacon)" opacity="0.3"/>
+                        <circle cx="45" cy="45" r="25" fill="url(#beacon)" opacity="0.5"/>
+                        <circle cx="45" cy="45" r="10" fill="#60a5fa"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Beacon Light</div>
+                <div class="logo-number">#65</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Word Variations -->
+    <div class="category">
+        <h2 class="category-title">Full Word Typography</h2>
+        <div class="logo-grid">
+            <!-- Logo 16: AEGEAN -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 20px; font-weight: 300; letter-spacing: 6px; color: #60a5fa;">AEGEAN</div>
+                </div>
+                <div class="logo-name">Spaced Light</div>
+                <div class="logo-number">#66</div>
+            </div>
+
+            <!-- Logo 17: Aegean Script -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 28px; font-weight: 400; font-style: italic; background: linear-gradient(90deg, #1e3a8a 0%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Aegean</div>
+                </div>
+                <div class="logo-name">Script Gradient</div>
+                <div class="logo-number">#67</div>
+            </div>
+
+            <!-- Logo 18: VISIONS -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 18px; font-weight: 700; letter-spacing: 4px; color: #3b82f6;">VISIONS</div>
+                </div>
+                <div class="logo-name">Visions Bold</div>
+                <div class="logo-number">#68</div>
+            </div>
+
+            <!-- Logo 19: Stacked Words -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="text-align: center; line-height: 1;">
+                        <div style="font-size: 24px; font-weight: 700; color: #1e3a8a;">AEGEAN</div>
+                        <div style="font-size: 18px; font-weight: 300; color: #60a5fa;">VISIONS</div>
+                    </div>
+                </div>
+                <div class="logo-name">Stacked Hierarchy</div>
+                <div class="logo-number">#69</div>
+            </div>
+
+            <!-- Logo 20: Abbreviated -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: baseline; gap: 4px;">
+                        <span style="font-size: 36px; font-weight: 700; color: #60a5fa;">A</span>
+                        <span style="font-size: 16px; font-weight: 400; color: #94a3b8;">egean</span>
+                        <span style="font-size: 36px; font-weight: 700; color: #60a5fa;">V</span>
+                        <span style="font-size: 16px; font-weight: 400; color: #94a3b8;">isions</span>
+                    </div>
+                </div>
+                <div class="logo-name">Emphasized Initials</div>
+                <div class="logo-number">#70</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icon + Text Combinations -->
+    <div class="category">
+        <h2 class="category-title">Icon + Text Combinations</h2>
+        <div class="logo-grid">
+            <!-- Logo 21: Wave + Text -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <svg width="30" height="30" viewBox="0 0 30 30">
+                            <path d="M5,10 Q10,5 15,10 T25,10" stroke="#60a5fa" stroke-width="2" fill="none"/>
+                            <path d="M5,15 Q10,10 15,15 T25,15" stroke="#3b82f6" stroke-width="2" fill="none"/>
+                            <path d="M5,20 Q10,15 15,20 T25,20" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span style="font-size: 20px; font-weight: 600; color: white;">Aegean</span>
+                    </div>
+                </div>
+                <div class="logo-name">Wave + Word</div>
+                <div class="logo-number">#71</div>
+            </div>
+
+            <!-- Logo 22: Circle + AV -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: white;">A</div>
+                        <div style="font-size: 22px; font-weight: 300; color: #60a5fa;">visions</div>
+                    </div>
+                </div>
+                <div class="logo-name">Icon Initial</div>
+                <div class="logo-number">#72</div>
+            </div>
+
+            <!-- Logo 23: Modern Stack -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="text-align: center;">
+                        <div style="width: 50px; height: 50px; margin: 0 auto 8px; background: rgba(96, 165, 250, 0.1); border: 2px solid #60a5fa; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 24px; font-weight: 700; color: #60a5fa;">AV</span>
+                        </div>
+                        <div style="font-size: 12px; font-weight: 500; color: #94a3b8; letter-spacing: 2px;">AEGEAN</div>
+                    </div>
+                </div>
+                <div class="logo-name">Icon Above</div>
+                <div class="logo-number">#73</div>
+            </div>
+
+            <!-- Logo 24: Horizontal Lock -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: center;">
+                        <div style="padding: 8px 12px; background: #60a5fa; font-size: 18px; font-weight: 700; color: white;">AV</div>
+                        <div style="padding: 8px 12px; background: #1e3a8a; font-size: 14px; font-weight: 400; color: white;">AEGEAN VISIONS</div>
+                    </div>
+                </div>
+                <div class="logo-name">Locked Blocks</div>
+                <div class="logo-number">#74</div>
+            </div>
+
+            <!-- Logo 25: Dot Pattern -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="display: grid; grid-template-columns: repeat(3, 8px); gap: 2px;">
+                            <div style="width: 8px; height: 8px; background: #1e3a8a; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #60a5fa; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #60a5fa; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #94a3b8; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #60a5fa; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #1e3a8a; border-radius: 50%;"></div>
+                        </div>
+                        <span style="font-size: 20px; font-weight: 600; color: #60a5fa;">Aegean</span>
+                    </div>
+                </div>
+                <div class="logo-name">Dot Matrix Brand</div>
+                <div class="logo-number">#75</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Creative Letter Merges -->
+    <div class="category">
+        <h2 class="category-title">Creative Letter Merges</h2>
+        <div class="logo-grid">
+            <!-- Logo 26: AE Ligature Custom -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <defs>
+                            <linearGradient id="aegrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Custom AE merged design -->
+                        <path d="M 25 65 L 35 25 L 45 55 L 55 55 L 55 25 M 55 40 L 45 40 M 55 55 L 55 65" 
+                              stroke="url(#aegrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="logo-name">AE Custom Merge</div>
+                <div class="logo-number">#76</div>
+            </div>
+
+            <!-- Logo 27: AG (Aegean) -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: white;">AG</div>
+                </div>
+                <div class="logo-name">AG Monogram</div>
+                <div class="logo-number">#77</div>
+            </div>
+
+            <!-- Logo 28: VIS -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; border: 3px solid transparent; background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%) border-box; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: #3b82f6;">VIS</div>
+                </div>
+                <div class="logo-name">VIS Gradient Border</div>
+                <div class="logo-number">#78</div>
+            </div>
+
+            <!-- Logo 29: AVE -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 32px; font-weight: 700;">
+                        <span style="color: #1e3a8a;">A</span>
+                        <span style="color: #3b82f6;">V</span>
+                        <span style="color: #60a5fa;">E</span>
+                    </div>
+                </div>
+                <div class="logo-name">AVE Tricolor</div>
+                <div class="logo-number">#79</div>
+            </div>
+
+            <!-- Logo 30: EA -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <circle cx="45" cy="45" r="35" fill="none" stroke="#60a5fa" stroke-width="3"/>
+                        <text x="45" y="55" text-anchor="middle" fill="#60a5fa" font-size="32" font-weight="700">EA</text>
+                    </svg>
+                </div>
+                <div class="logo-name">EA Circled</div>
+                <div class="logo-number">#80</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Number + Letter Combinations -->
+    <div class="category">
+        <h2 class="category-title">Modern Alphanumeric</h2>
+        <div class="logo-grid">
+            <!-- Logo 31: A1 -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="width: 90px; height: 90px; background: #0a0a0a; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700;">
+                        <span style="color: #60a5fa;">A</span>
+                        <span style="color: #ffffff;">1</span>
+                    </div>
+                </div>
+                <div class="logo-name">A1 Premium</div>
+                <div class="logo-number">#81</div>
+            </div>
+
+            <!-- Logo 32: V2 -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 40px; font-weight: 300;">
+                        <span style="color: #3b82f6;">V</span>
+                        <sup style="font-size: 20px; color: #60a5fa;">2</sup>
+                    </div>
+                </div>
+                <div class="logo-name">V Squared</div>
+                <div class="logo-number">#82</div>
+            </div>
+
+            <!-- Logo 33: 360° -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #60a5fa;">360°</div>
+                        <div style="font-size: 12px; font-weight: 500; color: #94a3b8; letter-spacing: 2px;">VISIONS</div>
+                    </div>
+                </div>
+                <div class="logo-name">360 Visions</div>
+                <div class="logo-number">#83</div>
+            </div>
+
+            <!-- Logo 34: AV25 -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 32px; font-weight: 700; background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AV25</div>
+                </div>
+                <div class="logo-name">AV25 Future</div>
+                <div class="logo-number">#84</div>
+            </div>
+
+            <!-- Logo 35: 7 Seas -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 48px; font-weight: 700; color: #1e3a8a;">7</span>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 14px; font-weight: 400; color: #60a5fa;">AEGEAN</span>
+                            <span style="font-size: 14px; font-weight: 400; color: #94a3b8;">SEAS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="logo-name">7 Seas</div>
+                <div class="logo-number">#85</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geometric Shapes -->
+    <div class="category">
+        <h2 class="category-title">Pure Geometric Forms</h2>
+        <div class="logo-grid">
+            <!-- Logo 36: Triangle Stack -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <polygon points="45,20 60,40 30,40" fill="#60a5fa"/>
+                        <polygon points="45,35 60,55 30,55" fill="#3b82f6" opacity="0.8"/>
+                        <polygon points="45,50 60,70 30,70" fill="#1e3a8a" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Triangle Cascade</div>
+                <div class="logo-number">#86</div>
+            </div>
+
+            <!-- Logo 37: Hexagon Grid -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <polygon points="45,25 55,31 55,43 45,49 35,43 35,31" fill="#60a5fa"/>
+                        <polygon points="30,35 40,41 40,53 30,59 20,53 20,41" fill="#3b82f6"/>
+                        <polygon points="60,35 70,41 70,53 60,59 50,53 50,41" fill="#1e3a8a"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Hex Cluster</div>
+                <div class="logo-number">#87</div>
+            </div>
+
+            <!-- Logo 38: Circle Overlap -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <circle cx="35" cy="40" r="18" fill="#1e3a8a" opacity="0.7"/>
+                        <circle cx="55" cy="40" r="18" fill="#60a5fa" opacity="0.7"/>
+                        <circle cx="45" cy="55" r="18" fill="#3b82f6" opacity="0.7"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Trinity Circles</div>
+                <div class="logo-number">#88</div>
+            </div>
+
+            <!-- Logo 39: Square Rotation -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <rect x="30" y="30" width="30" height="30" fill="#1e3a8a" transform="rotate(15 45 45)"/>
+                        <rect x="30" y="30" width="30" height="30" fill="#3b82f6" transform="rotate(30 45 45)" opacity="0.7"/>
+                        <rect x="30" y="30" width="30" height="30" fill="#60a5fa" transform="rotate(45 45 45)" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Rotated Squares</div>
+                <div class="logo-number">#89</div>
+            </div>
+
+            <!-- Logo 40: Line Construction -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <svg width="90" height="90" viewBox="0 0 90 90">
+                        <line x1="20" y1="70" x2="45" y2="20" stroke="#1e3a8a" stroke-width="4"/>
+                        <line x1="45" y1="20" x2="70" y2="70" stroke="#3b82f6" stroke-width="4"/>
+                        <line x1="20" y1="50" x2="70" y2="50" stroke="#60a5fa" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="logo-name">Apex Lines</div>
+                <div class="logo-number">#90</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- International Variations -->
+    <div class="category">
+        <h2 class="category-title">International & Unicode</h2>
+        <div class="logo-grid">
+            <!-- Logo 41: Japanese Inspired -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="font-size: 24px; font-weight: 700; color: #60a5fa;">海</div>
+                        <div style="font-size: 14px; color: #94a3b8;">AEGEAN</div>
+                    </div>
+                </div>
+                <div class="logo-name">Sea Kanji</div>
+                <div class="logo-number">#91</div>
+            </div>
+
+            <!-- Logo 42: Arabic Style -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 36px; font-weight: 700; color: #3b82f6; font-family: serif;">إيجة</div>
+                </div>
+                <div class="logo-name">Arabic Script</div>
+                <div class="logo-number">#92</div>
+            </div>
+
+            <!-- Logo 43: Mathematical -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 32px; color: #60a5fa;">∀∃</div>
+                </div>
+                <div class="logo-name">Math Symbols</div>
+                <div class="logo-number">#93</div>
+            </div>
+
+            <!-- Logo 44: Arrows -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 36px; color: #1e3a8a;">⟷</div>
+                </div>
+                <div class="logo-name">Direction Arrow</div>
+                <div class="logo-number">#94</div>
+            </div>
+
+            <!-- Logo 45: Star -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 48px; background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">★</div>
+                </div>
+                <div class="logo-name">Star Symbol</div>
+                <div class="logo-number">#95</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech & Code Inspired -->
+    <div class="category">
+        <h2 class="category-title">Tech & Code Inspired</h2>
+        <div class="logo-grid">
+            <!-- Logo 46: Code Brackets -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-family: monospace; font-size: 28px; font-weight: 700;">
+                        <span style="color: #475569;">&lt;</span>
+                        <span style="color: #60a5fa;">AV</span>
+                        <span style="color: #475569;">/&gt;</span>
+                    </div>
+                </div>
+                <div class="logo-name">Code Tag</div>
+                <div class="logo-number">#96</div>
+            </div>
+
+            <!-- Logo 47: Function -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-family: monospace; font-size: 20px;">
+                        <span style="color: #3b82f6;">aegean</span><span style="color: #60a5fa;">()</span>
+                    </div>
+                </div>
+                <div class="logo-name">Function Call</div>
+                <div class="logo-number">#97</div>
+            </div>
+
+            <!-- Logo 48: Binary -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="font-family: monospace; font-size: 12px; color: #60a5fa;">01000001</div>
+                        <div style="font-size: 24px; font-weight: 700; color: white;">AV</div>
+                        <div style="font-family: monospace; font-size: 12px; color: #60a5fa;">01010110</div>
+                    </div>
+                </div>
+                <div class="logo-name">Binary Code</div>
+                <div class="logo-number">#98</div>
+            </div>
+
+            <!-- Logo 49: Terminal -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-family: monospace; font-size: 18px;">
+                        <span style="color: #10b981;">$</span>
+                        <span style="color: #60a5fa;"> aegean</span>
+                        <span style="color: #475569;">_</span>
+                    </div>
+                </div>
+                <div class="logo-name">Terminal Prompt</div>
+                <div class="logo-number">#99</div>
+            </div>
+
+            <!-- Logo 50: Hash -->
+            <div class="logo-card">
+                <div class="logo-container">
+                    <div style="font-size: 32px; font-weight: 700;">
+                        <span style="color: #475569;">#</span>
+                        <span style="color: #60a5fa;">aegean</span>
+                    </div>
+                </div>
+                <div class="logo-name">Hashtag Style</div>
+                <div class="logo-number">#100</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(96, 165, 250, 0.2);">
+        <p style="color: #64748b; font-size: 0.9rem;">Aegean Visions Extended Identity System • 2025</p>
+        <p style="color: #475569; font-size: 0.8rem; margin-top: 10px;">100 Total Logo Variations • Complete Brand Exploration</p>
+    </div>
+</body>
+</html>

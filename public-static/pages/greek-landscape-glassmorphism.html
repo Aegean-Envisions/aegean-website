@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Visions - Greek Landscape with Glassmorphism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            height: 100vh;
+            background: linear-gradient(
+                180deg,
+                #87CEEB 0%,
+                #4682B4 30%,
+                #1E90FF 60%,
+                #0077BE 80%,
+                #006BB3 100%
+            );
+        }
+
+        .landscape-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sky and Clouds */
+        .sky {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(
+                180deg,
+                #87CEEB 0%,
+                #B0E0E6 30%,
+                #ADD8E6 60%,
+                #87CEFA 100%
+            );
+            z-index: 1;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            animation: float 20s infinite linear;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 15%;
+            left: -100px;
+            animation-duration: 25s;
+        }
+
+        .cloud2 {
+            width: 80px;
+            height: 30px;
+            top: 25%;
+            left: -80px;
+            animation-duration: 30s;
+        }
+
+        .cloud3 {
+            width: 120px;
+            height: 45px;
+            top: 20%;
+            left: -120px;
+            animation-duration: 35s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(calc(100vw + 200px));
+            }
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700 30%, #FFA500 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+            animation: sunGlow 3s ease-in-out infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes sunGlow {
+            from {
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+            }
+            to {
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.9);
+            }
+        }
+
+        /* Mountains */
+        .mountains {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(
+                135deg,
+                #8B7D6B 0%,
+                #A0522D 30%,
+                #CD853F 60%,
+                #D2691E 100%
+            );
+            clip-path: polygon(0 100%, 20% 40%, 40% 60%, 60% 20%, 80% 50%, 100% 30%, 100% 100%);
+            z-index: 3;
+        }
+
+        /* Sea */
+        .sea {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(
+                180deg,
+                #0077BE 0%,
+                #006BB3 30%,
+                #004B87 70%,
+                #003366 100%
+            );
+            z-index: 4;
+        }
+
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        .wave1 {
+            top: 10%;
+            animation-delay: 0s;
+        }
+
+        .wave2 {
+            top: 20%;
+            animation-delay: 1s;
+        }
+
+        .wave3 {
+            top: 30%;
+            animation-delay: 2s;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateX(-100%);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateX(0);
+                opacity: 0.7;
+            }
+        }
+
+        /* Monuments */
+        .monument {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 5;
+        }
+
+        .parthenon {
+            bottom: 45%;
+            left: 10%;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(145deg, rgba(220, 220, 220, 0.2), rgba(200, 200, 200, 0.1));
+            border-radius: 5px;
+            backdrop-filter: blur(15px);
+        }
+
+        .parthenon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 5px;
+            right: 5px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .temple {
+            bottom: 48%;
+            right: 20%;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(145deg, rgba(210, 180, 140, 0.2), rgba(188, 143, 143, 0.1));
+            border-radius: 3px;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Olive Fields */
+        .olive-field {
+            position: absolute;
+            bottom: 35%;
+            left: 0;
+            width: 100%;
+            height: 15%;
+            background: linear-gradient(
+                90deg,
+                rgba(85, 107, 47, 0.6) 0%,
+                rgba(107, 142, 35, 0.6) 50%,
+                rgba(85, 107, 47, 0.6) 100%
+            );
+            backdrop-filter: blur(5px);
+            z-index: 6;
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: rgba(34, 139, 34, 0.4);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            backdrop-filter: blur(8px);
+        }
+
+        .olive-tree1 { bottom: 20%; left: 15%; }
+        .olive-tree2 { bottom: 15%; left: 25%; }
+        .olive-tree3 { bottom: 25%; left: 35%; }
+        .olive-tree4 { bottom: 10%; left: 45%; }
+        .olive-tree5 { bottom: 20%; left: 65%; }
+        .olive-tree6 { bottom: 15%; left: 75%; }
+        .olive-tree7 { bottom: 25%; left: 85%; }
+
+        /* Glassmorphism Information Cards */
+        .info-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+            animation: cardFloat 6s ease-in-out infinite;
+            z-index: 10;
+            min-width: 200px;
+        }
+
+        .info-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .info-card p {
+            font-size: 0.9em;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card1 {
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .card2 {
+            top: 25%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .card3 {
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+
+        .card4 {
+            bottom: 25%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        /* Glassmorphism Navigation */
+        .nav-glass {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 15px 30px;
+            z-index: 15;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+        }
+
+        .nav-glass h1 {
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0;
+        }
+
+        /* Interactive Elements */
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.05);
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.4);
+        }
+
+        .glassmorphism-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(1px);
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .info-card {
+                min-width: 150px;
+                padding: 15px;
+                font-size: 0.8em;
+            }
+            
+            .nav-glass h1 {
+                font-size: 1.2em;
+            }
+            
+            .sun {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Additional Glassmorphism Elements */
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatingElements 8s ease-in-out infinite;
+            z-index: 8;
+        }
+
+        .element1 {
+            width: 40px;
+            height: 40px;
+            top: 35%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .element2 {
+            width: 30px;
+            height: 30px;
+            top: 45%;
+            right: 25%;
+            animation-delay: 3s;
+        }
+
+        .element3 {
+            width: 35px;
+            height: 35px;
+            bottom: 55%;
+            left: 60%;
+            animation-delay: 6s;
+        }
+
+        @keyframes floatingElements {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <!-- Glassmorphism Overlay -->
+        <div class="glassmorphism-overlay"></div>
+        
+        <!-- Navigation -->
+        <div class="nav-glass">
+            <h1>Aegean Visions</h1>
+        </div>
+        
+        <!-- Sky -->
+        <div class="sky"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Mountains -->
+        <div class="mountains"></div>
+        
+        <!-- Sea with Waves -->
+        <div class="sea">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
+        
+        <!-- Monuments -->
+        <div class="monument parthenon"></div>
+        <div class="monument temple"></div>
+        
+        <!-- Olive Fields -->
+        <div class="olive-field">
+            <div class="olive-tree olive-tree1"></div>
+            <div class="olive-tree olive-tree2"></div>
+            <div class="olive-tree olive-tree3"></div>
+            <div class="olive-tree olive-tree4"></div>
+            <div class="olive-tree olive-tree5"></div>
+            <div class="olive-tree olive-tree6"></div>
+            <div class="olive-tree olive-tree7"></div>
+        </div>
+        
+        <!-- Floating Glass Information Cards -->
+        <div class="info-card card1">
+            <h3>Athens Acropolis</h3>
+            <p>The ancient citadel of Athens, home to the iconic Parthenon temple, standing majestically for over 2,500 years.</p>
+        </div>
+        
+        <div class="info-card card2">
+            <h3>Aegean Sea</h3>
+            <p>Crystal blue waters connecting Greece to its islands, rich with maritime history and Mediterranean charm.</p>
+        </div>
+        
+        <div class="info-card card3">
+            <h3>Vouliagmeni</h3>
+            <p>A beautiful coastal suburb of Athens, known for its thermal lake and stunning Mediterranean coastline.</p>
+        </div>
+        
+        <div class="info-card card4">
+            <h3>Olive Groves</h3>
+            <p>Ancient olive trees that have sustained Greek civilization, producing the golden liquid treasure of the Mediterranean.</p>
+        </div>
+        
+        <!-- Floating Glassmorphism Elements -->
+        <div class="floating-element element1"></div>
+        <div class="floating-element element2"></div>
+        <div class="floating-element element3"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Envisions - Navigation Icon System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            /* Blue Gradient System */
+            --aegean-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            --aegean-secondary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --aegean-light: linear-gradient(135deg, #dbeafe 0%, #93c5fd 50%, #60a5fa 100%);
+            --aegean-glass: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.05) 100%);
+            
+            /* Transparent Backgrounds */
+            --glass-bg-dark: rgba(30, 58, 138, 0.08);
+            --glass-bg-light: rgba(255, 255, 255, 0.08);
+            --glass-border-dark: rgba(96, 165, 250, 0.12);
+            --glass-border-light: rgba(30, 58, 138, 0.12);
+            
+            /* Icon Colors */
+            --icon-blue-dark: #60a5fa;
+            --icon-blue-light: #1e3a8a;
+            --icon-white: #ffffff;
+            --icon-gradient-blue: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --icon-gradient-white: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            
+            /* Shadows */
+            --shadow-blue: 0 4px 20px rgba(59, 130, 246, 0.2);
+            --shadow-white: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 40px 20px;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border-dark);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--icon-white);
+        }
+
+        body.light-mode .theme-toggle {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+            color: var(--icon-blue-light);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-blue);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px;
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-mode .header {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--aegean-primary);
+            opacity: 0.03;
+            animation: rotate 40s linear infinite;
+        }
+
+        body.light-mode .header::before {
+            opacity: 0.08;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--aegean-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        body.light-mode .header p {
+            color: rgba(30, 41, 59, 0.8);
+        }
+
+        .category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: var(--aegean-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--aegean-primary);
+            border-radius: 2px;
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .icon-card {
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border-dark);
+            border-radius: 20px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-mode .icon-card {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+
+        .icon-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--aegean-primary);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-blue);
+        }
+
+        .icon-card:hover::before {
+            opacity: 0.05;
+        }
+
+        body.light-mode .icon-card:hover {
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
+        }
+
+        .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--glass-border-dark);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .icon-wrapper {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+
+        .icon-card:hover .icon-wrapper {
+            background: var(--aegean-glass);
+            transform: scale(1.1);
+        }
+
+        .icon-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        body.light-mode .icon-label {
+            color: rgba(30, 41, 59, 0.9);
+        }
+
+        /* Icon Styles */
+        .icon {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .icon-card:hover .icon {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+        }
+
+        /* Context-aware icon colors */
+        .icon-blue {
+            stroke: var(--icon-blue-dark);
+            fill: var(--icon-blue-dark);
+        }
+
+        body.light-mode .icon-blue {
+            stroke: var(--icon-blue-light);
+            fill: var(--icon-blue-light);
+        }
+
+        .icon-white {
+            stroke: var(--icon-white);
+            fill: var(--icon-white);
+        }
+
+        body.light-mode .icon-white {
+            stroke: var(--icon-blue-light);
+            fill: var(--icon-blue-light);
+        }
+
+        .icon-gradient {
+            stroke: url(#blueGradient);
+            fill: url(#blueGradient);
+        }
+
+        body.light-mode .icon-gradient {
+            stroke: url(#blueGradientLight);
+            fill: url(#blueGradientLight);
+        }
+
+        .category-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body.light-mode .category-description {
+            color: rgba(30, 41, 59, 0.7);
+        }
+
+        .usage-guide {
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 40px 0;
+            border: 1px solid var(--glass-border-dark);
+        }
+
+        body.light-mode .usage-guide {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+
+        .usage-guide h3 {
+            color: var(--icon-blue-dark);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        body.light-mode .usage-guide h3 {
+            color: var(--icon-blue-light);
+        }
+
+        .usage-guide ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        body.light-mode .usage-guide ul {
+            color: rgba(30, 41, 59, 0.8);
+        }
+
+        .usage-guide li::before {
+            content: '→';
+            color: var(--icon-blue-dark);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        body.light-mode .usage-guide li::before {
+            color: var(--icon-blue-light);
+        }
+
+        .size-demo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .size-demo .demo-icon {
+            background: var(--glass-bg-dark);
+            border: 1px solid var(--glass-border-dark);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .size-demo .demo-icon {
+            background: var(--glass-bg-light);
+            border-color: var(--glass-border-light);
+        }
+
+        .demo-icon.size-16 { width: 32px; height: 32px; }
+        .demo-icon.size-24 { width: 40px; height: 40px; }
+        .demo-icon.size-32 { width: 48px; height: 48px; }
+        .demo-icon.size-48 { width: 64px; height: 64px; }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--icon-blue-dark);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-dot:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-dot:nth-child(2) { top: 60%; right: 20%; animation-delay: -5s; }
+        .floating-dot:nth-child(3) { bottom: 30%; left: 70%; animation-delay: -10s; }
+        .floating-dot:nth-child(4) { top: 80%; left: 30%; animation-delay: -3s; }
+        .floating-dot:nth-child(5) { top: 40%; right: 10%; animation-delay: -8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-20px) scale(1.5); opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Gradients -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#60a5fa;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="blueGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="floating-elements">
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+    </div>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Dark Mode</span>
+    </div>
+
+    <div class="header">
+        <h1>Aegean Envisions</h1>
+        <p>Navigation Icon System</p>
+        <p style="font-size: 1rem; margin-top: 16px; opacity: 0.8;">
+            Blue & White • Transparent • Context-Aware • Modern Gradients
+        </p>
+    </div>
+
+    <!-- Primary Navigation -->
+    <div class="category">
+        <h2 class="category-title">Primary Navigation</h2>
+        <p class="category-description">
+            Essential navigation icons with transparent backgrounds and context-aware coloring for both dark and light themes.
+        </p>
+        <div class="icons-grid">
+            <!-- Home -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 4L4 14V28H12V20H20V28H28V14L16 4Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <circle cx="16" cy="14" r="2" fill="currentColor" opacity="0.6"/>
+                        <path d="M12 20H20" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Home</span>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="4" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="18" y="4" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="4" y="18" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="18" y="18" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <circle cx="9" cy="9" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <circle cx="23" cy="9" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <rect x="6" y="21" width="6" height="2" fill="currentColor" opacity="0.5" rx="1"/>
+                        <rect x="20" y="21" width="6" height="2" fill="currentColor" opacity="0.5" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Dashboard</span>
+            </div>
+
+            <!-- Menu -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="6" y1="16" x2="26" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="6" y1="22" x2="26" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="26" cy="10" r="2" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Menu</span>
+            </div>
+
+            <!-- Search -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="14" cy="14" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <line x1="20" y1="20" x2="26" y2="26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="14" cy="14" r="3" fill="currentColor" opacity="0.3"/>
+                        <circle cx="14" cy="14" r="5" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Search</span>
+            </div>
+
+            <!-- Profile -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="10" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M6 28C6 22 10 18 16 18C22 18 26 22 26 28" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="16" cy="10" r="2" fill="currentColor" opacity="0.6"/>
+                        <path d="M10 24C10 24 12 22 16 22C20 22 22 24 22 24" 
+                              stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Profile</span>
+            </div>
+
+            <!-- Settings -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M16 4V8M16 24V28M28 16H24M8 16H4" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M24 8L21 11M11 21L8 24M24 24L21 21M11 11L8 8" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="16" cy="16" r="1.5" fill="currentColor" opacity="0.8"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Settings</span>
+            </div>
+
+            <!-- Notifications -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 6C13 6 10 9 10 12V16L8 20H24L22 16V12C22 9 19 6 16 6Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <path d="M12 24C12 26 14 28 16 28C18 28 20 26 20 24" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="22" cy="8" r="3" fill="#ef4444" opacity="0.9"/>
+                        <circle cx="16" cy="16" r="1" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Notifications</span>
+            </div>
+
+            <!-- Help -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M12 12C12 10 14 8 16 8C18 8 20 10 20 12C20 14 16 15 16 19" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="16" cy="24" r="1.5" fill="currentColor"/>
+                        <circle cx="16" cy="16" r="8" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Help</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content & Media -->
+    <div class="category">
+        <h2 class="category-title">Content & Media</h2>
+        <p class="category-description">
+            Media and content management icons with blue gradients and transparent glass effects.
+        </p>
+        <div class="icons-grid">
+            <!-- Gallery -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="8" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="18" y="8" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="4" y="22" width="10" height="6" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="18" y="22" width="10" height="6" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <circle cx="8" cy="12" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <circle cx="22" cy="12" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <path d="M4 16L8 12L12 16L14 14" stroke="currentColor" stroke-width="1.5" opacity="0.5" fill="none"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Gallery</span>
+            </div>
+
+            <!-- Video -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="8" width="18" height="16" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <path d="M22 12L28 8V24L22 20" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <polygon points="11,12 11,20 17,16" fill="currentColor" opacity="0.8"/>
+                        <circle cx="25" cy="10" r="1.5" fill="#ef4444" opacity="0.9"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Video</span>
+            </div>
+
+            <!-- Audio -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <line x1="6" y1="16" x2="6" y2="16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="10" y1="12" x2="10" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="14" y1="8" x2="14" y2="24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="18" y1="4" x2="18" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="22" y1="10" x2="22" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="26" y1="14" x2="26" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="18" cy="16" r="2" fill="currentColor" opacity="0.3"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Audio</span>
+            </div>
+
+            <!-- Documents -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M8 4H20L26 10V28H8V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <path d="M20 4V10H26" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <line x1="12" y1="16" x2="22" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="12" y1="20" x2="22" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="12" y1="24" x2="18" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="14" y="18" width="8" height="1" fill="currentColor" opacity="0.3" rx="0.5"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Documents</span>
+            </div>
+
+            <!-- Image -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="8" width="20" height="16" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <path d="M6 18L12 12L16 16L20 12L26 18V24H6V18Z" fill="currentColor" opacity="0.2"/>
+                        <circle cx="20" cy="13" r="2" fill="currentColor" opacity="0.6"/>
+                        <path d="M6 20L10 16L14 20L18 16L22 20" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Image</span>
+            </div>
+
+            <!-- Folder -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M4 8C4 6 6 4 8 4H12L16 8H24C26 8 28 10 28 12V24C28 26 26 28 24 28H8C6 28 4 26 4 24V8Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <path d="M4 12H28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="16" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="20" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Folder</span>
+            </div>
+
+            <!-- Archive -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="8" width="20" height="4" stroke="currentColor" stroke-width="2" rx="1" fill="none"/>
+                        <rect x="8" y="12" width="16" height="16" stroke="currentColor" stroke-width="2" rx="1" fill="none"/>
+                        <line x1="12" y1="16" x2="20" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M16 16V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="14" y="20" width="4" height="2" fill="currentColor" opacity="0.4" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Archive</span>
+            </div>
+
+            <!-- Download -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 4V20M16 20L10 14M16 20L22 14" 
+                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 24H26V28H6V24Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <circle cx="16" cy="20" r="2" fill="currentColor" opacity="0.4"/>
+                        <path d="M12 18L16 22L20 18" stroke="currentColor" stroke-width="1" opacity="0.3" fill="none"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Download</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="category">
+        <h2 class="category-title">Actions</h2>
+        <p class="category-description">
+            Action icons with hover effects and context-aware transparency for seamless integration.
+        </p>
+        <div class="icons-grid">
+            <!-- Play -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <polygon points="13,10 13,22 23,16" fill="currentColor" opacity="0.8"/>
+                        <circle cx="16" cy="16" r="8" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Play</span>
+            </div>
+
+            <!-- Pause -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <rect x="12" y="10" width="3" height="12" fill="currentColor" opacity="0.8" rx="1"/>
+                        <rect x="17" y="10" width="3" height="12" fill="currentColor" opacity="0.8" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Pause</span>
+            </div>
+
+            <!-- Stop -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <rect x="10" y="10" width="12" height="12" fill="currentColor" opacity="0.8" rx="2"/>
+                        <rect x="12" y="12" width="8" height="8" fill="rgba(255,255,255,0.1)" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Stop</span>
+            </div>
+
+            <!-- Edit -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M20 4L28 12L12 28H4V20L20 4Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <line x1="16" y1="8" x2="24" y2="16" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="22" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
+                        <path d="M8 24L12 20" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Edit</span>
+            </div>
+
+            <!-- Delete -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M8 10H24V26C24 27 23 28 22 28H10C9 28 8 27 8 26V10Z" 
+                              stroke="currentColor" stroke-width="2" fill="none"/>
+                        <line x1="6" y1="10" x2="26" y2="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 10V6C12 5 13 4 14 4H18C19 4 20 5 20 6V10" 
+                              stroke="currentColor" stroke-width="2" fill="none"/>
+                        <line x1="13" y1="15" x2="13" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="19" y1="15" x2="19" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="16" cy="8" r="1" fill="currentColor" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Delete</span>
+            </div>
+
+            <!-- Save -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M6 4H22L28 10V28H6V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <rect x="10" y="4" width="12" height="8" fill="currentColor" opacity="0.3"/>
+                        <rect x="10" y="20" width="12" height="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <rect x="17" y="6" width="3" height="4" fill="rgba(0,0,0,0.3)"/>
+                        <circle cx="16" cy="24" r="1" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Save</span>
+            </div>
+
+            <!-- Share -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="24" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="8" cy="16" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M12 18L20 22M12 14L20 10" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="24" cy="8" r="1.5" fill="currentColor" opacity="0.6"/>
+                        <circle cx="8" cy="16" r="1.5" fill="currentColor" opacity="0.6"/>
+                        <circle cx="24" cy="24" r="1.5" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Share</span>
+            </div>
+
+            <!-- Copy -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="8" y="8" width="12" height="16" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="12" y="4" width="12" height="16" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <rect x="14" y="8" width="8" height="2" fill="currentColor" opacity="0.3" rx="1"/>
+                        <rect x="14" y="12" width="6" height="1" fill="currentColor" opacity="0.4" rx="0.5"/>
+                        <rect x="14" y="15" width="6" height="1" fill="currentColor" opacity="0.4" rx="0.5"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Copy</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Communication -->
+    <div class="category">
+        <h2 class="category-title">Communication</h2>
+        <p class="category-description">
+            Communication and social icons with subtle animations and modern transparent styling.
+        </p>
+        <div class="icons-grid">
+            <!-- Message -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="6" width="24" height="16" stroke="currentColor" stroke-width="2" rx="4" fill="none"/>
+                        <path d="M8 26L12 22H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <circle cx="11" cy="14" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <circle cx="16" cy="14" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <circle cx="21" cy="14" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <rect x="6" y="10" width="20" height="1" fill="currentColor" opacity="0.2" rx="0.5"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Message</span>
+            </div>
+
+            <!-- Mail -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="8" width="24" height="16" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <path d="M4 12L16 18L28 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <circle cx="24" cy="10" r="2" fill="#10b981" opacity="0.8"/>
+                        <path d="M6 20L12 16" stroke="currentColor" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+                        <path d="M26 20L20 16" stroke="currentColor" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Mail</span>
+            </div>
+
+            <!-- Phone -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M10 4C8 4 6 6 6 8V24C6 26 8 28 10 28H22C24 28 26 26 26 24V8C26 6 24 4 22 4H10Z" 
+                              stroke="currentColor" stroke-width="2" fill="none"/>
+                        <line x1="10" y1="8" x2="22" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="10" y1="24" x2="22" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="16" cy="25" r="1" fill="currentColor"/>
+                        <rect x="12" y="12" width="8" height="8" fill="currentColor" opacity="0.1" rx="2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Phone</span>
+            </div>
+
+            <!-- Video Call -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="10" width="18" height="12" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <path d="M22 14L28 10V22L22 18" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <circle cx="10" cy="14" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        <path d="M8 18C8 18 9 17 10 17C11 17 12 18 12 18" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+                        <circle cx="25" cy="12" r="1.5" fill="#10b981" opacity="0.9"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Video Call</span>
+            </div>
+
+            <!-- Chat -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M16 16L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.7"/>
+                        <circle cx="14" cy="10" r="1" fill="currentColor" opacity="0.7"/>
+                        <circle cx="18" cy="22" r="1" fill="currentColor" opacity="0.7"/>
+                        <circle cx="22" cy="22" r="1" fill="currentColor" opacity="0.7"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Chat</span>
+            </div>
+
+            <!-- Send -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M4 16L28 4L20 28L16 20L4 16Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <path d="M16 16L28 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="22" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
+                        <path d="M8 16L16 20" stroke="currentColor" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Send</span>
+            </div>
+
+            <!-- Like -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 28L6 18C4 16 4 12 8 12C10 12 12 13 14 15C14 15 16 17 16 17C16 17 18 15 18 15C20 13 22 12 24 12C28 12 28 16 26 18L16 28Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="currentColor" opacity="0.1"/>
+                        <circle cx="10" cy="14" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="22" cy="14" r="1" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Like</span>
+            </div>
+
+            <!-- Comment -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="14" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M10 24L16 20L22 24" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <line x1="12" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+                        <line x1="12" y1="16" x2="20" y2="16" stroke="currentColor" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+                        <circle cx="16" cy="14" r="6" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Comment</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- System & Tools -->
+    <div class="category">
+        <h2 class="category-title">System & Tools</h2>
+        <p class="category-description">
+            System utilities and tool icons with consistent blue branding and modern transparency effects.
+        </p>
+        <div class="icons-grid">
+            <!-- Filter -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M6 8H26L20 16V24L12 28V16L6 8Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <line x1="10" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                        <circle cx="16" cy="20" r="1.5" fill="currentColor" opacity="0.6"/>
+                        <path d="M14 24L18 22" stroke="currentColor" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Filter</span>
+            </div>
+
+            <!-- Sort -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M12 6V26M12 26L8 22M12 26L16 22" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 26V6M20 6L16 10M20 6L24 10" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="10" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="20" cy="22" r="1" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Sort</span>
+            </div>
+
+            <!-- Refresh -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M28 16C28 9 22 4 16 4C10 4 4 9 4 16C4 23 10 28 16 28C19 28 22 27 24 25" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <path d="M24 20L28 16L24 12" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <circle cx="16" cy="16" r="2" fill="currentColor" opacity="0.4"/>
+                        <path d="M8 8C10 6 13 4 16 4" stroke="currentColor" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Refresh</span>
+            </div>
+
+            <!-- Upload -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 20V4M16 4L10 10M16 4L22 10" 
+                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 24H26V28H6V24Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                        <circle cx="16" cy="12" r="2" fill="currentColor" opacity="0.4"/>
+                        <path d="M12 14L16 10L20 14" stroke="currentColor" stroke-width="1" opacity="0.3" fill="none"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Upload</span>
+            </div>
+
+            <!-- Link -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M12 16H20M16 12C18 10 22 10 24 12C26 14 26 18 24 20L20 24C18 26 14 26 12 24C10 22 10 18 12 16Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="18" cy="14" r="2" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+                        <circle cx="14" cy="18" r="2" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Link</span>
+            </div>
+
+            <!-- Lock -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="8" y="16" width="16" height="12" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <path d="M12 16V10C12 8 14 6 16 6C18 6 20 8 20 10V16" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="16" cy="22" r="2" fill="currentColor" opacity="0.6"/>
+                        <rect x="14" y="24" width="4" height="2" fill="currentColor" opacity="0.3" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Lock</span>
+            </div>
+
+            <!-- Clock -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-gradient" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M16 8V16L22 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="2" fill="currentColor" opacity="0.6"/>
+                        <circle cx="16" cy="16" r="8" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+                        <circle cx="16" cy="8" r="1" fill="currentColor" opacity="0.4"/>
+                        <circle cx="24" cy="16" r="1" fill="currentColor" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Clock</span>
+            </div>
+
+            <!-- Calendar -->
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-blue" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="8" width="20" height="20" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                        <line x1="10" y1="4" x2="10" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="22" y1="4" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="6" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="16" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="20" cy="18" r="1" fill="currentColor" opacity="0.6"/>
+                        <circle cx="16" cy="22" r="1.5" fill="currentColor" opacity="0.8"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Calendar</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="usage-guide">
+        <h3>Usage Guide & Technical Specs</h3>
+        <ul>
+            <li><strong>Adaptive Colors:</strong> Icons automatically switch between blue and white based on theme</li>
+            <li><strong>Transparent Backgrounds:</strong> All icons use glassmorphism with backdrop-filter blur effects</li>
+            <li><strong>Gradient Support:</strong> Built-in SVG gradients for enhanced visual depth</li>
+            <li><strong>Scalable:</strong> Designed for 16px to 128px+ sizes with perfect clarity</li>
+            <li><strong>Context-Aware:</strong> Dark mode uses blue accents, light mode uses deeper blues</li>
+            <li><strong>Modern Effects:</strong> Hover animations, shadow effects, and smooth transitions</li>
+            <li><strong>Copy-Ready:</strong> Click any icon to copy its complete data including styles</li>
+            <li><strong>Framework Agnostic:</strong> Works with React, Vue, Angular, and vanilla HTML/CSS</li>
+        </ul>
+        
+        <div class="size-demo">
+            <div class="demo-icon size-16">
+                <svg class="icon icon-gradient" width="16" height="16" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4L4 14V28H12V20H20V28H28V14L16 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+            <div class="demo-icon size-24">
+                <svg class="icon icon-blue" width="24" height="24" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <polygon points="13,10 13,22 23,16" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="demo-icon size-32">
+                <svg class="icon icon-white" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="14" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
+                    <line x1="20" y1="20" x2="26" y2="26" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="demo-icon size-48">
+                <svg class="icon icon-gradient" width="48" height="48" viewBox="0 0 32 32" fill="none">
+                    <rect x="4" y="4" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                    <rect x="18" y="4" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                    <rect x="4" y="18" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                    <rect x="18" y="18" width="10" height="10" stroke="currentColor" stroke-width="2" rx="2" fill="none"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        // Enhanced click to copy with theme-aware feedback
+        document.querySelectorAll('.icon-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const svg = this.querySelector('svg');
+                const wrapper = this.querySelector('.icon-wrapper');
+                const label = this.querySelector('.icon-label');
+                
+                if (svg && wrapper && label) {
+                    const iconData = {
+                        name: label.textContent,
+                        svg: svg.outerHTML,
+                        classes: svg.className.baseVal,
+                        theme: document.body.classList.contains('light-mode') ? 'light' : 'dark',
+                        colors: {
+                            primary: getComputedStyle(document.documentElement).getPropertyValue('--icon-blue-dark'),
+                            secondary: getComputedStyle(document.documentElement).getPropertyValue('--icon-blue-light'),
+                            white: getComputedStyle(document.documentElement).getPropertyValue('--icon-white')
+                        }
+                    };
+                    
+                    navigator.clipboard.writeText(JSON.stringify(iconData, null, 2)).then(() => {
+                        const originalText = label.textContent;
+                        const originalBg = wrapper.style.background;
+                        
+                        label.textContent = '✓ Copied!';
+                        label.style.color = '#10f981';
+                        wrapper.style.background = 'linear-gradient(135deg, #10f981, #06d6a0)';
+                        wrapper.style.transform = 'scale(1.1)';
+                        
+                        setTimeout(() => {
+                            label.textContent = originalText;
+                            label.style.color = '';
+                            wrapper.style.background = originalBg;
+                            wrapper.style.transform = '';
+                        }, 1500);
+                    });
+                }
+            });
+        });
+
+        // Floating elements parallax
+        document.addEventListener('mousemove', (e) => {
+            const dots = document.querySelectorAll('.floating-dot');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            dots.forEach((dot, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 15;
+                const y = (mouseY - 0.5) * speed * 15;
+                dot.style.transform = `translate(${x}px, ${y}px) scale(${1 + speed * 0.1})`;
+            });
+        });
+
+        // Auto theme detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.body.classList.add('light-mode');
+            document.getElementById('theme-icon').textContent = '☀️';
+            document.getElementById('theme-text').textContent = 'Light Mode';
+        }
+    </script>
+</body>
+</html>

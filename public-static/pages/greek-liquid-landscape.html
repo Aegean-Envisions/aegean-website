@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Greek Landscape - Athens/Vouliagmeni</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #E6F3FF 100%);
+        }
+
+        .landscape-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* SVG Filters for Gooey Effects */
+        .gooey-filter {
+            filter: url(#gooey);
+        }
+
+        .liquid-filter {
+            filter: url(#liquid-blur);
+        }
+
+        /* Sky Background with Gradient Animation */
+        .sky {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, 
+                #FF6B6B 0%, 
+                #FFE66D 20%, 
+                #87CEEB 50%, 
+                #E6F3FF 100%);
+            animation: skyShift 20s ease-in-out infinite;
+        }
+
+        @keyframes skyShift {
+            0%, 100% { 
+                background: linear-gradient(180deg, #FF6B6B 0%, #FFE66D 20%, #87CEEB 50%, #E6F3FF 100%); 
+            }
+            50% { 
+                background: linear-gradient(180deg, #FF8E53 0%, #FF6B9D 20%, #4ECDC4 50%, #95E1D3 100%); 
+            }
+        }
+
+        /* Animated Sun */
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #FFD700 0%, #FF6B35 100%);
+            border-radius: 50%;
+            animation: sunPulse 4s ease-in-out infinite, sunFloat 8s ease-in-out infinite;
+            filter: blur(0.5px) contrast(1.2);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes sunFloat {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            75% { transform: translateY(5px) translateX(-5px); }
+        }
+
+        /* Liquid Clouds with Gooey Effect */
+        .clouds-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            filter: url(#gooey);
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+            filter: blur(1px) contrast(1.3);
+        }
+
+        .cloud-1 {
+            top: 10%;
+            left: 10%;
+            width: 200px;
+            height: 60px;
+            animation: cloudFlow1 15s linear infinite;
+        }
+
+        .cloud-2 {
+            top: 20%;
+            right: 15%;
+            width: 150px;
+            height: 45px;
+            animation: cloudFlow2 20s linear infinite;
+        }
+
+        .cloud-3 {
+            top: 5%;
+            left: 60%;
+            width: 180px;
+            height: 50px;
+            animation: cloudFlow3 18s linear infinite;
+        }
+
+        @keyframes cloudFlow1 {
+            0% { transform: translateX(-50px) scale(1); }
+            50% { transform: translateX(30px) scale(1.2); }
+            100% { transform: translateX(-50px) scale(1); }
+        }
+
+        @keyframes cloudFlow2 {
+            0% { transform: translateX(0px) scale(1); }
+            50% { transform: translateX(-40px) scale(0.9); }
+            100% { transform: translateX(0px) scale(1); }
+        }
+
+        @keyframes cloudFlow3 {
+            0% { transform: translateX(20px) scale(1.1); }
+            50% { transform: translateX(-20px) scale(1); }
+            100% { transform: translateX(20px) scale(1.1); }
+        }
+
+        /* Parthenon Monument */
+        .parthenon {
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            width: 300px;
+            height: 150px;
+            z-index: 3;
+        }
+
+        .parthenon-base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(45deg, #D2B48C, #F4E4C1);
+            border-radius: 2px;
+        }
+
+        .parthenon-columns {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .column {
+            width: 15px;
+            height: 100%;
+            background: linear-gradient(180deg, #F4E4C1 0%, #D2B48C 100%);
+            border-radius: 2px 2px 0 0;
+            animation: columnSway 6s ease-in-out infinite;
+        }
+
+        .column:nth-child(odd) {
+            animation-delay: -1s;
+        }
+
+        @keyframes columnSway {
+            0%, 100% { transform: skewX(0deg); }
+            50% { transform: skewX(1deg); }
+        }
+
+        .parthenon-roof {
+            position: absolute;
+            top: 0;
+            left: -10px;
+            width: 120%;
+            height: 40px;
+            background: linear-gradient(45deg, #D2B48C, #F4E4C1);
+            clip-path: polygon(10% 100%, 90% 100%, 95% 0%, 5% 0%);
+        }
+
+        /* Liquid Sea with Animated Waves */
+        .sea-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            filter: url(#liquid-blur);
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z" fill="%234ECDC4" opacity="0.8"/></svg>') repeat-x;
+            animation: waveFlow 6s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            height: 80px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,40 C400,100 800,20 1200,40 L1200,120 L0,120 Z" fill="%2395E1D3" opacity="0.6"/></svg>') repeat-x;
+            animation: waveFlow 8s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            height: 60px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 C200,90 1000,10 1200,50 L1200,120 L0,120 Z" fill="%23A8E6CF" opacity="0.4"/></svg>') repeat-x;
+            animation: waveFlow 10s linear infinite;
+        }
+
+        @keyframes waveFlow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Liquid Water Effects */
+        .water-droplets {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            pointer-events: none;
+        }
+
+        .droplet {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(78, 205, 196, 0.7);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(45deg);
+            animation: dropletFall 3s linear infinite;
+            filter: blur(0.5px);
+        }
+
+        .droplet:nth-child(1) { left: 30%; animation-delay: 0s; }
+        .droplet:nth-child(2) { left: 60%; animation-delay: -1s; }
+        .droplet:nth-child(3) { left: 80%; animation-delay: -2s; }
+
+        @keyframes dropletFall {
+            0% { transform: rotate(45deg) translateY(-100px) scale(0); opacity: 0; }
+            50% { transform: rotate(45deg) translateY(0px) scale(1); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(100px) scale(0); opacity: 0; }
+        }
+
+        /* Olive Trees with Flowing Animation */
+        .olive-grove {
+            position: absolute;
+            bottom: 30%;
+            left: 0;
+            width: 100%;
+            height: 25%;
+            z-index: 2;
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+        }
+
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 60px;
+            background: linear-gradient(180deg, #8B4513 0%, #A0522D 100%);
+            border-radius: 6px;
+            animation: trunkSway 8s ease-in-out infinite;
+        }
+
+        .tree-foliage {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #9ACD32 0%, #6B8E23 100%);
+            border-radius: 50%;
+            animation: foliageFlow 6s ease-in-out infinite;
+            filter: blur(0.5px) contrast(1.1);
+        }
+
+        @keyframes trunkSway {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        @keyframes foliageFlow {
+            0%, 100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+            33% { transform: translateX(-45%) scale(1.1) rotate(1deg); }
+            66% { transform: translateX(-55%) scale(0.9) rotate(-1deg); }
+        }
+
+        .olive-tree:nth-child(1) { left: 15%; animation-delay: 0s; }
+        .olive-tree:nth-child(2) { left: 35%; animation-delay: -2s; }
+        .olive-tree:nth-child(3) { right: 25%; animation-delay: -4s; }
+        .olive-tree:nth-child(4) { right: 5%; animation-delay: -6s; }
+
+        /* Gooey Liquid Blobs */
+        .liquid-blobs {
+            position: absolute;
+            top: 70%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            filter: url(#gooey);
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            background: rgba(78, 205, 196, 0.3);
+            border-radius: 50%;
+            animation: blobFloat 12s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            animation-delay: -4s;
+        }
+
+        .blob-3 {
+            left: 60%;
+            width: 60px;
+            height: 60px;
+            animation-delay: -8s;
+        }
+
+        @keyframes blobFloat {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1); 
+                border-radius: 50%;
+            }
+            33% { 
+                transform: translate(30px, -20px) scale(1.2); 
+                border-radius: 60% 40% 30% 70%;
+            }
+            66% { 
+                transform: translate(-20px, 10px) scale(0.8); 
+                border-radius: 30% 60% 70% 40%;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .parthenon {
+                width: 200px;
+                height: 100px;
+                left: 20%;
+            }
+            
+            .sun {
+                width: 80px;
+                height: 80px;
+                top: 20%;
+                right: 10%;
+            }
+            
+            .cloud {
+                width: 120px !important;
+                height: 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <!-- SVG Filters for Gooey and Liquid Effects -->
+        <svg style="position: absolute; width: 0; height: 0;">
+            <defs>
+                <filter id="gooey">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"/>
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+                
+                <filter id="liquid-blur">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -7" result="liquid"/>
+                    <feComposite in="SourceGraphic" in2="liquid" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+
+        <!-- Sky Background -->
+        <div class="sky"></div>
+
+        <!-- Animated Sun -->
+        <div class="sun"></div>
+
+        <!-- Liquid Clouds -->
+        <div class="clouds-container">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+
+        <!-- Parthenon Monument -->
+        <div class="parthenon">
+            <div class="parthenon-roof"></div>
+            <div class="parthenon-columns">
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+            </div>
+            <div class="parthenon-base"></div>
+        </div>
+
+        <!-- Olive Grove -->
+        <div class="olive-grove">
+            <div class="olive-tree">
+                <div class="tree-foliage"></div>
+                <div class="tree-trunk"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-foliage"></div>
+                <div class="tree-trunk"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-foliage"></div>
+                <div class="tree-trunk"></div>
+            </div>
+            <div class="olive-tree">
+                <div class="tree-foliage"></div>
+                <div class="tree-trunk"></div>
+            </div>
+        </div>
+
+        <!-- Liquid Sea with Animated Waves -->
+        <div class="sea-container">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+
+        <!-- Water Droplets -->
+        <div class="water-droplets">
+            <div class="droplet"></div>
+            <div class="droplet"></div>
+            <div class="droplet"></div>
+        </div>
+
+        <!-- Gooey Liquid Blobs -->
+        <div class="liquid-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </div>
+</body>
+</html>

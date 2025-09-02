@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refined Atmospheric Greek Landscapes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+        
+        .palette-info {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 24px;
+            display: inline-block;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .landscape-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .landscape-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+        }
+        
+        .card-header {
+            padding: 24px 32px;
+            background: linear-gradient(135deg, rgba(30,58,138,0.1) 0%, rgba(59,130,246,0.05) 100%);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .effect-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        
+        .effect-description {
+            font-size: 1rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        
+        .preview-container {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+        }
+        
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: transform 0.3s;
+        }
+        
+        .preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .landscape-card:hover .preview-overlay {
+            opacity: 1;
+        }
+        
+        .card-actions {
+            padding: 20px 32px;
+            background: rgba(248,250,252,0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            box-shadow: 0 2px 10px rgba(59,130,246,0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #f8fafc;
+            color: #475569;
+        }
+        
+        .technique-badge {
+            background: linear-gradient(135deg, #c2b280 0%, #e4d5b7 100%);
+            color: #8b7355;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .quality-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #059669;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .atmospheric-note {
+            text-align: center;
+            margin-top: 60px;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .landscape-card {
+                margin: 0 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌅 Atmospheric Greek Landscapes</h1>
+        <p class="subtitle">Refined Versions with Photorealistic Quality</p>
+        <div class="palette-info">
+            Using exact palette: #1e3a8a → #3b82f6 → #60a5fa + Sand & Olive variations
+        </div>
+    </div>
+    
+    <div class="grid">
+        <!-- 1. Parallax Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Parallax</h3>
+                <p class="effect-description">Volumetric clouds with realistic depth layers and atmospheric perspective</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-landscape-parallax.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-landscape-parallax.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-landscape-parallax.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Depth Layers</div>
+            </div>
+        </div>
+
+        <!-- 2. Glassmorphism Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Glass</h3>
+                <p class="effect-description">Floating glass panels over volumetric cloud formations with realistic haze</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-atmospheric-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-atmospheric-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-atmospheric-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Frosted Glass</div>
+            </div>
+        </div>
+
+        <!-- 3. 3D Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">3D Atmospheric Space</h3>
+                <p class="effect-description">3D Parthenon with volumetric clouds using realistic atmospheric perspective</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-landscape-3d.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-landscape-3d.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-landscape-3d.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">3D Depth</div>
+            </div>
+        </div>
+
+        <!-- 4. Gradient Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Gradients</h3>
+                <p class="effect-description">Day/night atmospheric transitions with volumetric cloud morphing</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="atmospheric-greek-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="atmospheric-greek-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('atmospheric-greek-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Time Shifts</div>
+            </div>
+        </div>
+
+        <!-- 5. SVG Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">SVG Atmospheric</h3>
+                <p class="effect-description">Vector-based atmospheric effects with morphing cloud paths and realistic gradients</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="atmospheric-greece.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="atmospheric-greece.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('atmospheric-greece.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Vector Motion</div>
+            </div>
+        </div>
+
+        <!-- 6. Particle Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Particles</h3>
+                <p class="effect-description">Realistic particle systems simulating atmospheric phenomena with physics</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-atmospheric-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-atmospheric-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-atmospheric-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Physics Sim</div>
+            </div>
+        </div>
+
+        <!-- 7. Scroll Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Scroll Atmospheric</h3>
+                <p class="effect-description">Parthenon emerging from mist with atmospheric transformations on scroll</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-landscape-scroll.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-landscape-scroll.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-landscape-scroll.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Scroll Magic</div>
+            </div>
+        </div>
+
+        <!-- 8. Morphing Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Morphing</h3>
+                <p class="effect-description">Organic cloud morphing with natural atmospheric density changes</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-atmospheric-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-atmospheric-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-atmospheric-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Organic Flow</div>
+            </div>
+        </div>
+
+        <!-- 9. Neumorphic Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Neumorphism</h3>
+                <p class="effect-description">Elements carved from air and light with soft atmospheric shadows</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="greek-atmospheric-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="greek-atmospheric-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('greek-atmospheric-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Soft Light</div>
+            </div>
+        </div>
+
+        <!-- 10. Liquid Atmospheric -->
+        <div class="landscape-card">
+            <div class="card-header">
+                <h3 class="effect-title">Atmospheric Fluids</h3>
+                <p class="effect-description">Liquid atmospheric formations with gooey cloud interactions</p>
+            </div>
+            <div class="preview-container">
+                <iframe src="aegean-atmospheric-landscape.html" class="preview-iframe"></iframe>
+                <div class="preview-overlay"></div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-group">
+                    <a href="aegean-atmospheric-landscape.html" target="_blank" class="btn btn-primary">
+                        ✨ View Atmosphere
+                    </a>
+                    <button class="btn btn-secondary" onclick="copyFilename('aegean-atmospheric-landscape.html')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="technique-badge">Fluid Motion</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="atmospheric-note">
+        <strong>🎨 Enhanced with Photorealistic Quality</strong><br>
+        Each landscape now features sophisticated atmospheric effects inspired by cinematic volumetric rendering, 
+        using the exact blue gradient palette (#1e3a8a → #3b82f6 → #60a5fa) combined with authentic 
+        sand and olive color variations. These refined versions focus on realistic atmospheric phenomena 
+        rather than simplistic graphics.
+    </div>
+    
+    <script>
+        function copyFilename(filename) {
+            navigator.clipboard.writeText(filename).then(() => {
+                // Brief visual feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied';
+                btn.style.background = '#10b981';
+                btn.style.color = 'white';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 1500);
+            });
+        }
+
+        // Add subtle hover effects
+        document.querySelectorAll('.landscape-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'rgba(255,255,255,0.98)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255,255,255,0.95)';
+            });
+        });
+    </script>
+</body>
+</html>

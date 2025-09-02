@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photorealistic Greek Landscape - Parallax Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #0f172a;
+        }
+
+        .parallax-container {
+            position: relative;
+            height: 300vh;
+            perspective: 1px;
+            transform-style: preserve-3d;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform-origin: center center;
+        }
+
+        /* Sky Layer - Furthest back */
+        .sky-layer {
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            transform: translateZ(-4px) scale(5);
+        }
+
+        .sky-photo {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.8;
+            filter: hue-rotate(15deg) saturate(1.2) brightness(1.1);
+            mix-blend-mode: multiply;
+        }
+
+        /* Clouds Layer */
+        .clouds-layer {
+            transform: translateZ(-3px) scale(4);
+            opacity: 0.7;
+        }
+
+        .clouds-photo {
+            width: 120%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            animation: cloudDrift 120s linear infinite;
+            filter: brightness(1.3) contrast(1.1);
+            mix-blend-mode: screen;
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translateX(-10%); }
+            100% { transform: translateX(10%); }
+        }
+
+        /* Mountains Layer */
+        .mountains-layer {
+            transform: translateZ(-2.5px) scale(3.5);
+        }
+
+        .mountains-photo {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center bottom;
+            filter: hue-rotate(-10deg) saturate(0.9) brightness(0.8);
+            position: relative;
+        }
+
+        .mountains-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 138, 0.3) 100%);
+            mix-blend-mode: multiply;
+        }
+
+        /* Parthenon Layer */
+        .parthenon-layer {
+            transform: translateZ(-2px) scale(3);
+            top: 30%;
+        }
+
+        .parthenon-photo {
+            width: 100%;
+            height: 70%;
+            background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258235?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            filter: contrast(1.2) saturate(1.1) brightness(0.9);
+            position: relative;
+        }
+
+        .parthenon-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(30, 58, 138, 0.2), rgba(96, 165, 250, 0.1));
+            mix-blend-mode: overlay;
+        }
+
+        /* Olive Groves Layer */
+        .olive-layer {
+            transform: translateZ(-1.5px) scale(2.5);
+            top: 50%;
+        }
+
+        .olive-photo {
+            width: 100%;
+            height: 50%;
+            background-image: url('https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.3) brightness(0.95) contrast(1.1);
+            position: relative;
+        }
+
+        .olive-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(30, 58, 138, 0.15), transparent, rgba(59, 130, 246, 0.15));
+            mix-blend-mode: soft-light;
+        }
+
+        /* Mediterranean Sea Layer */
+        .sea-layer {
+            transform: translateZ(-1px) scale(2);
+            top: 60%;
+        }
+
+        .sea-photo {
+            width: 100%;
+            height: 40%;
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            animation: seaWaves 8s ease-in-out infinite alternate;
+            filter: hue-rotate(25deg) saturate(1.4) brightness(1.1);
+            position: relative;
+        }
+
+        .sea-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(96, 165, 250, 0.3) 100%);
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes seaWaves {
+            0% { transform: scale(1) translateY(0); }
+            100% { transform: scale(1.02) translateY(-2px); }
+        }
+
+        /* Vouliagmeni Beach Layer */
+        .beach-layer {
+            transform: translateZ(-0.5px) scale(1.5);
+            top: 70%;
+        }
+
+        .beach-photo {
+            width: 100%;
+            height: 30%;
+            background-image: url('https://images.unsplash.com/photo-1544737150-6f4b999de2a9?w=1920&h=1080&fit=crop&auto=format');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.2) brightness(1.05) contrast(1.1);
+            position: relative;
+        }
+
+        .beach-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center bottom, rgba(96, 165, 250, 0.2), transparent);
+            mix-blend-mode: screen;
+        }
+
+        /* Foreground Content */
+        .content {
+            position: relative;
+            z-index: 100;
+            margin-top: 100vh;
+            background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.95), #0f172a);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            color: #e2e8f0;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #60a5fa, #3b82f6, #1e3a8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px rgba(96, 165, 250, 0.3); }
+            100% { text-shadow: 0 0 50px rgba(96, 165, 250, 0.6), 0 0 70px rgba(59, 130, 246, 0.4); }
+        }
+
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .photo-card {
+            background: rgba(30, 58, 138, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.3);
+            border-color: rgba(96, 165, 250, 0.4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(30, 58, 138, 0.1), rgba(96, 165, 250, 0.1));
+            mix-blend-mode: overlay;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.1;
+            animation: float 20s linear infinite;
+        }
+
+        .floating-element.seagull {
+            width: 60px;
+            height: 40px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M10 30 Q30 10 50 30 Q70 10 90 30" stroke="%23ffffff" stroke-width="3" fill="none"/></svg>');
+            top: 20%;
+            right: -100px;
+        }
+
+        .floating-element.boat {
+            width: 80px;
+            height: 40px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10 35 L90 35 L80 45 L20 45 Z M50 35 L50 15 M40 15 L60 15" stroke="%23ffffff" stroke-width="2" fill="%23ffffff" opacity="0.7"/></svg>');
+            top: 70%;
+            right: -120px;
+            animation-duration: 30s;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            color: #60a5fa;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-container">
+        <!-- Sky Layer -->
+        <div class="parallax-layer sky-layer">
+            <div class="sky-photo"></div>
+        </div>
+
+        <!-- Clouds Layer -->
+        <div class="parallax-layer clouds-layer">
+            <div class="clouds-photo"></div>
+        </div>
+
+        <!-- Mountains Layer -->
+        <div class="parallax-layer mountains-layer">
+            <div class="mountains-photo"></div>
+        </div>
+
+        <!-- Parthenon Layer -->
+        <div class="parallax-layer parthenon-layer">
+            <div class="parthenon-photo"></div>
+        </div>
+
+        <!-- Olive Groves Layer -->
+        <div class="parallax-layer olive-layer">
+            <div class="olive-photo"></div>
+        </div>
+
+        <!-- Mediterranean Sea Layer -->
+        <div class="parallax-layer sea-layer">
+            <div class="sea-photo"></div>
+        </div>
+
+        <!-- Vouliagmeni Beach Layer -->
+        <div class="parallax-layer beach-layer">
+            <div class="beach-photo"></div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-element seagull"></div>
+        <div class="floating-element boat"></div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div class="content-section">
+            <h1 class="title">Αἰγαίων Ἐνοράσεις</h1>
+            <p class="description">
+                Experience the breathtaking beauty of the Greek landscape through this immersive parallax journey. 
+                From the ancient marble columns of the Parthenon standing majestically against the Attic sky, 
+                to the crystal-clear waters of Vouliagmeni that shimmer with Mediterranean light, this is Greece 
+                as captured through the lens of reality. Each layer reveals authentic photography of sacred places: 
+                olive groves that have witnessed millennia of history, dramatic mountain ranges that frame the 
+                classical architecture, and the endless azure of the Aegean Sea that has inspired countless 
+                civilizations. This is not mere illustration, but the true photographic essence of Hellas, 
+                enhanced with the signature blues that define the Greek aesthetic.
+            </p>
+
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&h=600&fit=crop&auto=format');"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Parthenon</h3>
+                        <p class="card-text">
+                            The crown jewel of classical architecture, photographed in its eternal glory atop the Acropolis. 
+                            Real marble, real history, captured in perfect Mediterranean light.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="photo-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1544737150-6f4b999de2a9?w=800&h=600&fit=crop&auto=format');"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vouliagmeni Waters</h3>
+                        <p class="card-text">
+                            The therapeutic thermal lake of Vouliagmeni, where mineral-rich waters meet the sea. 
+                            Authentic photography of this natural wonder near Athens.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="photo-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?w=800&h=600&fit=crop&auto=format');"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Ancient Olive Groves</h3>
+                        <p class="card-text">
+                            Millennial olive trees that have witnessed the rise and fall of empires. 
+                            These sacred groves continue to produce liquid gold under the Greek sun.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="photo-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&auto=format');"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Aegean Mountains</h3>
+                        <p class="card-text">
+                            The dramatic peaks that frame the classical world, captured in their natural majesty. 
+                            Real stone, real shadows, real Greek topography.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="description">
+                Every pixel in this experience represents authentic Greek photography, enhanced with careful color 
+                grading that brings out the natural blues of the Aegean palette. The parallax layers move at 
+                different speeds to create depth and immersion, while CSS filters and blend modes ensure that 
+                each photograph maintains its photorealistic quality while harmonizing with the overall blue 
+                aesthetic that defines Greek visual culture. From the thermal blues of Vouliagmeni to the deep 
+                azure of the open sea, this is Greece through the camera's eye, refined by digital artistry.
+            </p>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        ↓ Scroll to explore the depths of Greece ↓
+    </div>
+
+    <script>
+        // Enhanced parallax scrolling with smooth performance
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            
+            // Hide scroll indicator after scrolling
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrolled > 100) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '0.8';
+            }
+            
+            // Smooth parallax effect with different speeds
+            parallaxLayers.forEach((layer, index) => {
+                const speed = 0.5 + (index * 0.3);
+                const yPos = -(scrolled * speed);
+                layer.style.transform = `translateY(${yPos}px)`;
+            });
+
+            // Dynamic cloud movement based on scroll
+            const clouds = document.querySelector('.clouds-photo');
+            const cloudOffset = (scrolled * 0.1) % 100;
+            clouds.style.backgroundPositionX = `${cloudOffset}%`;
+
+            // Sea wave intensity based on scroll
+            const sea = document.querySelector('.sea-photo');
+            const waveIntensity = Math.min(scrolled / 1000, 1);
+            sea.style.filter = `hue-rotate(25deg) saturate(${1.4 + waveIntensity * 0.3}) brightness(${1.1 + waveIntensity * 0.1})`;
+        });
+
+        // Intersection Observer for photo cards animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initialize photo cards
+        document.querySelectorAll('.photo-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Performance optimization: throttle scroll events
+        let ticking = false;
+        function updateParallax() {
+            // Scroll logic here (already implemented above)
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // Initialize floating elements with random timing
+        document.querySelectorAll('.floating-element').forEach((element, index) => {
+            const delay = Math.random() * 20;
+            element.style.animationDelay = `${delay}s`;
+            
+            // Random vertical position
+            const topPosition = 20 + Math.random() * 60;
+            element.style.top = `${topPosition}%`;
+        });
+
+        // Photo loading optimization
+        const photos = document.querySelectorAll('[style*="background-image"]');
+        photos.forEach(photo => {
+            const img = new Image();
+            const bgImage = photo.style.backgroundImage;
+            if (bgImage) {
+                const url = bgImage.slice(4, -1).replace(/"/g, "");
+                img.src = url;
+                img.onload = () => {
+                    photo.style.opacity = '1';
+                    photo.style.transition = 'opacity 0.5s ease';
+                };
+            }
+        });
+
+        // Dynamic color palette adjustment based on time of day
+        function adjustTimeOfDay() {
+            const hour = new Date().getHours();
+            let filter = '';
+            
+            if (hour >= 6 && hour < 10) {
+                // Morning - warmer tones
+                filter = 'hue-rotate(10deg) saturate(1.1) brightness(1.1)';
+            } else if (hour >= 17 && hour < 20) {
+                // Evening - golden hour
+                filter = 'hue-rotate(-15deg) saturate(1.3) brightness(0.9)';
+            } else if (hour >= 20 || hour < 6) {
+                // Night - cooler, darker
+                filter = 'hue-rotate(30deg) saturate(0.8) brightness(0.7)';
+            } else {
+                // Midday - natural
+                filter = 'saturate(1.2) brightness(1.0)';
+            }
+            
+            document.body.style.filter = filter;
+        }
+
+        // Initialize time-based adjustments
+        adjustTimeOfDay();
+        setInterval(adjustTimeOfDay, 60000); // Update every minute
+    </script>
+</body>
+</html>

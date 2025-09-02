@@ -1,0 +1,250 @@
+{
+  "designMaterials": {
+    "colorPalettes": [
+      {
+        "name": "Greek Natural Color Palette",
+        "file": "Aegean Envisions - Greek Natural Color Palette.html",
+        "category": "Color Systems",
+        "tags": ["colors", "palette", "greek", "natural"],
+        "description": "Carefully curated color palette inspired by the natural beauty of Greece and the Aegean Sea"
+      }
+    ],
+    "navigationSystems": [
+      {
+        "name": "Aegean Navigation Icons",
+        "file": "aegean-navigation-icons.html",
+        "category": "UI Components",
+        "tags": ["navigation", "icons", "glassmorphic", "modern"],
+        "description": "Modern icon system with glassmorphic design for web interfaces"
+      },
+      {
+        "name": "Navigation Icons Suite",
+        "file": "navigation-icons-suite.html",
+        "category": "UI Components",
+        "tags": ["navigation", "icons", "suite", "comprehensive"],
+        "description": "Comprehensive suite of navigation icons"
+      },
+      {
+        "name": "Next-Gen Icon Showcase",
+        "file": "next-gen-icon-showcase.html",
+        "category": "UI Components",
+        "tags": ["icons", "nextgen", "showcase", "futuristic"],
+        "description": "Futuristic icon design showcase"
+      }
+    ],
+    "landscapes": [
+      {
+        "name": "Atmospheric Greek Landscape",
+        "file": "aegean-atmospheric-landscape.html",
+        "category": "Landscapes",
+        "tags": ["atmospheric", "landscape", "greek", "ambient"],
+        "description": "Immersive atmospheric landscape design"
+      },
+      {
+        "name": "Greek 3D Landscape",
+        "file": "greek-3d-landscape.html",
+        "category": "Landscapes",
+        "tags": ["3d", "landscape", "greek", "dimensional"],
+        "description": "Three-dimensional Greek landscape visualization"
+      },
+      {
+        "name": "Greek Landscape Animated",
+        "file": "greek-landscape-animated.html",
+        "category": "Landscapes",
+        "tags": ["animated", "landscape", "greek", "motion"],
+        "description": "Animated Greek landscape with motion effects"
+      },
+      {
+        "name": "Greek Landscape Glassmorphism",
+        "file": "greek-landscape-glassmorphism.html",
+        "category": "Landscapes",
+        "tags": ["glassmorphism", "landscape", "greek", "glass"],
+        "description": "Greek landscape with glassmorphic design elements"
+      },
+      {
+        "name": "Greek Landscape Neumorphism",
+        "file": "greek-landscape-neumorphism.html",
+        "category": "Landscapes",
+        "tags": ["neumorphism", "landscape", "greek", "soft"],
+        "description": "Greek landscape with neumorphic design style"
+      },
+      {
+        "name": "Greek Landscape Parallax",
+        "file": "greek-landscape-parallax.html",
+        "category": "Landscapes",
+        "tags": ["parallax", "landscape", "greek", "scroll"],
+        "description": "Greek landscape with parallax scrolling effects"
+      },
+      {
+        "name": "Greek Landscape Particles",
+        "file": "greek-landscape-particles.html",
+        "category": "Landscapes",
+        "tags": ["particles", "landscape", "greek", "effects"],
+        "description": "Greek landscape with particle animation effects"
+      },
+      {
+        "name": "Greek Landscape Scroll",
+        "file": "greek-landscape-scroll.html",
+        "category": "Landscapes",
+        "tags": ["scroll", "landscape", "greek", "interactive"],
+        "description": "Interactive scrolling Greek landscape"
+      },
+      {
+        "name": "Greek Liquid Landscape",
+        "file": "greek-liquid-landscape.html",
+        "category": "Landscapes",
+        "tags": ["liquid", "landscape", "greek", "fluid"],
+        "description": "Fluid, liquid-style Greek landscape design"
+      },
+      {
+        "name": "Morphing Greek Landscape",
+        "file": "morphing-greek-landscape.html",
+        "category": "Landscapes",
+        "tags": ["morphing", "landscape", "greek", "transformation"],
+        "description": "Morphing Greek landscape with transformation effects"
+      },
+      {
+        "name": "Mediterranean Waves",
+        "file": "mediterranean-waves.html",
+        "category": "Landscapes",
+        "tags": ["waves", "mediterranean", "water", "ocean"],
+        "description": "Mediterranean wave animations and effects"
+      },
+      {
+        "name": "Santorini Dynamic Sunset",
+        "file": "santorini-dynamic-sunset.html",
+        "category": "Landscapes",
+        "tags": ["santorini", "sunset", "dynamic", "greece"],
+        "description": "Dynamic sunset visualization over Santorini"
+      }
+    ],
+    "photorealisticDesigns": [
+      {
+        "name": "Photorealistic Greek Landscape",
+        "file": "photorealistic-greek-landscape.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "landscape", "greek", "realistic"],
+        "description": "Photorealistic Greek landscape rendering"
+      },
+      {
+        "name": "Photorealistic Greek Landscape 3D",
+        "file": "photorealistic-greek-landscape-3d.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "3d", "landscape", "greek"],
+        "description": "3D photorealistic Greek landscape"
+      },
+      {
+        "name": "Photorealistic Greek Glassmorphism",
+        "file": "photorealistic-greek-glassmorphism.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "glassmorphism", "greek", "glass"],
+        "description": "Photorealistic Greek design with glassmorphic elements"
+      },
+      {
+        "name": "Photorealistic Greek Morphing",
+        "file": "photorealistic-greek-morphing.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "morphing", "greek", "transformation"],
+        "description": "Photorealistic Greek morphing effects"
+      },
+      {
+        "name": "Photorealistic Greek Parallax",
+        "file": "photorealistic-greek-parallax.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "parallax", "greek", "depth"],
+        "description": "Photorealistic Greek parallax design"
+      },
+      {
+        "name": "Photorealistic Liquid",
+        "file": "photorealistic-liquid.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "liquid", "fluid", "effects"],
+        "description": "Photorealistic liquid and fluid effects"
+      },
+      {
+        "name": "Photorealistic Neumorphism",
+        "file": "photorealistic-neumorphism.html",
+        "category": "Photorealistic",
+        "tags": ["photorealistic", "neumorphism", "soft", "ui"],
+        "description": "Photorealistic neumorphic design elements"
+      }
+    ],
+    "interactiveElements": [
+      {
+        "name": "Interactive Parthenon",
+        "file": "interactive-parthenon.html",
+        "category": "Interactive",
+        "tags": ["interactive", "parthenon", "greek", "monument"],
+        "description": "Interactive Parthenon experience"
+      }
+    ],
+    "logoSystems": [
+      {
+        "name": "Logo Showcase",
+        "file": "logo-showcase.html",
+        "category": "Branding",
+        "tags": ["logo", "branding", "showcase", "identity"],
+        "description": "Logo design showcase"
+      },
+      {
+        "name": "Logo Showcase Extended",
+        "file": "logo-showcase-extended.html",
+        "category": "Branding",
+        "tags": ["logo", "branding", "extended", "comprehensive"],
+        "description": "Extended logo showcase with variations"
+      }
+    ],
+    "galleries": [
+      {
+        "name": "Design Showcase Menu",
+        "file": "design-showcase-menu.html",
+        "category": "Navigation",
+        "tags": ["menu", "showcase", "navigation", "gallery"],
+        "description": "Design showcase navigation menu"
+      },
+      {
+        "name": "Preview All",
+        "file": "preview-all.html",
+        "category": "Gallery",
+        "tags": ["preview", "gallery", "overview", "collection"],
+        "description": "Preview of all design materials"
+      },
+      {
+        "name": "Refined Preview Gallery",
+        "file": "refined-preview-gallery.html",
+        "category": "Gallery",
+        "tags": ["refined", "gallery", "preview", "curated"],
+        "description": "Refined gallery of design previews"
+      },
+      {
+        "name": "Photorealistic Gallery",
+        "file": "photorealistic-gallery.html",
+        "category": "Gallery",
+        "tags": ["photorealistic", "gallery", "collection", "realistic"],
+        "description": "Gallery of photorealistic designs"
+      }
+    ]
+  },
+  "categories": [
+    "Color Systems",
+    "UI Components", 
+    "Landscapes",
+    "Photorealistic",
+    "Interactive",
+    "Branding",
+    "Navigation",
+    "Gallery"
+  ],
+  "tags": [
+    "colors", "palette", "greek", "natural",
+    "navigation", "icons", "glassmorphic", "modern",
+    "atmospheric", "landscape", "ambient",
+    "3d", "dimensional", "animated", "motion",
+    "neumorphism", "soft", "parallax", "scroll",
+    "particles", "effects", "liquid", "fluid",
+    "morphing", "transformation", "waves",
+    "photorealistic", "realistic", "interactive",
+    "branding", "logo", "identity", "gallery",
+    "preview", "showcase", "collection"
+  ]
+}

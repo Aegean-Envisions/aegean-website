@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Landscape Effects Preview</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .preview-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .preview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        
+        .preview-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .effect-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .effect-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .preview-iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .preview-actions {
+            padding: 15px 20px;
+            background: #f5f5f5;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .description {
+            padding: 15px 20px;
+            background: white;
+            color: #666;
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏛️ Greek Landscape Effects Gallery</h1>
+    <p class="subtitle">10 Different Modern Web Effects with Aegean Theme</p>
+    
+    <div class="grid">
+        <!-- 1. Parallax -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Parallax Scrolling</span>
+                <span class="effect-badge">Depth Layers</span>
+            </div>
+            <iframe src="greek-parallax-landscape.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Multiple layers moving at different speeds for depth perception. Scroll to see the parallax effect.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-parallax-landscape.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-parallax-landscape.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 2. Glassmorphism -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Glassmorphism</span>
+                <span class="effect-badge">Frosted Glass</span>
+            </div>
+            <iframe src="greek-landscape-glassmorphism.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Frosted glass panels with backdrop blur effects and transparency.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape-glassmorphism.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape-glassmorphism.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 3. 3D Transforms -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">3D CSS Transforms</span>
+                <span class="effect-badge">3D Space</span>
+            </div>
+            <iframe src="greek-3d-landscape.html" class="preview-iframe"></iframe>
+            <div class="description">
+                3D perspective with rotating cards and depth positioning using transform3d.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-3d-landscape.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-3d-landscape.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 4. Animated Gradients -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Animated Gradients</span>
+                <span class="effect-badge">Color Shifts</span>
+            </div>
+            <iframe src="greek-landscape.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Dynamic gradient animations with color transitions from sunrise to sunset.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 5. SVG Animations -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">SVG Animations</span>
+                <span class="effect-badge">Vector Motion</span>
+            </div>
+            <iframe src="greek-landscape-animated.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Animated SVG paths with morphing waves, flying birds, and swaying trees.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape-animated.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape-animated.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 6. Particle Effects -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Particle Effects</span>
+                <span class="effect-badge">Canvas Particles</span>
+            </div>
+            <iframe src="greek-landscape-particles.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Sea spray, pollen, sun particles, and interactive mouse trail effects.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape-particles.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape-particles.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 7. Scroll Animations -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Scroll-Triggered</span>
+                <span class="effect-badge">On Scroll</span>
+            </div>
+            <iframe src="greek-landscape-scroll.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Elements animate as you scroll - sun rises, monuments appear, waves crash.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape-scroll.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape-scroll.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 8. Morphing Shapes -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Morphing Shapes</span>
+                <span class="effect-badge">Shape Shifts</span>
+            </div>
+            <iframe src="morphing-greek-landscape.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Clip-path animations with morphing clouds, waves, and organic blob shapes.
+            </div>
+            <div class="preview-actions">
+                <a href="morphing-greek-landscape.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('morphing-greek-landscape.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 9. Neumorphism -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Neumorphism</span>
+                <span class="effect-badge">Soft UI</span>
+            </div>
+            <iframe src="greek-landscape-neumorphism.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Soft shadows and embossed effects creating tactile 3D appearance.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-landscape-neumorphism.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-landscape-neumorphism.html')">Copy Filename</button>
+            </div>
+        </div>
+        
+        <!-- 10. Liquid Effects -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <span class="effect-title">Liquid Animations</span>
+                <span class="effect-badge">Fluid Motion</span>
+            </div>
+            <iframe src="greek-liquid-landscape.html" class="preview-iframe"></iframe>
+            <div class="description">
+                Gooey effects with liquid motion using SVG filters and CSS blur/contrast.
+            </div>
+            <div class="preview-actions">
+                <a href="greek-liquid-landscape.html" target="_blank" class="btn btn-primary">Open Full View</a>
+                <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('greek-liquid-landscape.html')">Copy Filename</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Allow clicking on cards to open in full view
+        document.querySelectorAll('.preview-card').forEach(card => {
+            const iframe = card.querySelector('.preview-iframe');
+            iframe.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open(iframe.src, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>

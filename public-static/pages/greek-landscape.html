@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Greek Landscape - Aegean Visions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .landscape-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(
+                to bottom,
+                #87CEEB 0%,
+                #FFE4B5 50%,
+                #20B2AA 100%
+            );
+            animation: skyGradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes skyGradientShift {
+            0% {
+                background: linear-gradient(
+                    to bottom,
+                    #FF6B6B 0%,
+                    #FFE66D 25%,
+                    #FF8E53 50%,
+                    #87CEEB 75%,
+                    #20B2AA 100%
+                );
+            }
+            25% {
+                background: linear-gradient(
+                    to bottom,
+                    #4ECDC4 0%,
+                    #87CEEB 30%,
+                    #FFE4B5 60%,
+                    #FF8E53 80%,
+                    #1E6091 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    to bottom,
+                    #FFE66D 0%,
+                    #FF6B6B 20%,
+                    #87CEEB 40%,
+                    #20B2AA 70%,
+                    #0F3460 100%
+                );
+            }
+            75% {
+                background: linear-gradient(
+                    to bottom,
+                    #FF8E53 0%,
+                    #FFE4B5 30%,
+                    #4ECDC4 50%,
+                    #1E6091 80%,
+                    #0A2463 100%
+                );
+            }
+            100% {
+                background: linear-gradient(
+                    to bottom,
+                    #FF6B6B 0%,
+                    #FFE66D 25%,
+                    #FF8E53 50%,
+                    #87CEEB 75%,
+                    #20B2AA 100%
+                );
+            }
+        }
+
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                #FFE66D 0%,
+                #FF8E53 40%,
+                #FF6B6B 70%,
+                transparent 100%
+            );
+            animation: sunPulse 8s ease-in-out infinite, sunMove 20s linear infinite;
+            box-shadow: 
+                0 0 50px rgba(255, 230, 109, 0.8),
+                0 0 100px rgba(255, 142, 83, 0.6),
+                0 0 150px rgba(255, 107, 107, 0.4);
+        }
+
+        @keyframes sunPulse {
+            0%, 100% {
+                background: radial-gradient(
+                    circle,
+                    #FFE66D 0%,
+                    #FF8E53 40%,
+                    #FF6B6B 70%,
+                    transparent 100%
+                );
+                transform: scale(1);
+            }
+            50% {
+                background: radial-gradient(
+                    circle,
+                    #FF6B6B 0%,
+                    #FFE66D 30%,
+                    #FF8E53 60%,
+                    transparent 100%
+                );
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes sunMove {
+            0% { right: 80%; top: 50%; }
+            25% { right: 60%; top: 10%; }
+            50% { right: 40%; top: 8%; }
+            75% { right: 20%; top: 15%; }
+            100% { right: 80%; top: 50%; }
+        }
+
+        .clouds {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: 100%;
+            height: 40%;
+        }
+
+        .cloud {
+            position: absolute;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(240, 248, 255, 0.7) 50%,
+                rgba(135, 206, 235, 0.5) 100%
+            );
+            border-radius: 50px;
+            animation: cloudFloat 25s linear infinite, cloudMorph 12s ease-in-out infinite;
+        }
+
+        .cloud:nth-child(1) {
+            width: 100px;
+            height: 40px;
+            top: 20%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 150px;
+            height: 60px;
+            top: 15%;
+            left: -15%;
+            animation-delay: -8s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 80px;
+            height: 35px;
+            top: 25%;
+            left: -8%;
+            animation-delay: -16s;
+        }
+
+        @keyframes cloudFloat {
+            0% { left: -20%; }
+            100% { left: 120%; }
+        }
+
+        @keyframes cloudMorph {
+            0%, 100% {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.9) 0%,
+                    rgba(240, 248, 255, 0.7) 50%,
+                    rgba(135, 206, 235, 0.5) 100%
+                );
+                border-radius: 50px;
+            }
+            50% {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 230, 109, 0.6) 0%,
+                    rgba(255, 255, 255, 0.8) 30%,
+                    rgba(255, 142, 83, 0.4) 100%
+                );
+                border-radius: 30px 70px 40px 60px;
+            }
+        }
+
+        .sea {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(
+                to bottom,
+                #20B2AA 0%,
+                #1E6091 50%,
+                #0F3460 100%
+            );
+            animation: seaGradient 10s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        @keyframes seaGradient {
+            0%, 100% {
+                background: linear-gradient(
+                    to bottom,
+                    #20B2AA 0%,
+                    #1E6091 50%,
+                    #0F3460 100%
+                );
+            }
+            25% {
+                background: linear-gradient(
+                    to bottom,
+                    #4ECDC4 0%,
+                    #20B2AA 40%,
+                    #1E6091 70%,
+                    #0A2463 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    to bottom,
+                    #87CEEB 0%,
+                    #4ECDC4 30%,
+                    #20B2AA 60%,
+                    #0F3460 100%
+                );
+            }
+            75% {
+                background: linear-gradient(
+                    to bottom,
+                    #20B2AA 0%,
+                    #4ECDC4 35%,
+                    #1E6091 65%,
+                    #0A2463 100%
+                );
+            }
+        }
+
+        .waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 30px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                rgba(255, 255, 255, 0.2) 10px,
+                rgba(135, 206, 235, 0.3) 20px,
+                transparent 30px
+            );
+            animation: waveMove 8s linear infinite, waveGradient 6s ease-in-out infinite;
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes waveGradient {
+            0%, 100% {
+                background: repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.3) 10px,
+                    rgba(135, 206, 235, 0.4) 20px,
+                    transparent 30px
+                );
+            }
+            50% {
+                background: repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(78, 205, 196, 0.4) 10px,
+                    rgba(255, 230, 109, 0.3) 20px,
+                    transparent 30px
+                );
+            }
+        }
+
+        .monuments {
+            position: absolute;
+            bottom: 35%;
+            left: 30%;
+            width: 40%;
+            height: 25%;
+        }
+
+        .parthenon {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(
+                145deg,
+                #F5F5DC 0%,
+                #DDD3C0 30%,
+                #C8B99C 60%,
+                #A0937D 100%
+            );
+            border-radius: 5px 5px 0 0;
+            animation: monumentGlow 12s ease-in-out infinite;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .parthenon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            height: 10px;
+            background: linear-gradient(
+                145deg,
+                #FFFACD 0%,
+                #F5F5DC 50%,
+                #DDD3C0 100%
+            );
+            border-radius: 8px 8px 0 0;
+        }
+
+        .columns {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .column {
+            width: 12px;
+            height: 70px;
+            background: linear-gradient(
+                to bottom,
+                #FFFACD 0%,
+                #F5F5DC 40%,
+                #DDD3C0 70%,
+                #A0937D 100%
+            );
+            animation: columnShimmer 8s ease-in-out infinite;
+            animation-delay: calc(var(--delay) * 0.5s);
+        }
+
+        @keyframes monumentGlow {
+            0%, 100% {
+                background: linear-gradient(
+                    145deg,
+                    #F5F5DC 0%,
+                    #DDD3C0 30%,
+                    #C8B99C 60%,
+                    #A0937D 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    145deg,
+                    #FFFACD 0%,
+                    #F0E68C 20%,
+                    #F5F5DC 50%,
+                    #DDD3C0 80%,
+                    #C8B99C 100%
+                );
+            }
+        }
+
+        @keyframes columnShimmer {
+            0%, 100% {
+                background: linear-gradient(
+                    to bottom,
+                    #FFFACD 0%,
+                    #F5F5DC 40%,
+                    #DDD3C0 70%,
+                    #A0937D 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    to bottom,
+                    #FFFFFF 0%,
+                    #FFFACD 30%,
+                    #F0E68C 60%,
+                    #DDD3C0 100%
+                );
+            }
+        }
+
+        .olive-fields {
+            position: absolute;
+            bottom: 35%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(
+                to bottom,
+                #9ACD32 0%,
+                #6B8E23 40%,
+                #556B2F 70%,
+                #2F4F2F 100%
+            );
+            animation: oliveGradient 14s ease-in-out infinite;
+        }
+
+        @keyframes oliveGradient {
+            0%, 100% {
+                background: linear-gradient(
+                    to bottom,
+                    #9ACD32 0%,
+                    #6B8E23 40%,
+                    #556B2F 70%,
+                    #2F4F2F 100%
+                );
+            }
+            25% {
+                background: linear-gradient(
+                    to bottom,
+                    #ADFF2F 0%,
+                    #9ACD32 30%,
+                    #7CFC00 50%,
+                    #6B8E23 80%,
+                    #556B2F 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    to bottom,
+                    #7CFC00 0%,
+                    #ADFF2F 25%,
+                    #9ACD32 50%,
+                    #6B8E23 75%,
+                    #2F4F2F 100%
+                );
+            }
+            75% {
+                background: linear-gradient(
+                    to bottom,
+                    #6B8E23 0%,
+                    #9ACD32 35%,
+                    #7CFC00 60%,
+                    #556B2F 85%,
+                    #2F4F2F 100%
+                );
+            }
+        }
+
+        .olive-trees {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: 100px;
+        }
+
+        .olive-tree {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+        }
+
+        .olive-tree::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 30px;
+            background: linear-gradient(
+                to bottom,
+                #8B4513 0%,
+                #A0522D 50%,
+                #654321 100%
+            );
+        }
+
+        .olive-tree::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(
+                ellipse,
+                #6B8E23 0%,
+                #556B2F 40%,
+                #2F4F2F 100%
+            );
+            border-radius: 50%;
+            animation: treeSwayf 6s ease-in-out infinite;
+        }
+
+        @keyframes treeSwayf {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        .olive-tree:nth-child(1) {
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .olive-tree:nth-child(2) {
+            left: 35%;
+            animation-delay: -2s;
+        }
+
+        .olive-tree:nth-child(3) {
+            left: 65%;
+            animation-delay: -4s;
+        }
+
+        .olive-tree:nth-child(4) {
+            left: 85%;
+            animation-delay: -1s;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 107, 107, 0.1) 0%,
+                transparent 25%,
+                rgba(78, 205, 196, 0.1) 50%,
+                transparent 75%,
+                rgba(255, 230, 109, 0.1) 100%
+            );
+            animation: overlayShift 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes overlayShift {
+            0% {
+                background: linear-gradient(
+                    45deg,
+                    rgba(255, 107, 107, 0.15) 0%,
+                    transparent 25%,
+                    rgba(78, 205, 196, 0.1) 50%,
+                    transparent 75%,
+                    rgba(255, 230, 109, 0.1) 100%
+                );
+            }
+            25% {
+                background: linear-gradient(
+                    90deg,
+                    rgba(78, 205, 196, 0.1) 0%,
+                    transparent 25%,
+                    rgba(255, 230, 109, 0.15) 50%,
+                    transparent 75%,
+                    rgba(255, 142, 83, 0.1) 100%
+                );
+            }
+            50% {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 230, 109, 0.1) 0%,
+                    transparent 25%,
+                    rgba(255, 142, 83, 0.15) 50%,
+                    transparent 75%,
+                    rgba(135, 206, 235, 0.1) 100%
+                );
+            }
+            75% {
+                background: linear-gradient(
+                    180deg,
+                    rgba(255, 142, 83, 0.1) 0%,
+                    transparent 25%,
+                    rgba(135, 206, 235, 0.1) 50%,
+                    transparent 75%,
+                    rgba(255, 107, 107, 0.15) 100%
+                );
+            }
+            100% {
+                background: linear-gradient(
+                    45deg,
+                    rgba(255, 107, 107, 0.15) 0%,
+                    transparent 25%,
+                    rgba(78, 205, 196, 0.1) 50%,
+                    transparent 75%,
+                    rgba(255, 230, 109, 0.1) 100%
+                );
+            }
+        }
+
+        .title {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(
+                45deg,
+                #FFE66D,
+                #FF6B6B,
+                #4ECDC4,
+                #87CEEB
+            );
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes titleGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="landscape-container">
+        <h1 class="title">Aegean Visions</h1>
+        
+        <div class="sun"></div>
+        
+        <div class="clouds">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+        </div>
+        
+        <div class="olive-fields">
+            <div class="olive-trees">
+                <div class="olive-tree"></div>
+                <div class="olive-tree"></div>
+                <div class="olive-tree"></div>
+                <div class="olive-tree"></div>
+            </div>
+        </div>
+        
+        <div class="monuments">
+            <div class="parthenon">
+                <div class="columns">
+                    <div class="column" style="--delay: 1"></div>
+                    <div class="column" style="--delay: 2"></div>
+                    <div class="column" style="--delay: 3"></div>
+                    <div class="column" style="--delay: 4"></div>
+                    <div class="column" style="--delay: 5"></div>
+                    <div class="column" style="--delay: 6"></div>
+                    <div class="column" style="--delay: 7"></div>
+                    <div class="column" style="--delay: 8"></div>
+                    <div class="column" style="--delay: 9"></div>
+                    <div class="column" style="--delay: 10"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sea">
+            <div class="waves"></div>
+        </div>
+        
+        <div class="gradient-overlay"></div>
+    </div>
+</body>
+</html>

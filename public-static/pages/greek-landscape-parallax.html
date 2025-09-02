@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Greek Landscape - Parallax</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 30%, #60a5fa 70%, #93c5fd 100%);
+        }
+
+        .parallax-container {
+            position: relative;
+            height: 400vh;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 120%;
+            will-change: transform;
+        }
+
+        /* Sky and Atmosphere */
+        .sky-layer {
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, 
+                #1e3a8a 0%, 
+                #2563eb 15%, 
+                #3b82f6 35%, 
+                #60a5fa 60%, 
+                #93c5fd 80%, 
+                #dbeafe 100%);
+            z-index: 1;
+        }
+
+        /* Atmospheric Haze */
+        .atmosphere-layer {
+            top: 0;
+            height: 120vh;
+            background: radial-gradient(ellipse at center bottom, 
+                rgba(219, 234, 254, 0.4) 0%, 
+                rgba(147, 197, 253, 0.3) 20%, 
+                rgba(96, 165, 250, 0.2) 40%, 
+                rgba(59, 130, 246, 0.1) 60%, 
+                transparent 80%);
+            z-index: 2;
+        }
+
+        /* Volumetric Clouds Layer 1 - Far */
+        .clouds-far {
+            top: 5vh;
+            height: 40vh;
+            background: 
+                radial-gradient(ellipse 800px 200px at 20% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%),
+                radial-gradient(ellipse 1200px 300px at 80% 20%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 80%),
+                radial-gradient(ellipse 600px 150px at 60% 40%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 60%, transparent 85%);
+            filter: blur(3px);
+            z-index: 3;
+            animation: cloudDrift 120s infinite linear;
+        }
+
+        /* Volumetric Clouds Layer 2 - Mid */
+        .clouds-mid {
+            top: 15vh;
+            height: 35vh;
+            background: 
+                radial-gradient(ellipse 1000px 250px at 10% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 35%, transparent 65%),
+                radial-gradient(ellipse 700px 180px at 70% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 45%, transparent 75%),
+                radial-gradient(ellipse 900px 220px at 90% 60%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 80%);
+            filter: blur(2px);
+            z-index: 4;
+            animation: cloudDrift 80s infinite linear reverse;
+        }
+
+        /* Volumetric Clouds Layer 3 - Near */
+        .clouds-near {
+            top: 25vh;
+            height: 30vh;
+            background: 
+                radial-gradient(ellipse 600px 200px at 40% 40%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 30%, transparent 60%),
+                radial-gradient(ellipse 800px 250px at 85% 20%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 40%, transparent 70%),
+                radial-gradient(ellipse 500px 160px at 15% 70%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 50%, transparent 80%);
+            filter: blur(1px);
+            z-index: 5;
+            animation: cloudDrift 60s infinite linear;
+        }
+
+        /* Mountains - Far Distance */
+        .mountains-far {
+            bottom: 40vh;
+            height: 35vh;
+            background: linear-gradient(135deg, 
+                #374151 0%, 
+                #4b5563 20%, 
+                #6b7280 40%, 
+                #9ca3af 70%, 
+                #d1d5db 100%);
+            clip-path: polygon(0% 100%, 15% 60%, 25% 70%, 35% 45%, 50% 55%, 65% 35%, 75% 50%, 85% 30%, 100% 40%, 100% 100%);
+            filter: blur(4px);
+            opacity: 0.6;
+            z-index: 6;
+        }
+
+        /* Mountains - Mid Distance */
+        .mountains-mid {
+            bottom: 35vh;
+            height: 40vh;
+            background: linear-gradient(135deg, 
+                #1f2937 0%, 
+                #374151 30%, 
+                #4b5563 60%, 
+                #6b7280 90%);
+            clip-path: polygon(0% 100%, 12% 40%, 28% 55%, 40% 25%, 52% 45%, 68% 20%, 78% 35%, 90% 15%, 100% 25%, 100% 100%);
+            filter: blur(2px);
+            opacity: 0.8;
+            z-index: 7;
+        }
+
+        /* Parthenon and Acropolis */
+        .parthenon-layer {
+            bottom: 45vh;
+            height: 25vh;
+            z-index: 8;
+        }
+
+        .parthenon {
+            position: absolute;
+            right: 30%;
+            bottom: 0;
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
+            border-radius: 2px 2px 0 0;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .parthenon::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            right: -10px;
+            height: 15px;
+            background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .parthenon-columns {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            right: 10px;
+            height: 60px;
+            background: repeating-linear-gradient(90deg, 
+                #f3f4f6 0px, 
+                #f3f4f6 8px, 
+                #e5e7eb 8px, 
+                #e5e7eb 10px, 
+                #f3f4f6 10px, 
+                #f3f4f6 18px);
+        }
+
+        /* Olive Groves - Mid Ground */
+        .olive-groves {
+            bottom: 20vh;
+            height: 30vh;
+            background: 
+                radial-gradient(ellipse 100px 80px at 20% 70%, #6b7c32 0%, #8b9742 50%, transparent 70%),
+                radial-gradient(ellipse 120px 90px at 40% 60%, #8b9742 0%, #a8b562 50%, transparent 70%),
+                radial-gradient(ellipse 80px 70px at 60% 80%, #6b7c32 0%, #8b9742 50%, transparent 70%),
+                radial-gradient(ellipse 110px 85px at 80% 65%, #8b9742 0%, #a8b562 50%, transparent 70%),
+                linear-gradient(180deg, transparent 0%, rgba(107, 124, 50, 0.3) 70%, rgba(139, 151, 66, 0.5) 100%);
+            filter: blur(1px);
+            z-index: 9;
+        }
+
+        /* Sea Layer */
+        .sea-layer {
+            bottom: 0;
+            height: 25vh;
+            background: linear-gradient(180deg, 
+                rgba(59, 130, 246, 0.8) 0%, 
+                rgba(37, 99, 235, 0.9) 30%, 
+                rgba(30, 58, 138, 1) 70%, 
+                rgba(23, 37, 84, 1) 100%);
+            z-index: 10;
+        }
+
+        /* Sea Waves Animation */
+        .sea-waves {
+            position: absolute;
+            top: 0;
+            width: 200%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 100px 8px at 20% 10%, rgba(147, 197, 253, 0.6) 0%, transparent 50%),
+                radial-gradient(ellipse 150px 12px at 60% 15%, rgba(147, 197, 253, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse 80px 6px at 80% 8%, rgba(147, 197, 253, 0.7) 0%, transparent 50%),
+                radial-gradient(ellipse 120px 10px at 30% 20%, rgba(147, 197, 253, 0.4) 0%, transparent 50%);
+            animation: waveMotion 15s infinite ease-in-out;
+        }
+
+        /* Sandy Shore */
+        .shore-layer {
+            bottom: 0;
+            height: 8vh;
+            background: linear-gradient(180deg, 
+                rgba(194, 178, 128, 0.0) 0%, 
+                rgba(194, 178, 128, 0.6) 30%, 
+                rgba(228, 213, 183, 0.9) 70%, 
+                rgba(228, 213, 183, 1) 100%);
+            z-index: 11;
+        }
+
+        /* Foreground Elements */
+        .foreground-vegetation {
+            bottom: 0;
+            height: 15vh;
+            background: 
+                linear-gradient(45deg, transparent 0%, rgba(107, 124, 50, 0.4) 20%, transparent 30%),
+                linear-gradient(-45deg, transparent 10%, rgba(139, 151, 66, 0.3) 25%, transparent 40%),
+                linear-gradient(90deg, transparent 0%, rgba(168, 181, 98, 0.2) 15%, transparent 25%);
+            z-index: 12;
+        }
+
+        /* Atmospheric Depth Effects */
+        .depth-haze {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, 
+                transparent 0%, 
+                rgba(147, 197, 253, 0.1) 40%, 
+                rgba(96, 165, 250, 0.2) 70%, 
+                rgba(59, 130, 246, 0.3) 100%);
+            z-index: 13;
+            pointer-events: none;
+        }
+
+        /* Content Overlay */
+        .content-overlay {
+            position: relative;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.1);
+            color: white;
+            padding: 100vh 0;
+            text-align: center;
+        }
+
+        .content-section {
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 58, 138, 0.8);
+            margin-bottom: 100px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #dbeafe;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes cloudDrift {
+            0% { transform: translateX(-10%); }
+            100% { transform: translateX(10%); }
+        }
+
+        @keyframes waveMotion {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-2%) translateY(-1px); }
+            50% { transform: translateX(0) translateY(1px); }
+            75% { transform: translateX(2%) translateY(-1px); }
+        }
+
+        /* Sun/Light Effect */
+        .sun-effect {
+            position: absolute;
+            top: 20vh;
+            right: 20%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.8) 0%, 
+                rgba(255, 255, 255, 0.4) 30%, 
+                rgba(255, 255, 255, 0.1) 60%, 
+                transparent 100%);
+            border-radius: 50%;
+            filter: blur(2px);
+            z-index: 3;
+            animation: sunGlow 10s infinite ease-in-out alternate;
+        }
+
+        @keyframes sunGlow {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .parallax-layer {
+                width: 150%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .parthenon {
+                width: 150px;
+                height: 60px;
+                right: 20%;
+            }
+            
+            .content-section {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-container">
+        <!-- Sky and Atmospheric Layers -->
+        <div class="parallax-layer sky-layer" data-speed="0.1"></div>
+        <div class="parallax-layer atmosphere-layer" data-speed="0.15"></div>
+        
+        <!-- Sun Effect -->
+        <div class="parallax-layer sun-effect" data-speed="0.1"></div>
+        
+        <!-- Volumetric Cloud Layers -->
+        <div class="parallax-layer clouds-far" data-speed="0.2"></div>
+        <div class="parallax-layer clouds-mid" data-speed="0.3"></div>
+        <div class="parallax-layer clouds-near" data-speed="0.4"></div>
+        
+        <!-- Mountain Layers -->
+        <div class="parallax-layer mountains-far" data-speed="0.5"></div>
+        <div class="parallax-layer mountains-mid" data-speed="0.6"></div>
+        
+        <!-- Parthenon and Acropolis -->
+        <div class="parallax-layer parthenon-layer" data-speed="0.7">
+            <div class="parthenon">
+                <div class="parthenon-columns"></div>
+            </div>
+        </div>
+        
+        <!-- Olive Groves -->
+        <div class="parallax-layer olive-groves" data-speed="0.8"></div>
+        
+        <!-- Sea Layer with Waves -->
+        <div class="parallax-layer sea-layer" data-speed="0.9">
+            <div class="sea-waves"></div>
+        </div>
+        
+        <!-- Shore -->
+        <div class="parallax-layer shore-layer" data-speed="1.0"></div>
+        
+        <!-- Foreground Vegetation -->
+        <div class="parallax-layer foreground-vegetation" data-speed="1.1"></div>
+        
+        <!-- Atmospheric Depth -->
+        <div class="depth-haze"></div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-overlay">
+        <div class="content-section">
+            <h1>Αθήνα - Athens</h1>
+            <p>Experience the timeless beauty of the Greek landscape, where ancient monuments rise majestically against azure skies, and the Mediterranean sea meets olive groves that have witnessed millennia of history.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2>The Eternal Blue</h2>
+            <p>The Aegean atmosphere creates a unique interplay of light and shadow, where volumetric clouds drift lazily over the sacred hills of Attica, and the ancient marble of the Parthenon glows with golden warmth.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2>Βουλιαγμένη - Vouliagmeni</h2>
+            <p>From the heights of the Acropolis to the therapeutic waters of Vouliagmeni, this landscape embodies the perfect harmony between human achievement and natural splendor that defines the Greek spirit.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2>Timeless Serenity</h2>
+            <p>Here, where philosophy was born and democracy took its first breath, the landscape continues to inspire with its atmospheric depth, Mediterranean colors, and the eternal dance between sky and sea.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth Parallax Scrolling
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            
+            parallaxLayers.forEach(layer => {
+                const speed = layer.dataset.speed || 0.5;
+                const yPos = -(scrolled * speed);
+                layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+        // Enhanced Atmospheric Effects
+        function createFloatingParticles() {
+            const particleContainer = document.createElement('div');
+            particleContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 15;
+            `;
+            document.body.appendChild(particleContainer);
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    top: ${Math.random() * 100}vh;
+                    left: ${Math.random() * 100}vw;
+                    animation: float ${10 + Math.random() * 20}s infinite linear;
+                `;
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Add floating particle animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(100vh) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize effects
+        createFloatingParticles();
+
+        // Smooth scroll enhancement
+        let ticking = false;
+
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            
+            parallaxLayers.forEach(layer => {
+                const speed = parseFloat(layer.dataset.speed) || 0.5;
+                const yPos = -(scrolled * speed);
+                layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+            
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // Add atmospheric breathing effect
+        setInterval(() => {
+            const atmosphereLayer = document.querySelector('.atmosphere-layer');
+            if (atmosphereLayer) {
+                atmosphereLayer.style.opacity = 0.8 + Math.sin(Date.now() * 0.001) * 0.2;
+            }
+        }, 100);
+    </script>
+</body>
+</html>

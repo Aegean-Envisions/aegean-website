@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photorealistic Greek Landscape 3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            overflow-x: hidden;
+            perspective: 2000px;
+            height: 100vh;
+        }
+
+        .scene-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            transform-style: preserve-3d;
+            animation: sceneRotate 60s infinite linear;
+        }
+
+        @keyframes sceneRotate {
+            0% { transform: rotateY(0deg) rotateX(5deg); }
+            100% { transform: rotateY(360deg) rotateX(5deg); }
+        }
+
+        /* 3D Photo Cards */
+        .photo-card {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.3);
+        }
+
+        .photo-card:hover {
+            transform: rotateY(15deg) rotateX(-10deg) translateZ(50px) scale(1.05);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.3) 0%, 
+                rgba(59, 130, 246, 0.2) 50%, 
+                rgba(96, 165, 250, 0.1) 100%);
+            backdrop-filter: blur(0.5px);
+            opacity: 0.7;
+            transition: opacity 0.5s ease;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 0.4;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        /* Parthenon Card */
+        .parthenon-card {
+            top: 10%;
+            left: 5%;
+            transform: rotateY(-25deg) rotateX(15deg) translateZ(100px);
+            animation: floatParthenon 8s ease-in-out infinite;
+        }
+
+        @keyframes floatParthenon {
+            0%, 100% { transform: rotateY(-25deg) rotateX(15deg) translateZ(100px) translateY(0px); }
+            50% { transform: rotateY(-25deg) rotateX(15deg) translateZ(120px) translateY(-20px); }
+        }
+
+        /* Mediterranean View Card */
+        .mediterranean-card {
+            top: 15%;
+            right: 8%;
+            transform: rotateY(30deg) rotateX(-20deg) translateZ(80px);
+            animation: floatMediterranean 10s ease-in-out infinite;
+        }
+
+        @keyframes floatMediterranean {
+            0%, 100% { transform: rotateY(30deg) rotateX(-20deg) translateZ(80px) translateY(0px); }
+            50% { transform: rotateY(30deg) rotateX(-20deg) translateZ(100px) translateY(-15px); }
+        }
+
+        /* Olive Grove Card */
+        .olive-card {
+            bottom: 25%;
+            left: 15%;
+            transform: rotateY(45deg) rotateX(25deg) translateZ(60px);
+            animation: floatOlive 12s ease-in-out infinite;
+        }
+
+        @keyframes floatOlive {
+            0%, 100% { transform: rotateY(45deg) rotateX(25deg) translateZ(60px) translateY(0px); }
+            50% { transform: rotateY(45deg) rotateX(25deg) translateZ(90px) translateY(-25px); }
+        }
+
+        /* Vouliagmeni Card */
+        .vouliagmeni-card {
+            bottom: 20%;
+            right: 10%;
+            transform: rotateY(-40deg) rotateX(-15deg) translateZ(120px);
+            animation: floatVouliagmeni 9s ease-in-out infinite;
+        }
+
+        @keyframes floatVouliagmeni {
+            0%, 100% { transform: rotateY(-40deg) rotateX(-15deg) translateZ(120px) translateY(0px); }
+            50% { transform: rotateY(-40deg) rotateX(-15deg) translateZ(140px) translateY(-18px); }
+        }
+
+        /* Athens City Card */
+        .athens-card {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateY(10deg) rotateX(10deg) translateZ(150px);
+            animation: floatAthens 11s ease-in-out infinite;
+        }
+
+        @keyframes floatAthens {
+            0%, 100% { transform: translate(-50%, -50%) rotateY(10deg) rotateX(10deg) translateZ(150px) translateY(0px); }
+            50% { transform: translate(-50%, -50%) rotateY(10deg) rotateX(10deg) translateZ(180px) translateY(-30px); }
+        }
+
+        /* Santorini Card */
+        .santorini-card {
+            top: 35%;
+            left: 25%;
+            transform: rotateY(-15deg) rotateX(30deg) translateZ(90px);
+            animation: floatSantorini 7s ease-in-out infinite;
+        }
+
+        @keyframes floatSantorini {
+            0%, 100% { transform: rotateY(-15deg) rotateX(30deg) translateZ(90px) translateY(0px); }
+            50% { transform: rotateY(-15deg) rotateX(30deg) translateZ(110px) translateY(-22px); }
+        }
+
+        /* 3D Background Elements */
+        .bg-element {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, 
+                rgba(96, 165, 250, 0.1) 0%, 
+                rgba(30, 58, 138, 0.05) 70%, 
+                transparent 100%);
+            border-radius: 50%;
+            transform-style: preserve-3d;
+        }
+
+        .bg-element:nth-child(1) {
+            top: 10%;
+            left: 80%;
+            transform: translateZ(-200px) rotateY(45deg);
+            animation: bgFloat1 15s ease-in-out infinite;
+        }
+
+        .bg-element:nth-child(2) {
+            bottom: 15%;
+            left: 5%;
+            transform: translateZ(-150px) rotateX(30deg);
+            animation: bgFloat2 18s ease-in-out infinite;
+        }
+
+        .bg-element:nth-child(3) {
+            top: 60%;
+            right: 5%;
+            transform: translateZ(-300px) rotateY(-30deg);
+            animation: bgFloat3 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat1 {
+            0%, 100% { transform: translateZ(-200px) rotateY(45deg) translateY(0px); }
+            50% { transform: translateZ(-180px) rotateY(45deg) translateY(-30px); }
+        }
+
+        @keyframes bgFloat2 {
+            0%, 100% { transform: translateZ(-150px) rotateX(30deg) translateY(0px); }
+            50% { transform: translateZ(-120px) rotateX(30deg) translateY(25px); }
+        }
+
+        @keyframes bgFloat3 {
+            0%, 100% { transform: translateZ(-300px) rotateY(-30deg) translateY(0px); }
+            50% { transform: translateZ(-250px) rotateY(-30deg) translateY(-20px); }
+        }
+
+        /* Light Effects */
+        .light-effect {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, 
+                rgba(96, 165, 250, 0.3) 0%, 
+                rgba(59, 130, 246, 0.1) 50%, 
+                transparent 100%);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: lightPulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes lightPulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        .light-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .light-2 { top: 70%; right: 15%; animation-delay: 1s; }
+        .light-3 { bottom: 30%; left: 60%; animation-delay: 2s; }
+
+        /* Title */
+        .main-title {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(200px);
+            color: #60a5fa;
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+            z-index: 1000;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .photo-card {
+                width: 300px;
+                height: 225px;
+            }
+
+            .main-title {
+                font-size: 2em;
+                top: 20px;
+            }
+
+            .scene-container {
+                animation-duration: 80s;
+            }
+        }
+
+        /* Advanced 3D Effects */
+        .depth-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(30, 58, 138, 0.02) 0%, 
+                rgba(59, 130, 246, 0.01) 50%, 
+                rgba(96, 165, 250, 0.02) 100%);
+            transform: translateZ(-500px);
+            animation: depthShift 25s ease-in-out infinite;
+        }
+
+        @keyframes depthShift {
+            0%, 100% { transform: translateZ(-500px) rotateX(0deg); }
+            50% { transform: translateZ(-400px) rotateX(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-title">Photorealistic Greek Landscapes</div>
+
+    <div class="scene-container">
+        <!-- Background Depth Layer -->
+        <div class="depth-layer"></div>
+
+        <!-- Background Elements -->
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+
+        <!-- Light Effects -->
+        <div class="light-effect light-1"></div>
+        <div class="light-effect light-2"></div>
+        <div class="light-effect light-3"></div>
+
+        <!-- 3D Photo Cards with Real Images -->
+        
+        <!-- Parthenon -->
+        <div class="photo-card parthenon-card">
+            <img src="https://images.unsplash.com/photo-1555993539-1732b0258377?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Parthenon">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Parthenon, Athens</div>
+        </div>
+
+        <!-- Mediterranean Coastline -->
+        <div class="photo-card mediterranean-card">
+            <img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80" alt="Greek Coastline">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Aegean Sea</div>
+        </div>
+
+        <!-- Olive Grove -->
+        <div class="photo-card olive-card">
+            <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Greek Olive Grove">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Ancient Olive Groves</div>
+        </div>
+
+        <!-- Vouliagmeni Lake -->
+        <div class="photo-card vouliagmeni-card">
+            <img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80" alt="Vouliagmeni">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Vouliagmeni Beach</div>
+        </div>
+
+        <!-- Athens Cityscape -->
+        <div class="photo-card athens-card">
+            <img src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80" alt="Athens City">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Athens Metropolis</div>
+        </div>
+
+        <!-- Santorini -->
+        <div class="photo-card santorini-card">
+            <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2119&q=80" alt="Santorini">
+            <div class="photo-overlay"></div>
+            <div class="photo-label">Santorini Caldera</div>
+        </div>
+
+    </div>
+
+    <script>
+        // Enhanced 3D interaction
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.photo-card');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            cards.forEach((card, index) => {
+                const rotateX = (mouseY - 0.5) * 20;
+                const rotateY = (mouseX - 0.5) * 20;
+                
+                // Apply subtle mouse-based rotation
+                const currentTransform = card.style.transform || '';
+                card.style.transform = currentTransform + ` rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
+            });
+
+            // Parallax effect for background elements
+            const bgElements = document.querySelectorAll('.bg-element');
+            bgElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 50;
+                const y = (mouseY - 0.5) * speed * 50;
+                element.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Reset transforms when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const cards = document.querySelectorAll('.photo-card');
+            cards.forEach(card => {
+                card.style.transform = '';
+            });
+
+            const bgElements = document.querySelectorAll('.bg-element');
+            bgElements.forEach(element => {
+                element.style.transform = '';
+            });
+        });
+
+        // Dynamic lighting effects
+        function animateLights() {
+            const lights = document.querySelectorAll('.light-effect');
+            lights.forEach((light, index) => {
+                const time = Date.now() * 0.001;
+                const intensity = Math.sin(time + index) * 0.5 + 0.5;
+                light.style.opacity = intensity * 0.6;
+            });
+            requestAnimationFrame(animateLights);
+        }
+        animateLights();
+
+        // Touch support for mobile
+        if ('ontouchstart' in window) {
+            document.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                const mouseX = touch.clientX / window.innerWidth;
+                const mouseY = touch.clientY / window.innerHeight;
+
+                const cards = document.querySelectorAll('.photo-card');
+                cards.forEach((card) => {
+                    const rotateX = (mouseY - 0.5) * 15;
+                    const rotateY = (mouseX - 0.5) * 15;
+                    card.style.transform += ` rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Envisions - Next Generation Icon Showcase 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        :root {
+            --aurora-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            --aurora-secondary: linear-gradient(135deg, #a8edea 0%, #fed6e3 25%, #d299c2 50%, #fef9d7 75%, #85d8ce 100%);
+            --liquid-metal: linear-gradient(135deg, #667db6 0%, #0082c8 25%, #0082c8 50%, #667db6 100%);
+            --holographic: linear-gradient(45deg, #ff006e, #fb5607, #ffbe0b, #8338ec, #3a86ff);
+            --chrome-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --shadow-depth: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --neu-shadow-light: 0 8px 32px rgba(255, 255, 255, 0.1);
+            --neu-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 119, 198, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            color: #ffffff;
+            padding: 40px 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--aurora-gradient);
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb:nth-child(2) { width: 300px; height: 300px; top: 60%; right: 15%; animation-delay: -7s; }
+        .orb:nth-child(3) { width: 150px; height: 150px; bottom: 20%; left: 60%; animation-delay: -14s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--aurora-gradient);
+            opacity: 0.05;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            background: var(--holographic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.25rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category {
+            margin-bottom: 80px;
+        }
+
+        .category-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            background: var(--aurora-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--aurora-gradient);
+            border-radius: 2px;
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        /* Aurora Glass Icons */
+        .aurora-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .aurora-glass::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--aurora-gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .aurora-glass:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-depth);
+        }
+
+        .aurora-glass:hover::before {
+            opacity: 0.03;
+        }
+
+        .aurora-glass .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--aurora-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Liquid Metal Icons */
+        .liquid-metal {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .liquid-metal:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .liquid-metal .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--liquid-metal);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .liquid-metal .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+            border-radius: 18px 18px 50% 50%;
+        }
+
+        /* Holographic Icons */
+        .holographic {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .holographic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: var(--holographic);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            -webkit-mask-composite: xor;
+        }
+
+        .holographic:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(255, 0, 110, 0.2);
+        }
+
+        .holographic .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--holographic);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: holographic-shift 3s ease-in-out infinite;
+        }
+
+        @keyframes holographic-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(90deg); }
+        }
+
+        /* Neomorphic Icons */
+        .neomorphic {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 
+                var(--neu-shadow-dark),
+                var(--neu-shadow-light);
+        }
+
+        .neomorphic:hover {
+            box-shadow: 
+                inset 0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 -8px 32px rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .neomorphic .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset 0 4px 16px rgba(255, 255, 255, 0.1),
+                inset 0 -4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 3D Spatial Icons */
+        .spatial-3d {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .spatial-3d:hover {
+            transform: rotateY(15deg) rotateX(5deg) translateZ(20px);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.3),
+                0 15px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .spatial-3d .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform-style: preserve-3d;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spatial-3d .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--aurora-gradient);
+            border-radius: 22px;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.6;
+        }
+
+        /* Chrome Reflection Icons */
+        .chrome-reflection {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chrome-reflection:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .chrome-reflection .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--chrome-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .chrome-reflection .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 30%;
+            height: 60%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        .icon-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .category-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tech-specs {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-specs h3 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tech-specs ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .tech-specs li::before {
+            content: '→';
+            color: #60a5fa;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .morphing-demo {
+            display: inline-block;
+            animation: morphing-colors 4s ease-in-out infinite;
+        }
+
+        @keyframes morphing-colors {
+            0%, 100% { filter: hue-rotate(0deg) saturate(1); }
+            25% { filter: hue-rotate(90deg) saturate(1.2); }
+            50% { filter: hue-rotate(180deg) saturate(1.4); }
+            75% { filter: hue-rotate(270deg) saturate(1.2); }
+        }
+
+        .adaptive-glow {
+            animation: adaptive-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes adaptive-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.8)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <div class="header">
+        <h1>Aegean Envisions</h1>
+        <p>Next Generation Icon Showcase 2025</p>
+        <p style="font-size: 1rem; margin-top: 16px; opacity: 0.8;">
+            Featuring Aurora Gradients • Glassmorphism • Liquid Metal • Holographic Effects • 3D Spatial Design
+        </p>
+    </div>
+
+    <!-- Aurora Glass Collection -->
+    <div class="category">
+        <h2 class="category-title">Aurora Glass Collection</h2>
+        <p class="category-description">
+            Inspired by the Northern Lights with glassmorphism effects. These icons feature Aurora Borealis gradients 
+            with semi-transparent layers and depth-aware lighting for a premium feel.
+        </p>
+        <div class="icons-grid">
+            <div class="aurora-glass">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 6L6 18V34H14V26H26V34H34V18L20 6Z" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="20" cy="18" r="3" fill="white" opacity="0.9"/>
+                        <path d="M14 26H26" stroke="white" stroke-width="1.5" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Home Aurora</span>
+            </div>
+
+            <div class="aurora-glass">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="6" y="10" width="12" height="12" stroke="white" stroke-width="2.5" rx="3"/>
+                        <rect x="22" y="10" width="12" height="12" stroke="white" stroke-width="2.5" rx="3"/>
+                        <rect x="6" y="26" width="12" height="10" stroke="white" stroke-width="2.5" rx="3"/>
+                        <rect x="22" y="26" width="12" height="10" stroke="white" stroke-width="2.5" rx="3"/>
+                        <circle cx="12" cy="16" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="28" cy="16" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="12" cy="31" r="1.5" fill="white" opacity="0.6"/>
+                        <circle cx="28" cy="31" r="1.5" fill="white" opacity="0.6"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Gallery Aurora</span>
+            </div>
+
+            <div class="aurora-glass">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="15" stroke="white" stroke-width="2.5"/>
+                        <path d="M20 10L25 15L20 25L15 20L25 15Z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="3" fill="white"/>
+                        <circle cx="20" cy="20" r="8" stroke="white" stroke-width="1" opacity="0.4"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Explore Aurora</span>
+            </div>
+
+            <div class="aurora-glass">
+                <div class="icon-wrapper morphing-demo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 6L24 12L32 13L26 19L28 27L20 23L12 27L14 19L8 13L16 12L20 6Z" 
+                              stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <circle cx="20" cy="17" r="3" fill="white"/>
+                        <circle cx="20" cy="17" r="6" stroke="white" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <span class="icon-label">AI Generate</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liquid Metal Collection -->
+    <div class="category">
+        <h2 class="category-title">Liquid Metal Collection</h2>
+        <p class="category-description">
+            Chrome-inspired liquid metal finish with realistic reflections and highlights. 
+            These icons simulate liquid mercury with dynamic surface properties.
+        </p>
+        <div class="icons-grid">
+            <div class="liquid-metal">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="14" r="7" stroke="white" stroke-width="2.5"/>
+                        <circle cx="16" cy="12" r="2" fill="white"/>
+                        <circle cx="24" cy="12" r="2" fill="white"/>
+                        <path d="M16 16C16 16 18 19 20 19C22 19 24 16 24 16" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M20 21V28M14 28L20 28L26 28" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <rect x="17" y="28" width="6" height="4" fill="white" opacity="0.8" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">AI Agent Metal</span>
+            </div>
+
+            <div class="liquid-metal">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 6L30 12V28L20 34L10 28V12L20 6Z" 
+                              stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M20 6V17L30 12" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M20 17V34" stroke="white" stroke-width="2.5"/>
+                        <path d="M10 12L20 17L30 12" stroke="white" stroke-width="2.5"/>
+                        <circle cx="20" cy="20" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">3D Content</span>
+            </div>
+
+            <div class="liquid-metal">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="6" y="12" width="22" height="18" stroke="white" stroke-width="2.5" rx="3"/>
+                        <path d="M28 16L34 12V28L28 24" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <polygon points="14,18 14,24 20,21" fill="white"/>
+                        <circle cx="32" cy="14" r="2" fill="#ff0040" opacity="0.8"/>
+                        <rect x="10" y="16" width="14" height="8" fill="rgba(255,255,255,0.1)" rx="1"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Live Stream</span>
+            </div>
+
+            <div class="liquid-metal">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="28" cy="12" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="12" cy="28" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="28" cy="28" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="20" cy="20" r="4" fill="white" opacity="0.9"/>
+                        <path d="M15 15L17 17M23 17L25 15M15 25L17 23M23 23L25 25" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Neural Net</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Holographic Collection -->
+    <div class="category">
+        <h2 class="category-title">Holographic Collection</h2>
+        <p class="category-description">
+            Iridescent holographic effects that shift colors dynamically. These icons feature 
+            rainbow gradients and light-refracting properties reminiscent of holographic foils.
+        </p>
+        <div class="icons-grid">
+            <div class="holographic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <ellipse cx="20" cy="20" rx="15" ry="10" stroke="white" stroke-width="2.5"/>
+                        <circle cx="20" cy="20" r="6" stroke="white" stroke-width="2.5"/>
+                        <circle cx="20" cy="20" r="3" fill="white"/>
+                        <path d="M6 20C6 20 10 12 20 12C30 12 34 20 34 20" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="20" cy="20" r="10" stroke="white" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Vision AI</span>
+            </div>
+
+            <div class="holographic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="6" y="14" width="28" height="16" stroke="white" stroke-width="2.5" rx="4"/>
+                        <circle cx="14" cy="22" r="4" stroke="white" stroke-width="2.5"/>
+                        <circle cx="26" cy="22" r="4" stroke="white" stroke-width="2.5"/>
+                        <path d="M19 14V12M21 14V12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="14" cy="22" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="26" cy="22" r="2" fill="white" opacity="0.8"/>
+                    </svg>
+                </div>
+                <span class="icon-label">VR World</span>
+            </div>
+
+            <div class="holographic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="8" y="12" width="24" height="18" stroke="white" stroke-width="2.5" rx="3"/>
+                        <circle cx="20" cy="21" r="6" stroke="white" stroke-width="2.5"/>
+                        <circle cx="20" cy="21" r="3" fill="white"/>
+                        <rect x="6" y="10" width="6" height="6" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+                        <rect x="28" y="10" width="6" height="6" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+                        <rect x="6" y="24" width="6" height="6" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+                        <rect x="28" y="24" width="6" height="6" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+                    </svg>
+                </div>
+                <span class="icon-label">AR Camera</span>
+            </div>
+
+            <div class="holographic">
+                <div class="icon-wrapper adaptive-glow">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M10 12H30M12 18H28M14 24H26" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="20" cy="12" r="3" fill="white"/>
+                        <circle cx="20" cy="18" r="3" fill="white"/>
+                        <circle cx="20" cy="24" r="3" fill="white"/>
+                        <path d="M6 30C10 28 14 28 20 30C26 32 30 32 34 30" 
+                              stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Language AI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neomorphic Collection -->
+    <div class="category">
+        <h2 class="category-title">Neomorphic Collection</h2>
+        <p class="category-description">
+            Soft, tactile designs that appear to emerge from the surface. These icons use subtle shadows 
+            and highlights to create a pressed or extruded appearance with minimalist elegance.
+        </p>
+        <div class="icons-grid">
+            <div class="neomorphic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="17" cy="17" r="10" stroke="white" stroke-width="2.5"/>
+                        <line x1="25" y1="25" x2="32" y2="32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="17" cy="17" r="4" fill="white" opacity="0.6"/>
+                        <circle cx="17" cy="17" r="7" stroke="white" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Search Soft</span>
+            </div>
+
+            <div class="neomorphic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M8 14H32L26 22V32L14 36V22L8 14Z" 
+                              stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <line x1="12" y1="18" x2="28" y2="18" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                        <line x1="16" y1="22" x2="24" y2="22" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Filter Soft</span>
+            </div>
+
+            <div class="neomorphic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="8" y="24" width="5" height="12" fill="white" opacity="0.8" rx="1"/>
+                        <rect x="17.5" y="18" width="5" height="18" fill="white" opacity="0.8" rx="1"/>
+                        <rect x="27" y="12" width="5" height="24" fill="white" opacity="0.8" rx="1"/>
+                        <path d="M8 8L12 12L18 10L27 16L32 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="10.5" cy="24" r="1.5" fill="white"/>
+                        <circle cx="20" cy="18" r="1.5" fill="white"/>
+                        <circle cx="29.5" cy="12" r="1.5" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Analytics Soft</span>
+            </div>
+
+            <div class="neomorphic">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="30" cy="12" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="10" cy="20" r="5" stroke="white" stroke-width="2.5"/>
+                        <circle cx="30" cy="28" r="5" stroke="white" stroke-width="2.5"/>
+                        <path d="M15 22L25 26M15 18L25 14" stroke="white" stroke-width="2.5"/>
+                        <circle cx="30" cy="12" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="10" cy="20" r="2" fill="white" opacity="0.8"/>
+                        <circle cx="30" cy="28" r="2" fill="white" opacity="0.8"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Share Soft</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Spatial Collection -->
+    <div class="category">
+        <h2 class="category-title">3D Spatial Collection</h2>
+        <p class="category-description">
+            Next-generation 3D spatial design with depth, perspective, and dimensional awareness. 
+            These icons respond to hover with realistic 3D transformations and lighting effects.
+        </p>
+        <div class="icons-grid">
+            <div class="spatial-3d">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M6 20C10 16 14 16 20 20C26 24 30 24 34 20" 
+                              stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M6 26C10 22 14 22 20 26C26 30 30 30 34 26" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+                        <path d="M6 14C10 10 14 10 20 14C26 18 30 18 34 14" 
+                              stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                        <circle cx="8" cy="20" r="2" fill="white"/>
+                        <circle cx="32" cy="20" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Aegean Wave 3D</span>
+            </div>
+
+            <div class="spatial-3d">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="10" y="12" width="4" height="24" fill="white"/>
+                        <rect x="18" y="12" width="4" height="24" fill="white"/>
+                        <rect x="26" y="12" width="4" height="24" fill="white"/>
+                        <rect x="8" y="10" width="24" height="4" fill="white"/>
+                        <rect x="8" y="32" width="24" height="4" fill="white"/>
+                        <rect x="12" y="16" width="16" height="2" fill="rgba(255,255,255,0.6)"/>
+                        <rect x="12" y="20" width="16" height="2" fill="rgba(255,255,255,0.6)"/>
+                        <rect x="12" y="24" width="16" height="2" fill="rgba(255,255,255,0.6)"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Temple 3D</span>
+            </div>
+
+            <div class="spatial-3d">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="8" fill="white"/>
+                        <path d="M20 6V10M20 30V34M34 20H30M10 20H6" 
+                              stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M30 10L27 13M13 27L10 30M30 30L27 27M13 13L10 10" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="20" cy="20" r="12" stroke="white" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Helios 3D</span>
+            </div>
+
+            <div class="spatial-3d">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 6V22M20 22L8 30H32L20 22Z" 
+                              stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M14 10H26L28 18H12L14 10Z" fill="white" opacity="0.9"/>
+                        <path d="M6 32C10 30 14 30 20 32C26 34 30 34 34 32" 
+                              stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="20" cy="14" r="2" fill="rgba(255,255,255,0.8)"/>
+                        <rect x="18" y="22" width="4" height="8" fill="rgba(255,255,255,0.6)"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Odyssey 3D</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chrome Reflection Collection -->
+    <div class="category">
+        <h2 class="category-title">Chrome Reflection Collection</h2>
+        <p class="category-description">
+            High-end chrome finish with realistic surface reflections and light play. 
+            These icons simulate polished metal surfaces with dynamic highlight positioning.
+        </p>
+        <div class="icons-grid">
+            <div class="chrome-reflection">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <polygon points="12,10 32,20 12,30" fill="#333"/>
+                        <polygon points="14,12 28,20 14,28" fill="#666"/>
+                        <polygon points="16,14 24,20 16,26" fill="#999"/>
+                        <circle cx="20" cy="20" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Play Chrome</span>
+            </div>
+
+            <div class="chrome-reflection">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="12" y="10" width="5" height="20" fill="#333"/>
+                        <rect x="23" y="10" width="5" height="20" fill="#333"/>
+                        <rect x="14" y="12" width="3" height="16" fill="#666"/>
+                        <rect x="25" y="12" width="3" height="16" fill="#666"/>
+                        <rect x="15" y="14" width="1" height="12" fill="white"/>
+                        <rect x="26" y="14" width="1" height="12" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Pause Chrome</span>
+            </div>
+
+            <div class="chrome-reflection">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="12" y="12" width="16" height="16" fill="#333"/>
+                        <rect x="14" y="14" width="12" height="12" fill="#666"/>
+                        <rect x="16" y="16" width="8" height="8" fill="#999"/>
+                        <rect x="18" y="18" width="4" height="4" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Stop Chrome</span>
+            </div>
+
+            <div class="chrome-reflection">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M25 6L34 15L18 31H6V19L25 6Z" fill="#333"/>
+                        <path d="M26 8L32 14L18 28H8V18L26 8Z" fill="#666"/>
+                        <path d="M27 10L30 13L18 25H10V16L27 10Z" fill="#999"/>
+                        <line x1="22" y1="12" x2="28" y2="18" stroke="white" stroke-width="2"/>
+                        <circle cx="24" cy="15" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <span class="icon-label">Edit Chrome</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tech-specs">
+        <h3>Technical Specifications</h3>
+        <ul>
+            <li><strong>Aurora Gradients:</strong> Multi-stop CSS gradients with HSL color spaces for smooth transitions</li>
+            <li><strong>Glassmorphism:</strong> backdrop-filter: blur() with semi-transparent backgrounds</li>
+            <li><strong>Liquid Metal:</strong> Multiple inset/outset box-shadows for realistic depth</li>
+            <li><strong>Holographic:</strong> Dynamic hue-rotate() animations with iridescent color schemes</li>
+            <li><strong>Neomorphic:</strong> Soft shadows using both light and dark shadow combinations</li>
+            <li><strong>3D Spatial:</strong> CSS transform3d() with perspective and preserve-3d</li>
+            <li><strong>Chrome Reflection:</strong> Layered elements with gradient overlays for metallic finish</li>
+            <li><strong>Responsive Design:</strong> All icons scale perfectly from 16px to 128px+</li>
+            <li><strong>Animation Support:</strong> CSS transitions and keyframe animations</li>
+            <li><strong>Accessibility:</strong> High contrast ratios and reduced motion preferences</li>
+        </ul>
+    </div>
+
+    <script>
+        // Enhanced click to copy with visual feedback
+        document.querySelectorAll('[class*="aurora-glass"], [class*="liquid-metal"], [class*="holographic"], [class*="neomorphic"], [class*="spatial-3d"], [class*="chrome-reflection"]').forEach(card => {
+            card.addEventListener('click', function() {
+                const svg = this.querySelector('svg');
+                const wrapper = this.querySelector('.icon-wrapper');
+                const label = this.querySelector('.icon-label');
+                
+                if (svg && wrapper && label) {
+                    const iconData = {
+                        svg: svg.outerHTML,
+                        type: this.className.split(' ')[0],
+                        name: label.textContent,
+                        styles: window.getComputedStyle(wrapper)
+                    };
+                    
+                    navigator.clipboard.writeText(JSON.stringify(iconData, null, 2)).then(() => {
+                        const originalText = label.textContent;
+                        const originalBg = wrapper.style.background;
+                        
+                        label.textContent = '✓ Copied!';
+                        label.style.color = '#10f981';
+                        wrapper.style.background = 'linear-gradient(135deg, #10f981, #06d6a0)';
+                        
+                        setTimeout(() => {
+                            label.textContent = originalText;
+                            label.style.color = '';
+                            wrapper.style.background = originalBg;
+                        }, 1500);
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for floating orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 10;
+                const y = (mouseY - 0.5) * speed * 10;
+                orb.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)file:///Users/mikaeleage/AegeanEnvisions/projects/aegean-site/greek-palette.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegean Envisions - Greek Natural Color Palette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f5f3ef 0%, #e8dfd2 50%, #d4c4b0 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d5eaf;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .greek-subtitle {
+            text-align: center;
+            color: #6b7c3a;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8b7355;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        .palette-section {
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .palette-title {
+            font-size: 1.9rem;
+            color: #0d5eaf;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 400;
+        }
+
+        .palette-description {
+            color: #6b5d54;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .color-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: white;
+        }
+
+        .color-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        }
+
+        .color-display {
+            height: 130px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        .color-info {
+            padding: 18px;
+            background: white;
+        }
+
+        .color-name {
+            font-weight: 500;
+            color: #3a3a3a;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .color-codes {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .color-code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #6b7280;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .gradient-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 35px;
+        }
+
+        .gradient-card {
+            height: 160px;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: brightness(1.1);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gradient-card:hover::before {
+            opacity: 1;
+        }
+
+        .gradient-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+
+        .gradient-name {
+            color: white;
+            font-weight: 500;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gradient-code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.85);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .greek-pattern {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pattern-element:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .inspiration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .inspiration-card {
+            padding: 24px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inspiration-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 16px;
+        }
+
+        .inspiration-card:hover::before {
+            opacity: 1;
+        }
+
+        .inspiration-card h4 {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .inspiration-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #6b7c3a, #8b9c4a);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .greek-meander {
+            height: 40px;
+            background: linear-gradient(90deg, 
+                #1a5490 0%, #1a5490 10%, 
+                transparent 10%, transparent 20%,
+                #d4a574 20%, #d4a574 30%,
+                transparent 30%, transparent 40%,
+                #6b7c3a 40%, #6b7c3a 50%,
+                transparent 50%, transparent 60%,
+                #2a7ab8 60%, #2a7ab8 70%,
+                transparent 70%, transparent 80%,
+                #e8c547 80%, #e8c547 90%,
+                transparent 90%, transparent 100%
+            );
+            margin: 30px 0;
+            border-radius: 8px;
+            opacity: 0.6;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .brilliant-effect {
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+    </style>
+<style>
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) scale(1); }
+                50% { transform: translateY(-10px) scale(1.05); }
+            }
+        </style></head>
+<body>
+    <div class="container">
+        <h1>Aegean Envisions</h1>
+        <p class="greek-subtitle">Αιγαίο Οράματα</p>
+        <p class="subtitle">Natural Greek Color Palette - Sea, Earth, Olive &amp; Sun</p>
+
+        <!-- Aegean Sea Palette -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #1a5490;">🌊</span>
+                Aegean Sea Blues
+            </h2>
+            <p class="palette-description">
+                The deep and vibrant blues of the Aegean Sea, from the darkest depths to the bright shallow waters kissed by sunlight.
+            </p>
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor(&#39;#002855&#39;)">
+                    <div class="color-display" style="background: #002855; color: white;">Navy</div>
+                    <div class="color-info">
+                        <div class="color-name">Pure Navy</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#002855</span></div>
+                            <div class="color-code">RGB: <span>0, 40, 85</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#163152&#39;)">
+                    <div class="color-display" style="background: #163152; color: white;">Midnight</div>
+                    <div class="color-info">
+                        <div class="color-name">Midnight Blue</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#163152</span></div>
+                            <div class="color-code">RGB: <span>22, 49, 82</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#1e3a5f&#39;)">
+                    <div class="color-display" style="background: #1e3a5f; color: white;">Deep Sea</div>
+                    <div class="color-info">
+                        <div class="color-name">Deep Sea Blue</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#1e3a5f</span></div>
+                            <div class="color-code">RGB: <span>30, 58, 95</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#39598a&#39;)">
+                    <div class="color-display" style="background: #39598a; color: white;">Parliament</div>
+                    <div class="color-info">
+                        <div class="color-name">Parliament Blue</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#39598a</span></div>
+                            <div class="color-code">RGB: <span>57, 89, 138</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#0078d4&#39;)">
+                    <div class="color-display" style="background: #0078d4; color: white;">Azure</div>
+                    <div class="color-info">
+                        <div class="color-name">Azure Blue</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#0078d4</span></div>
+                            <div class="color-code">RGB: <span>0, 120, 212</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#0d5eaf&#39;)">
+                    <div class="color-display" style="background: #0d5eaf; color: white;">Greek Flag</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Flag Blue</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#0d5eaf</span></div>
+                            <div class="color-code">RGB: <span>13, 94, 175</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mediterranean Earth -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #a67c52;">🏺</span>
+                Mediterranean Earth &amp; Terracotta
+            </h2>
+            <p class="palette-description">
+                The warm earth tones of Greek landscapes, from ancient terracotta pottery to sun-baked stone and sandy beaches.
+            </p>
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor(&#39;#c65d00&#39;)">
+                    <div class="color-display" style="background: #c65d00; color: white;">Terracotta</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Terracotta</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#c65d00</span></div>
+                            <div class="color-code">RGB: <span>198, 93, 0</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#a67c52&#39;)">
+                    <div class="color-display" style="background: #a67c52; color: white;">Clay</div>
+                    <div class="color-info">
+                        <div class="color-name">Pottery Clay</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#a67c52</span></div>
+                            <div class="color-code">RGB: <span>166, 124, 82</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#d4a574&#39;)">
+                    <div class="color-display" style="background: #d4a574; color: white;">Sand</div>
+                    <div class="color-info">
+                        <div class="color-name">Beach Sand</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#d4a574</span></div>
+                            <div class="color-code">RGB: <span>212, 165, 116</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#e8d5b7&#39;)">
+                    <div class="color-display" style="background: #e8d5b7; color: #8b7355;">Stone</div>
+                    <div class="color-info">
+                        <div class="color-name">Limestone</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#e8d5b7</span></div>
+                            <div class="color-code">RGB: <span>232, 213, 183</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#f5e6d3&#39;)">
+                    <div class="color-display" style="background: #f5e6d3; color: #8b7355;">Marble</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Marble</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#f5e6d3</span></div>
+                            <div class="color-code">RGB: <span>245, 230, 211</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Olive Grove Greens -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #6b7c3a;">🌿</span>
+                Olive Grove Greens
+            </h2>
+            <p class="palette-description">
+                The distinctive greens of ancient olive groves, from deep forest tones to the silvery-green of olive leaves.
+            </p>
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor(&#39;#3d4a26&#39;)">
+                    <div class="color-display" style="background: #3d4a26; color: white;">Dark Olive</div>
+                    <div class="color-info">
+                        <div class="color-name">Dark Olive</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#3d4a26</span></div>
+                            <div class="color-code">RGB: <span>61, 74, 38</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#556b2f&#39;)">
+                    <div class="color-display" style="background: #556b2f; color: white;">Olive Drab</div>
+                    <div class="color-info">
+                        <div class="color-name">Olive Drab</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#556b2f</span></div>
+                            <div class="color-code">RGB: <span>85, 107, 47</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#6b7c3a&#39;)">
+                    <div class="color-display" style="background: #6b7c3a; color: white;">Classic</div>
+                    <div class="color-info">
+                        <div class="color-name">Classic Olive</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#6b7c3a</span></div>
+                            <div class="color-code">RGB: <span>107, 124, 58</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#8b9c4a&#39;)">
+                    <div class="color-display" style="background: #8b9c4a; color: white;">Fresh</div>
+                    <div class="color-info">
+                        <div class="color-name">Fresh Olive</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#8b9c4a</span></div>
+                            <div class="color-code">RGB: <span>139, 156, 74</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#a8b97f&#39;)">
+                    <div class="color-display" style="background: #a8b97f; color: white;">Silver</div>
+                    <div class="color-info">
+                        <div class="color-name">Silver Olive</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#a8b97f</span></div>
+                            <div class="color-code">RGB: <span>168, 185, 127</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mediterranean Sun -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #ffd700;">☀️</span>
+                Mediterranean Sun &amp; Gold
+            </h2>
+            <p class="palette-description">
+                The golden warmth of the Greek sun, from bright morning light to the deep gold of sunset over the islands.
+            </p>
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor(&#39;#d4af37&#39;)">
+                    <div class="color-display" style="background: #d4af37; color: white;">Ochre Gold</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Ochre Gold</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#d4af37</span></div>
+                            <div class="color-code">RGB: <span>212, 175, 55</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#daa520&#39;)">
+                    <div class="color-display" style="background: #daa520; color: white;">Honey</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Honey</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#daa520</span></div>
+                            <div class="color-code">RGB: <span>218, 165, 32</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#e2b753&#39;)">
+                    <div class="color-display" style="background: #e2b753; color: white;">Sunlight</div>
+                    <div class="color-info">
+                        <div class="color-name">Soft Sunlight</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#e2b753</span></div>
+                            <div class="color-code">RGB: <span>226, 183, 83</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#f5deb3&#39;)">
+                    <div class="color-display" style="background: #f5deb3; color: #8b7355;">Wheat</div>
+                    <div class="color-info">
+                        <div class="color-name">Greek Wheat</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#f5deb3</span></div>
+                            <div class="color-code">RGB: <span>245, 222, 179</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#cd853f&#39;)">
+                    <div class="color-display" style="background: #cd853f; color: white;">Bronze</div>
+                    <div class="color-info">
+                        <div class="color-name">Sunset Bronze</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#cd853f</span></div>
+                            <div class="color-code">RGB: <span>205, 133, 63</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brilliant Effect Colors -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="background: linear-gradient(90deg, #00bfff, #ffd700, #00ff7f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✨</span>
+                Brilliant Effect Colors
+            </h2>
+            <p class="palette-description">
+                Vibrant, luminous colors for creating striking visual effects and highlighting special elements with Mediterranean brilliance.
+            </p>
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor(&#39;#52b788&#39;)">
+                    <div class="color-display brilliant-effect" style="background: #52b788; color: white;">Sage Green</div>
+                    <div class="color-info">
+                        <div class="color-name">Modern Sage</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#52b788</span></div>
+                            <div class="color-code">RGB: <span>82, 183, 136</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#48a9a6&#39;)">
+                    <div class="color-display brilliant-effect" style="background: #48a9a6; color: white;">Teal</div>
+                    <div class="color-info">
+                        <div class="color-name">Modern Teal</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#48a9a6</span></div>
+                            <div class="color-code">RGB: <span>72, 169, 166</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#e76f51&#39;)">
+                    <div class="color-display brilliant-effect" style="background: #e76f51; color: white;">Terracotta</div>
+                    <div class="color-info">
+                        <div class="color-name">Soft Terracotta</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#e76f51</span></div>
+                            <div class="color-code">RGB: <span>231, 111, 81</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#6c5b7b&#39;)">
+                    <div class="color-display brilliant-effect" style="background: #6c5b7b; color: white;">Eggplant</div>
+                    <div class="color-info">
+                        <div class="color-name">Tyrian Purple</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#6c5b7b</span></div>
+                            <div class="color-code">RGB: <span>108, 91, 123</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card" onclick="copyColor(&#39;#f4a261&#39;)">
+                    <div class="color-display brilliant-effect" style="background: #f4a261; color: white;">Sandy</div>
+                    <div class="color-info">
+                        <div class="color-name">Sandy Orange</div>
+                        <div class="color-codes">
+                            <div class="color-code">HEX: <span>#f4a261</span></div>
+                            <div class="color-code">RGB: <span>244, 162, 97</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Greek Gradients -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="background: linear-gradient(135deg, #1a5490, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🌅</span>
+                Mediterranean Gradients
+            </h2>
+            <p class="palette-description">
+                Natural gradient combinations inspired by Greek landscapes, from sea to sky, sunrise to sunset.
+            </p>
+            <div class="gradient-showcase">
+                <div class="gradient-card" style="background: linear-gradient(135deg, #1a5490 0%, #7fc4e8 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Aegean Depth</div>
+                    <div class="gradient-code">linear-gradient(135deg, #1a5490 0%, #7fc4e8 100%)</div>
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #d4af37 0%, #daa520 50%, #cd853f 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Golden Sunset</div>
+                    <div class="gradient-code">linear-gradient(135deg, #d4af37 0%, #daa520 50%, #cd853f 100%)</div>
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #6b7c3a 0%, #a8b97f 50%, #e2b753 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Olive to Sun</div>
+                    <div class="gradient-code">linear-gradient(135deg, #6b7c3a 0%, #a8b97f 50%, #e2b753 100%)</div>
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #c65d00 0%, #d4a574 50%, #f5e6d3 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Terracotta Fade</div>
+                    <div class="gradient-code">linear-gradient(135deg, #c65d00 0%, #d4a574 50%, #f5e6d3 100%)</div>
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #00bfff 0%, #40e0d0 50%, #00ff7f 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Brilliant Coast</div>
+                    <div class="gradient-code">linear-gradient(135deg, #00bfff 0%, #40e0d0 50%, #00ff7f 100%)</div>
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #002855 0%, #0d5eaf 25%, #d4af37 75%, #cd853f 100%);" onclick="copyGradient(this)">
+                    <div class="gradient-name">Sea to Sunset</div>
+                    <div class="gradient-code">linear-gradient(135deg, #002855 0%, #0d5eaf 25%, #d4af37 75%, #cd853f 100%)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Greek Pattern Inspiration -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #1a5490;">◈</span>
+                Natural Harmony
+            </h2>
+            <p class="palette-description">
+                The perfect balance of Greek natural elements in circular harmony.
+            </p>
+            <div class="greek-pattern">
+                <div class="pattern-element" style="background: linear-gradient(135deg, rgb(26, 84, 144), rgb(42, 122, 184)); animation: 3s ease-in-out 0s infinite normal none running float;" onclick="copyColor(&#39;#1a5490&#39;)">Sea</div>
+                <div class="pattern-element" style="background: linear-gradient(135deg, rgb(198, 93, 0), rgb(212, 165, 116)); animation: 3s ease-in-out 0s infinite normal none running float;" onclick="copyColor(&#39;#c65d00&#39;)">Earth</div>
+                <div class="pattern-element" style="background: linear-gradient(135deg, rgb(107, 124, 58), rgb(139, 156, 74)); animation: 3s ease-in-out 0s infinite normal none running float;" onclick="copyColor(&#39;#6b7c3a&#39;)">Olive</div>
+                <div class="pattern-element" style="background: linear-gradient(135deg, rgb(255, 215, 0), rgb(232, 197, 71)); animation: 3s ease-in-out 0s infinite normal none running float;" onclick="copyColor(&#39;#ffd700&#39;)">Sun</div>
+                <div class="pattern-element" style="background: linear-gradient(135deg, rgb(0, 191, 255), rgb(64, 224, 208)); animation: 3s ease-in-out 0s infinite normal none running float;" onclick="copyColor(&#39;#00bfff&#39;)">Sky</div>
+            </div>
+        </div>
+
+        <!-- Usage Examples -->
+        <div class="palette-section">
+            <h2 class="palette-title">
+                <span style="color: #2a7ab8;">▣</span>
+                Design Applications
+            </h2>
+            <p class="palette-description">
+                How to use these natural Greek colors in your designs for authentic Mediterranean aesthetics.
+            </p>
+            <div class="inspiration-grid">
+                <div class="inspiration-card" style="background: linear-gradient(135deg, #1a5490, #4a9fd8); color: white;">
+                    <h4>Hero Sections</h4>
+                    <p>Deep Aegean blues for primary CTAs and headers</p>
+                </div>
+                <div class="inspiration-card" style="background: linear-gradient(135deg, #f5e6d3, #e8d5b7); color: #6b5d54;">
+                    <h4>Backgrounds</h4>
+                    <p>Soft marble and limestone for clean layouts</p>
+                </div>
+                <div class="inspiration-card" style="background: linear-gradient(135deg, #6b7c3a, #a8b97f); color: white;">
+                    <h4>Natural Accents</h4>
+                    <p>Olive greens for organic, earthy elements</p>
+                </div>
+                <div class="inspiration-card" style="background: linear-gradient(135deg, #ffd700, #e8c547); color: #6b5d54;">
+                    <h4>Highlights</h4>
+                    <p>Golden yellows for attention and warmth</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Greek Decorative Line -->
+        <div class="greek-meander"></div>
+    </div>
+
+    <div class="copy-notification" id="copyNotification">
+        Color copied to clipboard!
+    </div>
+
+    <script>
+        function copyColor(color) {
+            navigator.clipboard.writeText(color);
+            showNotification(`Copied: ${color}`);
+        }
+
+        function copyGradient(element) {
+            const gradientCode = element.querySelector('.gradient-code').textContent;
+            const fullCSS = `background: ${gradientCode};`;
+            navigator.clipboard.writeText(fullCSS);
+            showNotification('Gradient CSS copied!');
+        }
+
+        function showNotification(text) {
+            const notification = document.getElementById('copyNotification');
+            notification.textContent = text;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        // Add floating animation to pattern elements
+        document.querySelectorAll('.pattern-element').forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.2}s`;
+            element.style.animation = 'float 3s ease-in-out infinite';
+        });
+
+        // Add CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) scale(1); }
+                50% { transform: translateY(-10px) scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body></html>
