@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fos Weddings — Aegean Envisions AG</title>
+<meta name="description" content="Greek weddings designed with Swiss precision. Athens & the islands. Destination weddings, elopements, LGBTQ+ celebrations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Greek Natural Palette — Fos Weddings */
+  --olive-grove:    #6B7C3A;
+  --olive-gold:     #8B8B3A;
+  --dried-herb:     #9C9F84;
+  --fig-leaf:       #4A5D23;
+  --aegean-sand:    #D4C5A9;
+  --warm-stone:     #C9B99A;
+  --cycladic-white: #F5F3EE;
+  --terracotta:     #C67B5C;
+  --aegean-blue:    #4A90A4;
+  --deep-aegean:    #2E6171;
+  --sky-wash:       #D6E5E3;
+  --charcoal:       #2A2A28;
+  --soft-ink:       #4A4A3F;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--cycladic-white);
+  color: var(--charcoal);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Typography hierarchy */
+.serif { font-family: 'Cormorant Garamond', 'Times New Roman', serif; }
+.display { font-family: 'Cinzel', serif; letter-spacing: 0.06em; text-transform: uppercase; }
+
+a { color: var(--deep-aegean); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--terracotta); }
+
+/* Top Nav */
+nav.top {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 48px;
+  background: rgba(245, 243, 238, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(156, 159, 132, 0.2);
+}
+nav.top .logo {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: var(--olive-grove);
+  text-transform: uppercase;
+}
+nav.top .links { display: flex; gap: 28px; }
+nav.top .links a {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--soft-ink);
+  font-weight: 400;
+}
+nav.top .links a:hover { color: var(--terracotta); }
+@media (max-width: 700px) {
+  nav.top { padding: 14px 22px; }
+  nav.top .links { gap: 16px; }
+  nav.top .links a { font-size: 10px; letter-spacing: 0.1em; }
+}
+
+/* HERO */
+section.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 140px 32px 80px;
+  background:
+    linear-gradient(180deg, rgba(245,243,238,0) 0%, var(--cycladic-white) 90%),
+    radial-gradient(ellipse at top, rgba(74, 144, 164, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 40%, rgba(212, 197, 169, 0.35) 0%, transparent 50%),
+    var(--cycladic-white);
+  position: relative;
+}
+.hero .eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--olive-grove);
+  margin-bottom: 26px;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 9vw, 108px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--deep-aegean);
+  max-width: 14ch;
+  margin-bottom: 28px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--terracotta);
+  font-weight: 400;
+}
+.hero .lede {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--soft-ink);
+  max-width: 50ch;
+  margin: 0 auto 40px;
+}
+.hero .scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--dried-herb);
+  text-transform: uppercase;
+  animation: bob 3s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
+  50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
+}
+
+/* Section base */
+section { padding: 100px 32px; }
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (max-width: 700px) {
+  section { padding: 64px 22px; }
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 300;
+  color: var(--deep-aegean);
+  text-align: center;
+  margin-bottom: 18px;
+  line-height: 1.1;
+}
+.section-title em { font-style: italic; color: var(--olive-grove); }
+.section-eyebrow {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 14px;
+}
+.section-lede {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 19px;
+  text-align: center;
+  color: var(--soft-ink);
+  max-width: 60ch;
+  margin: 0 auto 60px;
+  line-height: 1.6;
+}
+
+/* THREE LINES */
+.three-lines {
+  background: linear-gradient(180deg, var(--cycladic-white) 0%, rgba(212, 197, 169, 0.18) 100%);
+}
+.lines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 54px;
+  margin-top: 30px;
+}
+@media (max-width: 800px) { .lines-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.line {
+  text-align: center;
+  padding: 0 12px;
+}
+.line .icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--olive-grove);
+  border-radius: 50%;
+  color: var(--olive-grove);
+}
+.line h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--deep-aegean);
+  margin-bottom: 16px;
+}
+.line p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  color: var(--soft-ink);
+  line-height: 1.65;
+  max-width: 30ch;
+  margin: 0 auto;
+}
+.line .tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 500;
+}
+
+/* WHY US — editorial pull-quotes */
+.why { background: var(--cycladic-white); }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 30px;
+}
+@media (max-width: 800px) { .why-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.why-item {
+  border-top: 1px solid var(--dried-herb);
+  padding-top: 24px;
+}
+.why-item .num {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--terracotta);
+  margin-bottom: 12px;
+}
+.why-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--deep-aegean);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.why-item p {
+  font-size: 15px;
+  color: var(--soft-ink);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* GREECE — narrative */
+.greece {
+  background: linear-gradient(180deg, var(--cycladic-white) 0%, var(--sky-wash) 100%);
+  text-align: center;
+}
+.greece .narrative {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 300;
+  color: var(--soft-ink);
+  max-width: 64ch;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-style: italic;
+}
+.greece .narrative em { color: var(--olive-grove); font-style: normal; font-weight: 500; }
+.greece .places {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.greece .place {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--deep-aegean);
+  text-transform: uppercase;
+  padding: 0 6px;
+}
+
+/* CONTACT — quiet, editorial */
+.contact {
+  background: var(--deep-aegean);
+  color: var(--cycladic-white);
+  text-align: center;
+}
+.contact .section-title { color: var(--cycladic-white); }
+.contact .section-title em { color: var(--aegean-sand); }
+.contact .section-eyebrow { color: var(--aegean-sand); }
+.contact .section-lede { color: rgba(245, 243, 238, 0.85); }
+.contact a.email-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--aegean-sand);
+  border-bottom: 1px solid rgba(212, 197, 169, 0.4);
+  padding-bottom: 4px;
+  display: inline-block;
+  margin-top: 20px;
+}
+.contact a.email-link:hover { color: var(--cycladic-white); border-bottom-color: var(--cycladic-white); }
+.contact .languages {
+  margin-top: 50px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--aegean-sand);
+  opacity: 0.75;
+}
+
+/* FOOTER */
+footer {
+  background: var(--charcoal);
+  color: var(--dried-herb);
+  text-align: center;
+  padding: 40px 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+footer a { color: var(--aegean-sand); }
+footer .parent {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--cycladic-white);
+}
+footer .copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  margin-top: 6px;
+  opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="/" class="logo">Aegean Envisions</a>
+  <div class="links">
+    <a href="#story">Story</a>
+    <a href="#what-we-do">What We Do</a>
+    <a href="#why">Why</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="story">
+  <div class="eyebrow">Fos Weddings · Aegean Envisions AG</div>
+  <h1>The Greek light, <em>kept</em>.</h1>
+  <p class="lede">Destination weddings in Athens and the islands — designed with Swiss precision, rooted in a Greek family and the supplier networks no foreigner reaches.</p>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- THREE LINES -->
+<section class="three-lines" id="what-we-do">
+  <div class="container">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Three lines, one <em>standard</em>.</h2>
+    <p class="section-lede">From an elopement on a Cycladic terrace to a hundred-guest island weekend, the work is the same: clarity, restraint, and the kind of preparation that lets the day unfold without you noticing the planning.</p>
+
+    <div class="lines-grid">
+      <div class="line">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18"/></svg>
+        </div>
+        <h3>Destination Weddings</h3>
+        <p>Multi-day Greek weddings for couples coming from Switzerland, France, Germany, and beyond. Athens, Santorini, Crete, Mykonos, and the lesser-known islands.</p>
+        <span class="tag">30 – 150 guests</span>
+      </div>
+      <div class="line">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3v18M3 12h18" /><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        </div>
+        <h3>Elopements & Micro</h3>
+        <p>Two of you. Or twenty. A clifftop ceremony, a chef who comes to the house, a photographer who knows when to disappear. Less ceremony, no less care.</p>
+        <span class="tag">2 – 20 guests</span>
+      </div>
+      <div class="line">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>
+        </div>
+        <h3>LGBTQ+ Celebrations</h3>
+        <p>Greece legalised same-sex marriage in February 2024 — the first Orthodox Christian country to do so. We work with vendors, venues, and officiants who understand that an unremarkable wedding is the point.</p>
+        <span class="tag">First-mover · vetted network</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-eyebrow">Why Us</div>
+    <h2 class="section-title">A small team, by <em>design</em>.</h2>
+    <p class="section-lede">Most planners are creative; few are precise. Most are local; few work in four languages. We sit at the intersection — and we keep the team small so the principals are always in the room.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="num">No. 01</div>
+        <h3>Four languages, one conversation</h3>
+        <p>French, German, English, Greek — not as marketing copy, but in real working hours. The Swiss-French market is genuinely underserved. So is the bilingual couple whose families need to be talked to in two tongues.</p>
+      </div>
+      <div class="why-item">
+        <div class="num">No. 02</div>
+        <h3>Greek family inside</h3>
+        <p>Vendor pricing without the foreigner premium. Officiants who pick up on the first call. Venues that show you the rooms not on the brochure. A network you can't read your way into — only marry into.</p>
+      </div>
+      <div class="why-item">
+        <div class="num">No. 03</div>
+        <h3>Swiss precision, Greek warmth</h3>
+        <p>Budgets tracked in spreadsheets, not vibes. Contracts read line-by-line. Guest logistics, transport, dietary, accessibility — handled in writing, ahead of time. The rest of the day is for you.</p>
+      </div>
+      <div class="why-item">
+        <div class="num">No. 04</div>
+        <h3>Limited bookings, on purpose</h3>
+        <p>We accept a small number of weddings per season. Each gets the principals, not a junior. If we say yes, you have us — properly — until the last guest leaves the next morning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GREECE -->
+<section class="greece">
+  <div class="container">
+    <div class="section-eyebrow">The Greece you'll marry in</div>
+    <p class="narrative">There is a particular light over the Aegean in late afternoon — gold tipping into the sea, the pines on the cliff turning <em>amber</em>, the stone of the chapel still warm from the day. We don't romanticise Greece. We just make sure your wedding catches it.</p>
+
+    <div class="places">
+      <span class="place">Athens Riviera</span>
+      <span class="place">Santorini</span>
+      <span class="place">Mykonos</span>
+      <span class="place">Crete</span>
+      <span class="place">Paros</span>
+      <span class="place">Lesser islands</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-eyebrow">Contact</div>
+    <h2 class="section-title">Tell us about your <em>wedding</em>.</h2>
+    <p class="section-lede">Where you're coming from, when you have in mind, and the kind of day you want. We'll write back personally within 48 hours.</p>
+    <a class="email-link" href="mailto:hello@aegean-envisions.com?subject=Wedding%20enquiry">hello@aegean-envisions.com</a>
+    <div class="languages">FR · DE · EN · GR</div>
+  </div>
+</section>
+
+<footer>
+  <div class="parent">Aegean Envisions AG</div>
+  <div>Swiss AG · Premium destination experiences in Greece</div>
+  <div class="copy">Fos Weddings is a division of Aegean Envisions AG · <a href="/">aegean-envisions.com</a></div>
+</footer>
+
+</body>
+</html>
