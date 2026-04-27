@@ -6,8 +6,8 @@
 # (WEDDING_USER, WEDDING_PASS). They never live in this repo or the
 # image layers — htpasswd hashes them at build time.
 
-FROM nginx:alpine
-RUN apk add --no-cache apache2-utils
+FROM mcr.microsoft.com/cbl-mariner/base/nginx:1.25
+RUN tdnf install -y httpd-tools && tdnf clean all
 
 ARG WEDDING_USER=fos
 ARG WEDDING_PASS=PleaseOverrideMe
