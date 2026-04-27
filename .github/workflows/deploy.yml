@@ -37,12 +37,17 @@ jobs:
           echo "Image will be ${ACR_NAME}.azurecr.io/${IMAGE_NAME}:${SHORT_SHA}"
 
       - name: Build & push (ACR cloud build)
+        env:
+          BA_USER: ${{ secrets.WEDDING_USER }}
+          BA_PASS: ${{ secrets.WEDDING_PASS }}
         run: |
           az acr build \
             --registry "$ACR_NAME" \
             --image "${IMAGE_NAME}:${{ steps.tag.outputs.tag }}" \
             --image "${IMAGE_NAME}:latest" \
             --file Dockerfile \
+            --build-arg "WEDDING_USER=${BA_USER}" \
+            --build-arg "WEDDING_PASS=${BA_PASS}" \
             .
 
       - name: Update Container App to new image
